@@ -23,9 +23,11 @@ Hover over a circle to see the dish, restaurant, and number of votes!
 
 ## Methodology
 In liu of using reddit's API, I copied the entire HTML from [this reddit thread](https://www.reddit.com/r/boston/comments/14jvgf2/single_best_restaurant_menu_item_boston_2023/) and parsed it with [BeautifulSoup](https://github.com/wention/BeautifulSoup4).
-After some manual cleaning, I used plotly and folium to visualize the most-upvoted dishes from the thread. Irrelevent responses (e.g., water) were removed from the dataset.
+After some manual cleaning, I used plotly and folium to visualize the most-upvoted dishes from the thread. Irrelevent responses (e.g., water) were removed from the dataset. At the end of this process, a dataframe `df` was created with `restaurant`, `dishes`, and `votes`.
 
-### Map upvotes to a color hex
+Geographical coordinates for each restaurant were the obtained via the Yelp API. The dataframe was additionally populated with columns `yelp name`, `longitude`, and `latitude`.
+
+### Mapp upvotes to color hex
 ```py
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
@@ -38,7 +40,8 @@ df['color_hex'] = df['votes'].apply(lambda x: mcolors.to_hex(mapper.to_rgba(x)))
 
 ### Barchart
 ```py
-df_partial = df[~pd.isna(df['latitude'])].iloc[:50]
+# only display the top 50 dishes where geographical location is available
+df_partial = df[~pd.isna(df['latitude'])].iloc[:50] 
 fig = go.Figure(go.Bar(
             x=df['votes'],
             y=df['dishes'].str.strip()+', '+df['yelp name'],
@@ -64,7 +67,7 @@ fig.show()
 fig.write_html("../data/best_dishes_bos23_bar.html") # export figure as html
 ```
 
-Map:
+### Display data on a map
 ```py
 import folium
 from geopy.geocoders import Nominatim
