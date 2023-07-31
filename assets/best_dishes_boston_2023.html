@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_e72d076796c9e594c9b16138b693a836 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_e72d076796c9e594c9b16138b693a836" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_e72d076796c9e594c9b16138b693a836 = L.map(
+                "map_e72d076796c9e594c9b16138b693a836",
+                {
+                    center: [42.3554334, -71.060511],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 13,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_cd48ade36f2076dae54202ec348b9acf = L.tileLayer(
+                "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca target=\"_blank\" href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca target=\"_blank\" href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            var circle_7776cc72b92fe09a89061dd6eeea7d9a = L.circle(
+                [42.35101318, -71.06163025],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdb52e", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 555.2, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_7776cc72b92fe09a89061dd6eeea7d9a.bindTooltip(
+                `<div>
+                     Meat on a stick <br>Hong Kong Eatery,
+421 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_325f19e975a98a12636d0e73537d84e3 = L.circle(
+                [42.3534194, -71.0595619],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ca457a", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 352.4, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_325f19e975a98a12636d0e73537d84e3.bindTooltip(
+                `<div>
+                     The hand pulled noodles <br>Gene's Chinese Flatbread Cafe,
+252 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_089e0072f6f9bbe5ef3080d5a13f5654 = L.circle(
+                [42.3881803, -71.0955453],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c43e7f", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 339.2, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_089e0072f6f9bbe5ef3080d5a13f5654.bindTooltip(
+                `<div>
+                     Cornbread <br>Sarma,
+241 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_2302a63d772230ddb64521f42fbdf25f = L.circle(
+                [42.3513, -71.07864],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ad2793", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 290.0, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_2302a63d772230ddb64521f42fbdf25f.bindTooltip(
+                `<div>
+                     The biscuits <br>Buttermilk & Bourbon,
+200 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_b0cd3ee2b59dcbde6d536bc9cf45327f = L.circle(
+                [42.34113, -71.12623],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8b0aa5", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 231.2, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_b0cd3ee2b59dcbde6d536bc9cf45327f.bindTooltip(
+                `<div>
+                     Indonesia Fried Rice w/Crispy Chicken <br>Rod D,
+151 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_443f4119bb3f2b9728a200f53a0fa088 = L.circle(
+                [42.387225, -71.118534],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#6c00a8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 183.2, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_443f4119bb3f2b9728a200f53a0fa088.bindTooltip(
+                `<div>
+                     Spicy cold udon <br>Yume Ga Arukara,
+111 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_8c1f4f03e23e5dda2cf8b12ea23bf6c8 = L.circle(
+                [42.30026, -71.1131],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#5c01a6", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 160.39999999999998, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_8c1f4f03e23e5dda2cf8b12ea23bf6c8.bindTooltip(
+                `<div>
+                     Koji Risotto or Brussel Sprouts<br>Brassica Kitchen & Cafe,
+92 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_9ac0d6e41512393e230a993e70086c52 = L.circle(
+                [42.36847, -71.1092199],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#5b01a5", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 156.8, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_9ac0d6e41512393e230a993e70086c52.bindTooltip(
+                `<div>
+                     Lumache <br>Pammy's,
+89 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_b1680e753bce72026675c5527bcc5342 = L.circle(
+                [42.36369, -71.1012],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#5502a4", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 148.39999999999998, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_b1680e753bce72026675c5527bcc5342.bindTooltip(
+                `<div>
+                     Dandan noodles <br>Mary Chung Restaurant,
+82 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_ac5a1be5eeb85978912b126c6552a6d5 = L.circle(
+                [42.352425, -71.128841],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#46039f", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 126.8, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_ac5a1be5eeb85978912b126c6552a6d5.bindTooltip(
+                `<div>
+                     kimchi burillo <br>OliToki,
+64 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_9aa307a2ca81d952c8480c03a38ee446 = L.circle(
+                [42.36391, -71.05477],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#46039f", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 126.8, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_9aa307a2ca81d952c8480c03a38ee446.bindTooltip(
+                `<div>
+                     lobster rav w crab meat vodka sauce<br>Trattoria Il Panino,
+64 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_c041de587b09723ebaf0f9e47aaae1ad = L.circle(
+                [42.36321, -71.05594],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#41049d", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 120.8, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_c041de587b09723ebaf0f9e47aaae1ad.bindTooltip(
+                `<div>
+                     Johnnycakes <br>Neptune Oyster,
+59 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_c9a8e46a1e219e978488e068c526aebd = L.circle(
+                [42.36409, -71.0533],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3f049c", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 118.39999999999999, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_c9a8e46a1e219e978488e068c526aebd.bindTooltip(
+                `<div>
+                     Osso buco <br>Mamma Maria,
+57 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_2ca5c33abb1c1774a5e4017ef75522d8 = L.circle(
+                [12.3634, -71.09729],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3a049a", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 111.19999999999999, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_2ca5c33abb1c1774a5e4017ef75522d8.bindTooltip(
+                `<div>
+                     Dinner Rolls<br>Bertucci's Italian Restaurant,
+51 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_fccb96e4adfb164fd0292de81c5f2e07 = L.circle(
+                [42.4177248, -71.1314022],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#370499", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 107.6, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_fccb96e4adfb164fd0292de81c5f2e07.bindTooltip(
+                `<div>
+                     Jigoku ramen <br>Pikaichi,
+48 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_02d02bf8715c4a78bfcd83478942279c = L.circle(
+                [42.347288, -71.075599],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#370499", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 106.4, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_02d02bf8715c4a78bfcd83478942279c.bindTooltip(
+                `<div>
+                     signature smash burger<br>Tasty Burger,
+47 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_e59d4c3366f46007bd9ce87e410992aa = L.circle(
+                [42.39864467, -71.12410951],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#350498", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 104.0, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_e59d4c3366f46007bd9ce87e410992aa.bindTooltip(
+                `<div>
+                     Prosciutto and Fig sandwich <br>Dave's Fresh Pasta,
+45 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_793e864d83d7cc9f0d37b29b696af4a6 = L.circle(
+                [42.37350689, -71.09820414],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#330597", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 101.6, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_793e864d83d7cc9f0d37b29b696af4a6.bindTooltip(
+                `<div>
+                     chili cheese hell fries <br>All Star Sandwich Bar,
+43 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_86e75ce16596b85c8c9a710132825aaf = L.circle(
+                [42.333407, -71.119398],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2e0595", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 95.6, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_86e75ce16596b85c8c9a710132825aaf.bindTooltip(
+                `<div>
+                     Chengdu dry hot chicken wings <br>Blossom Bar,
+38 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_e79056a5e558af206e2b1c4a8adc7bfd = L.circle(
+                [42.37055, -71.09713],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c0594", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 92.0, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_e79056a5e558af206e2b1c4a8adc7bfd.bindTooltip(
+                `<div>
+                     Falafel <br>Oleana Restaurant,
+35 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_4a90d77fc7118bd1c3d2fde3c140d183 = L.circle(
+                [42.38158, -71.09733],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#260591", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 87.19999999999999, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_4a90d77fc7118bd1c3d2fde3c140d183.bindTooltip(
+                `<div>
+                     cream of wheat <br>The Neighborhood Restaurant & Bakery,
+31 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_a1a9f0d61f59e3c7d0fc66798af9b8be = L.circle(
+                [42.36437195, -71.10148541],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#260591", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 86.0, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_a1a9f0d61f59e3c7d0fc66798af9b8be.bindTooltip(
+                `<div>
+                     Lamb BLT <br>Little Donkey,
+30 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_d2f993ca58772b00a5f8a128399b1f77 = L.circle(
+                [42.3410695, -71.1244685],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d068e", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 77.6, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_d2f993ca58772b00a5f8a128399b1f77.bindTooltip(
+                `<div>
+                     Crab Rangoon <br>Hong Kong Cafe II,
+23 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_4bbc8e0c56a96a841ba7f5c1f228493d = L.circle(
+                [42.35140831, -71.05686665],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d068e", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 76.4, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_4bbc8e0c56a96a841ba7f5c1f228493d.bindTooltip(
+                `<div>
+                     Unit Toast<br>O Ya,
+22 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_94e7448d21d01ca4bd9964f1437c8dfc = L.circle(
+                [42.35146, -71.06066],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1b068d", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 75.2, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_94e7448d21d01ca4bd9964f1437c8dfc.bindTooltip(
+                `<div>
+                     Watercress<br>Gourmet Dumpling House,
+21 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_ab939e0afd8b6579b1980aad95e73d8d = L.circle(
+                [42.37055, -71.09713],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1b068d", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 74.0, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_ab939e0afd8b6579b1980aad95e73d8d.bindTooltip(
+                `<div>
+                     Baked Alaska <br>Oleana Restaurant,
+20 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_2805aa38516dd7305eda63c4c4fe551f = L.circle(
+                [42.37347925, -71.120502],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#19068c", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 72.8, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_2805aa38516dd7305eda63c4c4fe551f.bindTooltip(
+                `<div>
+                     Anything <br>Felipe's Taqueria,
+19 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_8bae23cb1caf962e1f9525c4ad5a11d1 = L.circle(
+                [42.34487511, -71.0705311],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#19068c", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 72.8, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_8bae23cb1caf962e1f9525c4ad5a11d1.bindTooltip(
+                `<div>
+                     Margherita <br>Picco Pizza & Ice Cream,
+19 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_81a6ea1511407445c3d6f7a7105d18f1 = L.circle(
+                [42.36649, -71.07801],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#19068c", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 71.6, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_81a6ea1511407445c3d6f7a7105d18f1.bindTooltip(
+                `<div>
+                     Kaddo <br>The Helmand Restaurant,
+18 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_2a0ad19946226655a9c1db4eee8eda38 = L.circle(
+                [42.35326916, -71.04611365],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#16078a", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 70.4, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_2a0ad19946226655a9c1db4eee8eda38.bindTooltip(
+                `<div>
+                     Sesame crusted baked feta <br>Committee,
+17 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_59837f7af5bed7fed2d02e0bc3f865d2 = L.circle(
+                [42.3609838, -71.0680064],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#16078a", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 69.2, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_59837f7af5bed7fed2d02e0bc3f865d2.bindTooltip(
+                `<div>
+                     Grand Marnier SoufflÃ©<br>Ma Maison,
+16 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_8ab7a31fb798a93c6381c5bf3f50ab64 = L.circle(
+                [42.35636, -71.052587],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#16078a", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 69.2, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_8ab7a31fb798a93c6381c5bf3f50ab64.bindTooltip(
+                `<div>
+                     Jelly donut <br>Kane's Donuts - Downtown,
+16 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_e0450fcf160976ae4f6cb254a924eca9 = L.circle(
+                [42.31907, -71.11164],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#130789", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 68.0, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_e0450fcf160976ae4f6cb254a924eca9.bindTooltip(
+                `<div>
+                     The beet salad <br>Tres Gatos,
+15 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_18494aff899f0d8f666c39866e6486c2 = L.circle(
+                [42.2664362, -71.0208214],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#130789", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 68.0, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_18494aff899f0d8f666c39866e6486c2.bindTooltip(
+                `<div>
+                     Pad Thai <br>Thai Saap Noodles & Rice Kitchen,
+15 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_b0152558b03dde1cc142af75d07afb9b = L.circle(
+                [42.352, -71.07455],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#130789", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 68.0, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_b0152558b03dde1cc142af75d07afb9b.bindTooltip(
+                `<div>
+                     Sunchoke donuts <br>Spoke & Weal,
+15 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_040d242ac8af770bae3d5ce2b6d9f984 = L.circle(
+                [42.34276, -71.05645],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#100788", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 65.6, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_040d242ac8af770bae3d5ce2b6d9f984.bindTooltip(
+                `<div>
+                     The broccoli Caesar <br>Fox And The Knife,
+13 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_c3dd08513f306c177b3cb2629778dc4d = L.circle(
+                [42.3719854829495, -71.1202467492146],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#100788", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 65.6, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_c3dd08513f306c177b3cb2629778dc4d.bindTooltip(
+                `<div>
+                     Tomato and Basil slice<br>Pinocchios Pizza & Subs,
+13 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_25067230eabf590dd8cf3f13afc92ee0 = L.circle(
+                [42.30026, -71.1131],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#100788", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 64.4, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_25067230eabf590dd8cf3f13afc92ee0.bindTooltip(
+                `<div>
+                     Donut with mango butter <br>Brassica Kitchen & Cafe,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_655c459f75b528759a733623a508313c = L.circle(
+                [42.358290907218795, -71.0619811489821],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#100788", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 64.4, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_655c459f75b528759a733623a508313c.bindTooltip(
+                `<div>
+                     Parker House Rolls <br>Mooo Beacon Hill,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_c5d8269a901507518ca26969e912b091 = L.circle(
+                [42.34958085, -71.04750441],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#100788", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 64.4, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_c5d8269a901507518ca26969e912b091.bindTooltip(
+                `<div>
+                     The Tuna Crudo <br>Row 34,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_7caf599c4c1e90fec92363e29f970d4a = L.circle(
+                [42.40393945, -71.11446095],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#100788", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 64.4, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_7caf599c4c1e90fec92363e29f970d4a.bindTooltip(
+                `<div>
+                     Bread Pudding <br>Semolina Kitchen & Bar,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_972b8aae013c9e0f7bbd22a9e39fe7cb = L.circle(
+                [42.3965, -71.10396],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#100788", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 64.4, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_972b8aae013c9e0f7bbd22a9e39fe7cb.bindTooltip(
+                `<div>
+                     The porchetta sandwich <br>Pennypacker's,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_639f1968a026c1a956b7c8adb4d9380d = L.circle(
+                [42.3637299, -71.05425],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#100788", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 64.4, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_639f1968a026c1a956b7c8adb4d9380d.bindTooltip(
+                `<div>
+                     Arancini <br>Galleria Umberto,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_373fad43d23ad8c9c42641a271f0bc91 = L.circle(
+                [42.3508174908521, -71.0606166602329],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#100788", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 64.4, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_373fad43d23ad8c9c42641a271f0bc91.bindTooltip(
+                `<div>
+                     Just a bunch of random stuff <br>Shabu-Zen,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_a659cb51c7f591d1541b177d429447c7 = L.circle(
+                [42.34518995, -71.09695204],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#100788", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 64.4, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_a659cb51c7f591d1541b177d429447c7.bindTooltip(
+                `<div>
+                     Burger<br>Hojoko Boston,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_dcb7c811f2e2f1bf6bde90d7e39beb64 = L.circle(
+                [42.33698788, -71.07592429],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#100788", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 64.4, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_dcb7c811f2e2f1bf6bde90d7e39beb64.bindTooltip(
+                `<div>
+                     paella<br>Toro,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_8ac977007ca955515d1389d29f2364d3 = L.circle(
+                [42.33922, -71.0809],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0d0887", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 63.2, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_8ac977007ca955515d1389d29f2364d3.bindTooltip(
+                `<div>
+                     crispy eggplant<br>ilona,
+11 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_c0f34cf93a7850b3ee2839e2675a9ff8 = L.circle(
+                [42.35194, -71.07168],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0d0887", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 63.2, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_c0f34cf93a7850b3ee2839e2675a9ff8.bindTooltip(
+                `<div>
+                     The Bravas <br>Parish Cafe & Bar,
+11 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_40dc42ae20e8911d20d141c891096988 = L.circle(
+                [42.34958085, -71.04750441],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0d0887", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 63.2, "stroke": false, "weight": 3}
+            ).addTo(map_e72d076796c9e594c9b16138b693a836);
+        
+    
+            circle_40dc42ae20e8911d20d141c891096988.bindTooltip(
+                `<div>
+                     Tuna crudo with avocado, black garlic aioli and crispy shallots <br>Row 34,
+11 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+</script>
+</html>
