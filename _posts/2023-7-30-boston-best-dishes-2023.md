@@ -1,6 +1,6 @@
 ---
 layout: post
-title: r/boston's favorite restaurants, 2023.
+title: r/boston's favorite dishes, 2023.
 categories: [Visualizations]
 ---
 
