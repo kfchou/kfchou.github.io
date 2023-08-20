@@ -13,7 +13,7 @@ categories: [Visualizations, Plotly, Folium]
 </style>
 
 <div>
-<iframe src="/assets/best_dishes_bos23_bar.html" height="500" width="1000" class="chart"></iframe>
+<iframe src="/assets/reddit_fav_dishes_Boston_2023_table.html" width="100%" height="600"></iframe>
 </div>
 
 <div>
