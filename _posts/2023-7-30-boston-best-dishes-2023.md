@@ -12,6 +12,8 @@ categories: [Visualizations, Plotly, Folium]
 }
 </style>
 
+Users of Reddit [r/Boston](https://www.reddit.com/r/boston/comments/14jvgf2/single_best_restaurant_menu_item_boston_2023/) responded to the question "What is the single best restaurant menu item in Boston?" In this post, I compiled their responses and mapped out where you can find those dishes around town. Only top-level responses are considered in the table below. The number of upvotes from repeated responses are added together into a single entry. Responses like "water" are excluded from the dataset.
+
 <div>
 <iframe src="/assets/reddit_fav_dishes_Boston_2023_table.html" width="100%" height="600"></iframe>
 </div>
@@ -37,35 +39,6 @@ mapper = plt.cm.ScalarMappable(norm=norm, cmap=plt.cm.plasma)
 df['color_hex'] = df['votes'].apply(lambda x: mcolors.to_hex(mapper.to_rgba(x)))
 ```
 
-
-### Barchart
-```py
-# only display the top 50 dishes where geographical location is available
-df_partial = df[~pd.isna(df['latitude'])].iloc[:50] 
-fig = go.Figure(go.Bar(
-            x=df['votes'],
-            y=df['dishes'].str.strip()+', '+df['yelp name'],
-            orientation='h',
-            marker=dict(
-                color=df['color_hex'],
-            )
-        ))
-
-maintitle = "r/Boston's favorite dishes, 2023"
-subtitle = "<br><span style='font-size: 12px;'>Double click to zoom out</span>"
-fig.update_layout(
-    title=f"{maintitle}{subtitle}",
-    xaxis_title='# Upvotes',
-    yaxis_title='Dish, Restaurant',
-    yaxis=dict(
-        range=[10.5,-0.5] # initial zoom setting
-        ),
-)
-
-fig.show()
-
-fig.write_html("best_dishes_boston_2023_barplot.html") # export figure as html
-```
 
 ### Create map marker icons
 Folium's defult marker options are circle markers or google-map like icons. Which has a default blue color and isn't customizable.
