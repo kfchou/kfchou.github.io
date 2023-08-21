@@ -40,7 +40,7 @@ mapper = plt.cm.ScalarMappable(norm=norm, cmap=plt.cm.plasma)
 df['color_hex'] = np.log(df['votes']).apply(lambda x: mcolors.to_hex(mapper.to_rgba(x)))
 ```
 
-### Assign color to the "votes" column
+### Creating & formatting the data table
 ```py
 df_to_style = df[['yelp name','dishes','city','votes']].head(60).reset_index(drop=True)
 df_to_style = df_to_style.rename(columns={
