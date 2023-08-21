@@ -15,7 +15,7 @@ categories: [Visualizations, Plotly, Folium]
 Users of Reddit [r/Boston](https://www.reddit.com/r/boston/comments/14jvgf2/single_best_restaurant_menu_item_boston_2023/) responded to the question "What is the single best restaurant menu item in Boston?" In this post, I compiled their responses and mapped out where you can find those dishes around town. Only top-level responses are considered in the table below. The number of upvotes from repeated responses are added together into a single entry. Responses like "water" are excluded from the dataset. Responses with less than 8 upvotes are also excluded.
 
 <div>
-<iframe src="/assets/reddit_fav_dishes_Boston_2023_table2.html" width="100%" height="600"></iframe>
+<iframe src="/assets/reddit_fav_dishes_Boston_2023_table2.html" width="100%" height="650"></iframe>
 </div>
 
 <div>
