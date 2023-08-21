@@ -15,12 +15,12 @@ categories: [Visualizations, Plotly, Folium]
 Users of Reddit [r/Boston](https://www.reddit.com/r/boston/comments/14jvgf2/single_best_restaurant_menu_item_boston_2023/) responded to the question "What is the single best restaurant menu item in Boston?" In this post, I compiled their responses and mapped out where you can find those dishes around town. Only top-level responses are considered in the table below. The number of upvotes from repeated responses are added together into a single entry. Responses like "water" are excluded from the dataset.
 
 <div>
-<iframe src="/assets/reddit_fav_dishes_Boston_2023_table.html" width="100%" height="600"></iframe>
+<iframe src="/assets/reddit_fav_dishes_Boston_2023_table2.html" width="100%" height="600"></iframe>
 </div>
 
 <div>
 Hover over a circle to see the dish, restaurant, and number of votes!
-<iframe src="/assets/best_dishes_boston_2023.html" height="500" width="1000" class="chart"></iframe>
+<iframe src="/assets/best_dishes_boston_2023_map.html" height="500" width="1000" class="chart"></iframe>
 </div>
 
 ## Methodology
@@ -31,12 +31,36 @@ Geographical coordinates for each restaurant were the obtained via the Yelp API.
 
 ### Map upvotes to color hex
 ```py
+# use np.log() to transform the vote distributions to be slightly more uniform
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
-norm = mcolors.Normalize(vmin=10, vmax=500, clip=True)
+norm = mcolors.Normalize(vmin=np.log(10), vmax=np.log(500), clip=True)
 mapper = plt.cm.ScalarMappable(norm=norm, cmap=plt.cm.plasma)
-df['color_hex'] = df['votes'].apply(lambda x: mcolors.to_hex(mapper.to_rgba(x)))
+df['color_hex'] = np.log(df['votes']).apply(lambda x: mcolors.to_hex(mapper.to_rgba(x)))
+```
+
+### Assign color to the "votes" column
+```py
+df_to_style = df[['yelp name','dishes','city','votes']].head(60).reset_index(drop=True)
+df_to_style = df_to_style.rename(columns={
+    'yelp name':'Restaurant',
+    'dishes':'Dish',
+    'city':'City',
+    'votes':'# Upvotes',
+})
+
+# Define a function to apply cell styling based on hex_code column
+def apply_style(row):
+    hex_code = np.log(row).apply(lambda x: mcolors.to_hex(mapper.to_rgba(x)))
+    if row.iloc[0] > 100:
+        return [f'background-color:{hex_code.iloc[0]}; color: #000000']
+    else:
+        return [f'background-color:{hex_code.iloc[0]}; color: #f1efff']        
+
+# Apply styling to the DataFrame
+styled_df = df_to_style.style.apply(apply_style, axis=1, subset=['# Upvotes']).hide(axis="index")
+styled_df.to_html("reddit_fav_dishes_Boston_2023_table.html")
 ```
 
 

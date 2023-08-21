@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_f2381d7e936c8397c5a2c57a6cd2cf8e {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_f2381d7e936c8397c5a2c57a6cd2cf8e" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_f2381d7e936c8397c5a2c57a6cd2cf8e = L.map(
+                "map_f2381d7e936c8397c5a2c57a6cd2cf8e",
+                {
+                    center: [42.36649, -71.07801],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 13,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_111486cc78e55ad1e9afdc347569ec85 = L.tileLayer(
+                "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca target=\"_blank\" href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca target=\"_blank\" href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var marker_3e1be939c51ec6b92ac2e599f76eb4d9 = L.marker(
+                [42.359669120182, -71.053907939597],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_1366d5ef50148928cb29703abfdcc2b9 = L.divIcon({"className": "c-f6e626", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_3e1be939c51ec6b92ac2e599f76eb4d9.setIcon(div_icon_1366d5ef50148928cb29703abfdcc2b9);
+        
+    
+        var popup_e5709d8d87f2be324976991f694e660e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e657cffe6167c7fa7e9df832294625a1 = $(`<div id="html_e657cffe6167c7fa7e9df832294625a1" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Hong Kong At Faneuil Hall:<br>Meat on a stick <br>421 votes</div></div>`)[0];
+                popup_e5709d8d87f2be324976991f694e660e.setContent(html_e657cffe6167c7fa7e9df832294625a1);
+            
+        
+
+        marker_3e1be939c51ec6b92ac2e599f76eb4d9.bindPopup(popup_e5709d8d87f2be324976991f694e660e)
+        ;
+
+        
+    
+    
+            marker_3e1be939c51ec6b92ac2e599f76eb4d9.bindTooltip(
+                `<div>
+                     Hong Kong At Faneuil Hall:<br>Meat on a stick ,
+421 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_ce9a2e8bff5e88f30a33768104adac32 = L.marker(
+                [42.3534194, -71.0595619],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_b1293876fa4868334cffd402008ab524 = L.divIcon({"className": "c-fdb130", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_ce9a2e8bff5e88f30a33768104adac32.setIcon(div_icon_b1293876fa4868334cffd402008ab524);
+        
+    
+        var popup_c80fc8f251e2c182ea95edc497c456d3 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f3ddd03d95a75087abe3a0afe0ef2d35 = $(`<div id="html_f3ddd03d95a75087abe3a0afe0ef2d35" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Gene'S Chinese Flatbread Cafe:<br>The hand pulled noodles <br>252 votes</div></div>`)[0];
+                popup_c80fc8f251e2c182ea95edc497c456d3.setContent(html_f3ddd03d95a75087abe3a0afe0ef2d35);
+            
+        
+
+        marker_ce9a2e8bff5e88f30a33768104adac32.bindPopup(popup_c80fc8f251e2c182ea95edc497c456d3)
+        ;
+
+        
+    
+    
+            marker_ce9a2e8bff5e88f30a33768104adac32.bindTooltip(
+                `<div>
+                     Gene'S Chinese Flatbread Cafe:<br>The hand pulled noodles ,
+252 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_226f13d27ee9e579e7e69dee4fa9333f = L.marker(
+                [42.3881803, -71.0955453],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_8fe436d9b72dceef566c2e7fb54fb69b = L.divIcon({"className": "c-fdac33", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_226f13d27ee9e579e7e69dee4fa9333f.setIcon(div_icon_8fe436d9b72dceef566c2e7fb54fb69b);
+        
+    
+        var popup_aafd1e8987491f0e6ee861d6735ec6aa = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f3595269aa42c7053cdccf9891194660 = $(`<div id="html_f3595269aa42c7053cdccf9891194660" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Sarma:<br>Cornbread <br>241 votes</div></div>`)[0];
+                popup_aafd1e8987491f0e6ee861d6735ec6aa.setContent(html_f3595269aa42c7053cdccf9891194660);
+            
+        
+
+        marker_226f13d27ee9e579e7e69dee4fa9333f.bindPopup(popup_aafd1e8987491f0e6ee861d6735ec6aa)
+        ;
+
+        
+    
+    
+            marker_226f13d27ee9e579e7e69dee4fa9333f.bindTooltip(
+                `<div>
+                     Sarma:<br>Cornbread ,
+241 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_86b50451d1270a4d610deb92fe81540d = L.marker(
+                [42.3513, -71.07864],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_ec91c96bcd3bc3a93017aef5567a34de = L.divIcon({"className": "c-fa9b3d", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_86b50451d1270a4d610deb92fe81540d.setIcon(div_icon_ec91c96bcd3bc3a93017aef5567a34de);
+        
+    
+        var popup_a8fb49394284762ee4a34d159acdd5df = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7c6c3daeb1e65c1d6c367927d5379eb3 = $(`<div id="html_7c6c3daeb1e65c1d6c367927d5379eb3" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Buttermilk & Bourbon:<br>Biscuits<br>200 votes</div></div>`)[0];
+                popup_a8fb49394284762ee4a34d159acdd5df.setContent(html_7c6c3daeb1e65c1d6c367927d5379eb3);
+            
+        
+
+        marker_86b50451d1270a4d610deb92fe81540d.bindPopup(popup_a8fb49394284762ee4a34d159acdd5df)
+        ;
+
+        
+    
+    
+            marker_86b50451d1270a4d610deb92fe81540d.bindTooltip(
+                `<div>
+                     Buttermilk & Bourbon:<br>Biscuits,
+200 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_68a714b5773be80aae3b5e864cae382b = L.marker(
+                [42.34113, -71.12623],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_f29568324c55dabcfcb9ba0e65293774 = L.divIcon({"className": "c-f1814d", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_68a714b5773be80aae3b5e864cae382b.setIcon(div_icon_f29568324c55dabcfcb9ba0e65293774);
+        
+    
+        var popup_fbdceacdfe0198921b3f8cf1041a71a0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9397b13ac71e4c3714b025cb625e9bb0 = $(`<div id="html_9397b13ac71e4c3714b025cb625e9bb0" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Rod D:<br>Indonesia fried rice w/crispy chicken <br>151 votes</div></div>`)[0];
+                popup_fbdceacdfe0198921b3f8cf1041a71a0.setContent(html_9397b13ac71e4c3714b025cb625e9bb0);
+            
+        
+
+        marker_68a714b5773be80aae3b5e864cae382b.bindPopup(popup_fbdceacdfe0198921b3f8cf1041a71a0)
+        ;
+
+        
+    
+    
+            marker_68a714b5773be80aae3b5e864cae382b.bindTooltip(
+                `<div>
+                     Rod D:<br>Indonesia fried rice w/crispy chicken ,
+151 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_08f646cd0ce6dd3d587c4fe0a6346851 = L.marker(
+                [42.387225, -71.118534],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_c853e719b6c2d7ac061963e6ee04534d = L.divIcon({"className": "c-e4695e", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_08f646cd0ce6dd3d587c4fe0a6346851.setIcon(div_icon_c853e719b6c2d7ac061963e6ee04534d);
+        
+    
+        var popup_a991b911b69758722d156c5cd62abbbb = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_cc54c8673d67176d04d2792484fc96f2 = $(`<div id="html_cc54c8673d67176d04d2792484fc96f2" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Yume Ga Arukara:<br>Spicy cold udon <br>111 votes</div></div>`)[0];
+                popup_a991b911b69758722d156c5cd62abbbb.setContent(html_cc54c8673d67176d04d2792484fc96f2);
+            
+        
+
+        marker_08f646cd0ce6dd3d587c4fe0a6346851.bindPopup(popup_a991b911b69758722d156c5cd62abbbb)
+        ;
+
+        
+    
+    
+            marker_08f646cd0ce6dd3d587c4fe0a6346851.bindTooltip(
+                `<div>
+                     Yume Ga Arukara:<br>Spicy cold udon ,
+111 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_7403119476267861da86602243511828 = L.marker(
+                [42.30026, -71.1131],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_860ec6f0041c50055c1590b724f2e9d4 = L.divIcon({"className": "c-da5b69", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_7403119476267861da86602243511828.setIcon(div_icon_860ec6f0041c50055c1590b724f2e9d4);
+        
+    
+        var popup_9c572740b845c1291105c50acc08dafd = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d8ab16502ed797f9229e8990f1fc1318 = $(`<div id="html_d8ab16502ed797f9229e8990f1fc1318" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Brassica Kitchen & Cafe:<br>Koji risotto or brussel sprouts<br>92 votes</div></div>`)[0];
+                popup_9c572740b845c1291105c50acc08dafd.setContent(html_d8ab16502ed797f9229e8990f1fc1318);
+            
+        
+
+        marker_7403119476267861da86602243511828.bindPopup(popup_9c572740b845c1291105c50acc08dafd)
+        ;
+
+        
+    
+    
+            marker_7403119476267861da86602243511828.bindTooltip(
+                `<div>
+                     Brassica Kitchen & Cafe:<br>Koji risotto or brussel sprouts,
+92 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_52edd597b79df34d5c791c178b085b1f = L.marker(
+                [42.36847, -71.1092199],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_4ff2bdc120af2e08355737bee90ba0a9 = L.divIcon({"className": "c-d9586a", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_52edd597b79df34d5c791c178b085b1f.setIcon(div_icon_4ff2bdc120af2e08355737bee90ba0a9);
+        
+    
+        var popup_f47869cbd2bd767246b2caf44ea23f29 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1cc5ebf2b1ee20168846cefdae5810ed = $(`<div id="html_1cc5ebf2b1ee20168846cefdae5810ed" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Pammy'S:<br>Lumache <br>89 votes</div></div>`)[0];
+                popup_f47869cbd2bd767246b2caf44ea23f29.setContent(html_1cc5ebf2b1ee20168846cefdae5810ed);
+            
+        
+
+        marker_52edd597b79df34d5c791c178b085b1f.bindPopup(popup_f47869cbd2bd767246b2caf44ea23f29)
+        ;
+
+        
+    
+    
+            marker_52edd597b79df34d5c791c178b085b1f.bindTooltip(
+                `<div>
+                     Pammy'S:<br>Lumache ,
+89 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_3e9a675b12f333ba1d08ca6d3449d7ad = L.marker(
+                [42.36369, -71.1012],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_58464fb26d0bcb676f85cd712b69a495 = L.divIcon({"className": "c-d45270", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_3e9a675b12f333ba1d08ca6d3449d7ad.setIcon(div_icon_58464fb26d0bcb676f85cd712b69a495);
+        
+    
+        var popup_64e4a3b66247908de18334371e9cf291 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e037275f22dfb302ae61fcece3e0b557 = $(`<div id="html_e037275f22dfb302ae61fcece3e0b557" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Mary Chung Restaurant:<br>Dandan noodles <br>82 votes</div></div>`)[0];
+                popup_64e4a3b66247908de18334371e9cf291.setContent(html_e037275f22dfb302ae61fcece3e0b557);
+            
+        
+
+        marker_3e9a675b12f333ba1d08ca6d3449d7ad.bindPopup(popup_64e4a3b66247908de18334371e9cf291)
+        ;
+
+        
+    
+    
+            marker_3e9a675b12f333ba1d08ca6d3449d7ad.bindTooltip(
+                `<div>
+                     Mary Chung Restaurant:<br>Dandan noodles ,
+82 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_80adf7690a8ee040bfc5ac8356129021 = L.marker(
+                [42.36391, -71.05477],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_a77ecd75c81940a07f6658e783b82d71 = L.divIcon({"className": "c-c5407e", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_80adf7690a8ee040bfc5ac8356129021.setIcon(div_icon_a77ecd75c81940a07f6658e783b82d71);
+        
+    
+        var popup_5470250acc9e019364249d8374a4e222 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9a051fba0f80a943e5a797b2e7a66bc4 = $(`<div id="html_9a051fba0f80a943e5a797b2e7a66bc4" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Trattoria Il Panino:<br>Lobster rav w crab meat vodka sauce<br>64 votes</div></div>`)[0];
+                popup_5470250acc9e019364249d8374a4e222.setContent(html_9a051fba0f80a943e5a797b2e7a66bc4);
+            
+        
+
+        marker_80adf7690a8ee040bfc5ac8356129021.bindPopup(popup_5470250acc9e019364249d8374a4e222)
+        ;
+
+        
+    
+    
+            marker_80adf7690a8ee040bfc5ac8356129021.bindTooltip(
+                `<div>
+                     Trattoria Il Panino:<br>Lobster rav w crab meat vodka sauce,
+64 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_acc0db0b5e17e13890e6a1c2321bc753 = L.marker(
+                [42.352425, -71.128841],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_35475a2bb94ff1fe3acf15a349195f24 = L.divIcon({"className": "c-c5407e", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_acc0db0b5e17e13890e6a1c2321bc753.setIcon(div_icon_35475a2bb94ff1fe3acf15a349195f24);
+        
+    
+        var popup_4309bda37d51d63cb478475f733bf1ab = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ba91060220898c621cfb6a946f883601 = $(`<div id="html_ba91060220898c621cfb6a946f883601" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Olitoki:<br>Kimchi burillo <br>64 votes</div></div>`)[0];
+                popup_4309bda37d51d63cb478475f733bf1ab.setContent(html_ba91060220898c621cfb6a946f883601);
+            
+        
+
+        marker_acc0db0b5e17e13890e6a1c2321bc753.bindPopup(popup_4309bda37d51d63cb478475f733bf1ab)
+        ;
+
+        
+    
+    
+            marker_acc0db0b5e17e13890e6a1c2321bc753.bindTooltip(
+                `<div>
+                     Olitoki:<br>Kimchi burillo ,
+64 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_6a4c4947a84582bbfaa7b4b3244ee23d = L.marker(
+                [42.36321, -71.05594],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_78136be95241ecd3b584fe7773d7fb91 = L.divIcon({"className": "c-c03a83", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_6a4c4947a84582bbfaa7b4b3244ee23d.setIcon(div_icon_78136be95241ecd3b584fe7773d7fb91);
+        
+    
+        var popup_5877c6ea24c808bb790017827e45d760 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f407ac80d627119d44017fca3ae1241d = $(`<div id="html_f407ac80d627119d44017fca3ae1241d" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Neptune Oyster:<br>Johnnycakes <br>59 votes</div></div>`)[0];
+                popup_5877c6ea24c808bb790017827e45d760.setContent(html_f407ac80d627119d44017fca3ae1241d);
+            
+        
+
+        marker_6a4c4947a84582bbfaa7b4b3244ee23d.bindPopup(popup_5877c6ea24c808bb790017827e45d760)
+        ;
+
+        
+    
+    
+            marker_6a4c4947a84582bbfaa7b4b3244ee23d.bindTooltip(
+                `<div>
+                     Neptune Oyster:<br>Johnnycakes ,
+59 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_39997ad02e4c33b70aca2528466be4b8 = L.marker(
+                [42.36409, -71.0533],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_2e0d42ccaa4d873d7ec557787117247b = L.divIcon({"className": "c-bd3786", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_39997ad02e4c33b70aca2528466be4b8.setIcon(div_icon_2e0d42ccaa4d873d7ec557787117247b);
+        
+    
+        var popup_768aedf6e5a25627ed955d3ecb51fbdc = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_eb04fd1cca614dcaf7575e8020bc56de = $(`<div id="html_eb04fd1cca614dcaf7575e8020bc56de" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Mamma Maria:<br>Osso buco <br>57 votes</div></div>`)[0];
+                popup_768aedf6e5a25627ed955d3ecb51fbdc.setContent(html_eb04fd1cca614dcaf7575e8020bc56de);
+            
+        
+
+        marker_39997ad02e4c33b70aca2528466be4b8.bindPopup(popup_768aedf6e5a25627ed955d3ecb51fbdc)
+        ;
+
+        
+    
+    
+            marker_39997ad02e4c33b70aca2528466be4b8.bindTooltip(
+                `<div>
+                     Mamma Maria:<br>Osso buco ,
+57 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_5d0ee801ddb03da74bf74e8c28a71cc4 = L.marker(
+                [12.3634, -71.09729],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_6f90716f9e5767985f4e34517a3539a6 = L.divIcon({"className": "c-b52f8c", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_5d0ee801ddb03da74bf74e8c28a71cc4.setIcon(div_icon_6f90716f9e5767985f4e34517a3539a6);
+        
+    
+        var popup_070af3c5c57099b3ab4cf3b17438c61b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_50032deaa442b91fdd4ac242bc8deec3 = $(`<div id="html_50032deaa442b91fdd4ac242bc8deec3" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Bertucci'S Italian Restaurant:<br>Dinner rolls<br>51 votes</div></div>`)[0];
+                popup_070af3c5c57099b3ab4cf3b17438c61b.setContent(html_50032deaa442b91fdd4ac242bc8deec3);
+            
+        
+
+        marker_5d0ee801ddb03da74bf74e8c28a71cc4.bindPopup(popup_070af3c5c57099b3ab4cf3b17438c61b)
+        ;
+
+        
+    
+    
+            marker_5d0ee801ddb03da74bf74e8c28a71cc4.bindTooltip(
+                `<div>
+                     Bertucci'S Italian Restaurant:<br>Dinner rolls,
+51 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_738c50bda9feb33208ba69d36dfadb9f = L.marker(
+                [42.4177248, -71.1314022],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_1794654c1141c04a77fc033d148b69b5 = L.divIcon({"className": "c-b12a90", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_738c50bda9feb33208ba69d36dfadb9f.setIcon(div_icon_1794654c1141c04a77fc033d148b69b5);
+        
+    
+        var popup_895890714829cfff515ec46e4498d317 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e08969964e0ba119dbbdbb21548f715b = $(`<div id="html_e08969964e0ba119dbbdbb21548f715b" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Pikaichi:<br>Jigoku ramen <br>48 votes</div></div>`)[0];
+                popup_895890714829cfff515ec46e4498d317.setContent(html_e08969964e0ba119dbbdbb21548f715b);
+            
+        
+
+        marker_738c50bda9feb33208ba69d36dfadb9f.bindPopup(popup_895890714829cfff515ec46e4498d317)
+        ;
+
+        
+    
+    
+            marker_738c50bda9feb33208ba69d36dfadb9f.bindTooltip(
+                `<div>
+                     Pikaichi:<br>Jigoku ramen ,
+48 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_6c1157c785b450daf6e09b6a6fd58b22 = L.marker(
+                [42.347288, -71.075599],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_438489266b51ae4979ae872f1f39958f = L.divIcon({"className": "c-b02991", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_6c1157c785b450daf6e09b6a6fd58b22.setIcon(div_icon_438489266b51ae4979ae872f1f39958f);
+        
+    
+        var popup_0ad30b9028c036c3fd271f3d74fae958 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7f3ff1322aaeeaf788ff22170758c8df = $(`<div id="html_7f3ff1322aaeeaf788ff22170758c8df" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Tasty Burger:<br>Signature smash burger<br>47 votes</div></div>`)[0];
+                popup_0ad30b9028c036c3fd271f3d74fae958.setContent(html_7f3ff1322aaeeaf788ff22170758c8df);
+            
+        
+
+        marker_6c1157c785b450daf6e09b6a6fd58b22.bindPopup(popup_0ad30b9028c036c3fd271f3d74fae958)
+        ;
+
+        
+    
+    
+            marker_6c1157c785b450daf6e09b6a6fd58b22.bindTooltip(
+                `<div>
+                     Tasty Burger:<br>Signature smash burger,
+47 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_3a6d213ae0bece4f97b8e0acb18095e7 = L.marker(
+                [42.39864467, -71.12410951],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_645832bf9e044d24ad6a58cfce668f08 = L.divIcon({"className": "c-ac2694", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_3a6d213ae0bece4f97b8e0acb18095e7.setIcon(div_icon_645832bf9e044d24ad6a58cfce668f08);
+        
+    
+        var popup_b0face5230f4246b8bc734a5ee4129ac = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_eb4e32afeab5ce1464c996297c2bcc67 = $(`<div id="html_eb4e32afeab5ce1464c996297c2bcc67" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Dave'S Fresh Pasta:<br>Prosciutto and fig sandwich <br>45 votes</div></div>`)[0];
+                popup_b0face5230f4246b8bc734a5ee4129ac.setContent(html_eb4e32afeab5ce1464c996297c2bcc67);
+            
+        
+
+        marker_3a6d213ae0bece4f97b8e0acb18095e7.bindPopup(popup_b0face5230f4246b8bc734a5ee4129ac)
+        ;
+
+        
+    
+    
+            marker_3a6d213ae0bece4f97b8e0acb18095e7.bindTooltip(
+                `<div>
+                     Dave'S Fresh Pasta:<br>Prosciutto and fig sandwich ,
+45 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_ce96fdfdd9e5c8a17c86dbbe3c7d3466 = L.marker(
+                [42.37350689, -71.09820414],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_338ee340c761080b0c5245987b02ad6b = L.divIcon({"className": "c-a82296", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_ce96fdfdd9e5c8a17c86dbbe3c7d3466.setIcon(div_icon_338ee340c761080b0c5245987b02ad6b);
+        
+    
+        var popup_0e795e2c85f135efeb5771d40230f82e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_4edc5ebd77b625f7c87462b95c4bc88b = $(`<div id="html_4edc5ebd77b625f7c87462b95c4bc88b" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">All Star Sandwich Bar:<br>Chili cheese hell fries <br>43 votes</div></div>`)[0];
+                popup_0e795e2c85f135efeb5771d40230f82e.setContent(html_4edc5ebd77b625f7c87462b95c4bc88b);
+            
+        
+
+        marker_ce96fdfdd9e5c8a17c86dbbe3c7d3466.bindPopup(popup_0e795e2c85f135efeb5771d40230f82e)
+        ;
+
+        
+    
+    
+            marker_ce96fdfdd9e5c8a17c86dbbe3c7d3466.bindTooltip(
+                `<div>
+                     All Star Sandwich Bar:<br>Chili cheese hell fries ,
+43 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_f8b93c1f0b1778eae2ac1befb63a46b6 = L.marker(
+                [42.333407, -71.119398],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_010eae36369db5b300ab62aa7a15a13a = L.divIcon({"className": "c-9e199d", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_f8b93c1f0b1778eae2ac1befb63a46b6.setIcon(div_icon_010eae36369db5b300ab62aa7a15a13a);
+        
+    
+        var popup_e2b4ee50a45511ab556793769b1dd2c7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9a9b88c15ff7671d7a86e5408bc812af = $(`<div id="html_9a9b88c15ff7671d7a86e5408bc812af" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Blossom Bar:<br>Chengdu dry hot chicken wings <br>38 votes</div></div>`)[0];
+                popup_e2b4ee50a45511ab556793769b1dd2c7.setContent(html_9a9b88c15ff7671d7a86e5408bc812af);
+            
+        
+
+        marker_f8b93c1f0b1778eae2ac1befb63a46b6.bindPopup(popup_e2b4ee50a45511ab556793769b1dd2c7)
+        ;
+
+        
+    
+    
+            marker_f8b93c1f0b1778eae2ac1befb63a46b6.bindTooltip(
+                `<div>
+                     Blossom Bar:<br>Chengdu dry hot chicken wings ,
+38 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_5efe7272e2c6491a4ffdae8f283988e8 = L.marker(
+                [42.37055, -71.09713],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_4ac3253d685cd147c68e5fd868862965 = L.divIcon({"className": "c-9613a1", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_5efe7272e2c6491a4ffdae8f283988e8.setIcon(div_icon_4ac3253d685cd147c68e5fd868862965);
+        
+    
+        var popup_e3e465496c08fc07e8d6be3bd16d6ac8 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_93da24433a9872d5d131bad8cac68a4f = $(`<div id="html_93da24433a9872d5d131bad8cac68a4f" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Oleana Restaurant:<br>Falafel <br>35 votes</div></div>`)[0];
+                popup_e3e465496c08fc07e8d6be3bd16d6ac8.setContent(html_93da24433a9872d5d131bad8cac68a4f);
+            
+        
+
+        marker_5efe7272e2c6491a4ffdae8f283988e8.bindPopup(popup_e3e465496c08fc07e8d6be3bd16d6ac8)
+        ;
+
+        
+    
+    
+            marker_5efe7272e2c6491a4ffdae8f283988e8.bindTooltip(
+                `<div>
+                     Oleana Restaurant:<br>Falafel ,
+35 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_76f8ee8ad2b950788c8588a7ab80aaaa = L.marker(
+                [42.38158, -71.09733],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_3cce03fe62f20398c37296085d409eca = L.divIcon({"className": "c-8d0ba5", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_76f8ee8ad2b950788c8588a7ab80aaaa.setIcon(div_icon_3cce03fe62f20398c37296085d409eca);
+        
+    
+        var popup_da9df8bdcbc318f71a7daf82ae38fe26 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0241df4a6f571a7b599264cea4514878 = $(`<div id="html_0241df4a6f571a7b599264cea4514878" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">The Neighborhood Restaurant & Bakery:<br>Cream of wheat <br>31 votes</div></div>`)[0];
+                popup_da9df8bdcbc318f71a7daf82ae38fe26.setContent(html_0241df4a6f571a7b599264cea4514878);
+            
+        
+
+        marker_76f8ee8ad2b950788c8588a7ab80aaaa.bindPopup(popup_da9df8bdcbc318f71a7daf82ae38fe26)
+        ;
+
+        
+    
+    
+            marker_76f8ee8ad2b950788c8588a7ab80aaaa.bindTooltip(
+                `<div>
+                     The Neighborhood Restaurant & Bakery:<br>Cream of wheat ,
+31 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_767424628eb7d300fa95c0b28f07f60b = L.marker(
+                [42.36437195, -71.10148541],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_87c548a315e2f2fb1b9bac6afe87de47 = L.divIcon({"className": "c-8808a6", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_767424628eb7d300fa95c0b28f07f60b.setIcon(div_icon_87c548a315e2f2fb1b9bac6afe87de47);
+        
+    
+        var popup_7eb95f2279bdd1c763afd0e73d119176 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_75b075f61692786702f4771e756184cc = $(`<div id="html_75b075f61692786702f4771e756184cc" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Little Donkey:<br>Lamb blt <br>30 votes</div></div>`)[0];
+                popup_7eb95f2279bdd1c763afd0e73d119176.setContent(html_75b075f61692786702f4771e756184cc);
+            
+        
+
+        marker_767424628eb7d300fa95c0b28f07f60b.bindPopup(popup_7eb95f2279bdd1c763afd0e73d119176)
+        ;
+
+        
+    
+    
+            marker_767424628eb7d300fa95c0b28f07f60b.bindTooltip(
+                `<div>
+                     Little Donkey:<br>Lamb blt ,
+30 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a1f8335f132f1ba104ca7931858fbae3 = L.marker(
+                [42.3410695, -71.1244685],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_9915b01a10bc027db2f29cf00d5f5f3b = L.divIcon({"className": "c-6f00a8", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_a1f8335f132f1ba104ca7931858fbae3.setIcon(div_icon_9915b01a10bc027db2f29cf00d5f5f3b);
+        
+    
+        var popup_714e71f94b1ce7eb4fe8fed9c5ca1110 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_eb2a62f30faea0cc1384ab35c2fd3bd2 = $(`<div id="html_eb2a62f30faea0cc1384ab35c2fd3bd2" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Hong Kong Cafe Ii:<br>Crab rangoon <br>23 votes</div></div>`)[0];
+                popup_714e71f94b1ce7eb4fe8fed9c5ca1110.setContent(html_eb2a62f30faea0cc1384ab35c2fd3bd2);
+            
+        
+
+        marker_a1f8335f132f1ba104ca7931858fbae3.bindPopup(popup_714e71f94b1ce7eb4fe8fed9c5ca1110)
+        ;
+
+        
+    
+    
+            marker_a1f8335f132f1ba104ca7931858fbae3.bindTooltip(
+                `<div>
+                     Hong Kong Cafe Ii:<br>Crab rangoon ,
+23 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a3da9b448f7e065940ad208cb0d1e0ce = L.marker(
+                [42.35140831, -71.05686665],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_0569aced9dd31bc57b3c420b3f8c8bf4 = L.divIcon({"className": "c-6a00a8", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_a3da9b448f7e065940ad208cb0d1e0ce.setIcon(div_icon_0569aced9dd31bc57b3c420b3f8c8bf4);
+        
+    
+        var popup_5db9fea04203f1a0576d431f3d8c569c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2f6e36bb80fea55fb2e1dc08736b48fb = $(`<div id="html_2f6e36bb80fea55fb2e1dc08736b48fb" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">O Ya:<br>Unit toast<br>22 votes</div></div>`)[0];
+                popup_5db9fea04203f1a0576d431f3d8c569c.setContent(html_2f6e36bb80fea55fb2e1dc08736b48fb);
+            
+        
+
+        marker_a3da9b448f7e065940ad208cb0d1e0ce.bindPopup(popup_5db9fea04203f1a0576d431f3d8c569c)
+        ;
+
+        
+    
+    
+            marker_a3da9b448f7e065940ad208cb0d1e0ce.bindTooltip(
+                `<div>
+                     O Ya:<br>Unit toast,
+22 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0cc74e3f4d25bafb19355d93f7958bbc = L.marker(
+                [42.35146, -71.06066],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_7fe5714982846f0423a57e619d9d6c71 = L.divIcon({"className": "c-6600a7", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_0cc74e3f4d25bafb19355d93f7958bbc.setIcon(div_icon_7fe5714982846f0423a57e619d9d6c71);
+        
+    
+        var popup_737268f4f510b1222706f3d87c8ef12e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1a4c4f7b7bdeaf9bba0eddd8365e2d6b = $(`<div id="html_1a4c4f7b7bdeaf9bba0eddd8365e2d6b" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Gourmet Dumpling House:<br>Watercress<br>21 votes</div></div>`)[0];
+                popup_737268f4f510b1222706f3d87c8ef12e.setContent(html_1a4c4f7b7bdeaf9bba0eddd8365e2d6b);
+            
+        
+
+        marker_0cc74e3f4d25bafb19355d93f7958bbc.bindPopup(popup_737268f4f510b1222706f3d87c8ef12e)
+        ;
+
+        
+    
+    
+            marker_0cc74e3f4d25bafb19355d93f7958bbc.bindTooltip(
+                `<div>
+                     Gourmet Dumpling House:<br>Watercress,
+21 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_af7da54d67b1281236ec58954e8ffc3d = L.marker(
+                [42.37055, -71.09713],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_c606b0576bf40e91ddbe6d00415e63b0 = L.divIcon({"className": "c-6100a7", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_af7da54d67b1281236ec58954e8ffc3d.setIcon(div_icon_c606b0576bf40e91ddbe6d00415e63b0);
+        
+    
+        var popup_d25e90cb32c2941cfe6dc67fb34a079b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a87cbb4dc0cd5b9c52b60eb58b50a332 = $(`<div id="html_a87cbb4dc0cd5b9c52b60eb58b50a332" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Oleana Restaurant:<br>Baked alaska <br>20 votes</div></div>`)[0];
+                popup_d25e90cb32c2941cfe6dc67fb34a079b.setContent(html_a87cbb4dc0cd5b9c52b60eb58b50a332);
+            
+        
+
+        marker_af7da54d67b1281236ec58954e8ffc3d.bindPopup(popup_d25e90cb32c2941cfe6dc67fb34a079b)
+        ;
+
+        
+    
+    
+            marker_af7da54d67b1281236ec58954e8ffc3d.bindTooltip(
+                `<div>
+                     Oleana Restaurant:<br>Baked alaska ,
+20 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0969ec459817e4d6d8c15b43ca8806d9 = L.marker(
+                [42.37347925, -71.120502],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_9d81b47a814498649fb8a9cc2adfe5de = L.divIcon({"className": "c-5c01a6", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_0969ec459817e4d6d8c15b43ca8806d9.setIcon(div_icon_9d81b47a814498649fb8a9cc2adfe5de);
+        
+    
+        var popup_79245e8808706bfc49935a289a85d365 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_38aabe5e4706179580a7c3da2ee46fc1 = $(`<div id="html_38aabe5e4706179580a7c3da2ee46fc1" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Felipe'S Taqueria:<br>Anything <br>19 votes</div></div>`)[0];
+                popup_79245e8808706bfc49935a289a85d365.setContent(html_38aabe5e4706179580a7c3da2ee46fc1);
+            
+        
+
+        marker_0969ec459817e4d6d8c15b43ca8806d9.bindPopup(popup_79245e8808706bfc49935a289a85d365)
+        ;
+
+        
+    
+    
+            marker_0969ec459817e4d6d8c15b43ca8806d9.bindTooltip(
+                `<div>
+                     Felipe'S Taqueria:<br>Anything ,
+19 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_890b6ddd536fa496e1f010b61af756af = L.marker(
+                [42.34487511, -71.0705311],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_7535c0d9d4865e6b09992f430e5a049f = L.divIcon({"className": "c-5c01a6", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_890b6ddd536fa496e1f010b61af756af.setIcon(div_icon_7535c0d9d4865e6b09992f430e5a049f);
+        
+    
+        var popup_20f3dc7db784c0f04bb1d09efa73875f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2f4af139fa031e0c96e023d64b44ed5b = $(`<div id="html_2f4af139fa031e0c96e023d64b44ed5b" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Picco Pizza & Ice Cream:<br>Margherita <br>19 votes</div></div>`)[0];
+                popup_20f3dc7db784c0f04bb1d09efa73875f.setContent(html_2f4af139fa031e0c96e023d64b44ed5b);
+            
+        
+
+        marker_890b6ddd536fa496e1f010b61af756af.bindPopup(popup_20f3dc7db784c0f04bb1d09efa73875f)
+        ;
+
+        
+    
+    
+            marker_890b6ddd536fa496e1f010b61af756af.bindTooltip(
+                `<div>
+                     Picco Pizza & Ice Cream:<br>Margherita ,
+19 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_6f28cacc73475a82761bd4dabf39bb23 = L.marker(
+                [42.36649, -71.07801],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_783aceac69d7e76d58c36fe28c58ba5d = L.divIcon({"className": "c-5601a4", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_6f28cacc73475a82761bd4dabf39bb23.setIcon(div_icon_783aceac69d7e76d58c36fe28c58ba5d);
+        
+    
+        var popup_c42f32546b57ebf44dfd0144222b1c36 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_965eb246f61986c4e624c9c614068fdd = $(`<div id="html_965eb246f61986c4e624c9c614068fdd" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">The Helmand Restaurant:<br>Kaddo <br>18 votes</div></div>`)[0];
+                popup_c42f32546b57ebf44dfd0144222b1c36.setContent(html_965eb246f61986c4e624c9c614068fdd);
+            
+        
+
+        marker_6f28cacc73475a82761bd4dabf39bb23.bindPopup(popup_c42f32546b57ebf44dfd0144222b1c36)
+        ;
+
+        
+    
+    
+            marker_6f28cacc73475a82761bd4dabf39bb23.bindTooltip(
+                `<div>
+                     The Helmand Restaurant:<br>Kaddo ,
+18 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_4379b8a71a94aea3c4b7df187e396f6d = L.marker(
+                [42.35326916, -71.04611365],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_6a00ccebc33597d48c65a387495c7784 = L.divIcon({"className": "c-5002a2", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_4379b8a71a94aea3c4b7df187e396f6d.setIcon(div_icon_6a00ccebc33597d48c65a387495c7784);
+        
+    
+        var popup_d9c8e9d604fd75fcd37b25ff13383af3 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9d06959b7246d615cf6a7afc0db429b8 = $(`<div id="html_9d06959b7246d615cf6a7afc0db429b8" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Committee:<br>Sesame crusted baked feta <br>17 votes</div></div>`)[0];
+                popup_d9c8e9d604fd75fcd37b25ff13383af3.setContent(html_9d06959b7246d615cf6a7afc0db429b8);
+            
+        
+
+        marker_4379b8a71a94aea3c4b7df187e396f6d.bindPopup(popup_d9c8e9d604fd75fcd37b25ff13383af3)
+        ;
+
+        
+    
+    
+            marker_4379b8a71a94aea3c4b7df187e396f6d.bindTooltip(
+                `<div>
+                     Committee:<br>Sesame crusted baked feta ,
+17 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a6971ee477afd245a3033f75539ea9c2 = L.marker(
+                [42.3609838, -71.0680064],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_e84dc28b8049720b7257908cb29de87f = L.divIcon({"className": "c-4903a0", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_a6971ee477afd245a3033f75539ea9c2.setIcon(div_icon_e84dc28b8049720b7257908cb29de87f);
+        
+    
+        var popup_3307a41643a78f198622b466ce153555 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_02fa3ccb67200733afc3ea34a4d0f64d = $(`<div id="html_02fa3ccb67200733afc3ea34a4d0f64d" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Ma Maison:<br>Grand marnier souffle<br>16 votes</div></div>`)[0];
+                popup_3307a41643a78f198622b466ce153555.setContent(html_02fa3ccb67200733afc3ea34a4d0f64d);
+            
+        
+
+        marker_a6971ee477afd245a3033f75539ea9c2.bindPopup(popup_3307a41643a78f198622b466ce153555)
+        ;
+
+        
+    
+    
+            marker_a6971ee477afd245a3033f75539ea9c2.bindTooltip(
+                `<div>
+                     Ma Maison:<br>Grand marnier souffle,
+16 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a54b3938a8d96ab1cdad2990428726fa = L.marker(
+                [42.35636, -71.052587],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_c8517f56bfb11cb630c046ef68d1ee34 = L.divIcon({"className": "c-4903a0", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_a54b3938a8d96ab1cdad2990428726fa.setIcon(div_icon_c8517f56bfb11cb630c046ef68d1ee34);
+        
+    
+        var popup_4a5d00b78cfc4d9eaf1c89dbb04cc26e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c5fba7230530a7899dd52166ffdccd4f = $(`<div id="html_c5fba7230530a7899dd52166ffdccd4f" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Kane'S Donuts - Downtown:<br>Jelly donut <br>16 votes</div></div>`)[0];
+                popup_4a5d00b78cfc4d9eaf1c89dbb04cc26e.setContent(html_c5fba7230530a7899dd52166ffdccd4f);
+            
+        
+
+        marker_a54b3938a8d96ab1cdad2990428726fa.bindPopup(popup_4a5d00b78cfc4d9eaf1c89dbb04cc26e)
+        ;
+
+        
+    
+    
+            marker_a54b3938a8d96ab1cdad2990428726fa.bindTooltip(
+                `<div>
+                     Kane'S Donuts - Downtown:<br>Jelly donut ,
+16 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_dfea61de2d183de587601d4dcd73f31c = L.marker(
+                [42.352, -71.07455],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_f1aca2732f87cedea459bb579b1781cc = L.divIcon({"className": "c-43039e", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_dfea61de2d183de587601d4dcd73f31c.setIcon(div_icon_f1aca2732f87cedea459bb579b1781cc);
+        
+    
+        var popup_6ab5d966efffcd385c221ccf13d80fce = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_999506b942428aa673a853ca739053e2 = $(`<div id="html_999506b942428aa673a853ca739053e2" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Spoke & Weal:<br>Sunchoke donuts <br>15 votes</div></div>`)[0];
+                popup_6ab5d966efffcd385c221ccf13d80fce.setContent(html_999506b942428aa673a853ca739053e2);
+            
+        
+
+        marker_dfea61de2d183de587601d4dcd73f31c.bindPopup(popup_6ab5d966efffcd385c221ccf13d80fce)
+        ;
+
+        
+    
+    
+            marker_dfea61de2d183de587601d4dcd73f31c.bindTooltip(
+                `<div>
+                     Spoke & Weal:<br>Sunchoke donuts ,
+15 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_d58312a87490b63b667ac6f6e22b063c = L.marker(
+                [42.31907, -71.11164],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_53c8018440a93fd6ba9f769947ff7d60 = L.divIcon({"className": "c-43039e", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_d58312a87490b63b667ac6f6e22b063c.setIcon(div_icon_53c8018440a93fd6ba9f769947ff7d60);
+        
+    
+        var popup_b2099a8e670f5a4d1a374a33d73af40d = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_086ec052b9b080b999f5174ca189d127 = $(`<div id="html_086ec052b9b080b999f5174ca189d127" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Tres Gatos:<br>The beet salad <br>15 votes</div></div>`)[0];
+                popup_b2099a8e670f5a4d1a374a33d73af40d.setContent(html_086ec052b9b080b999f5174ca189d127);
+            
+        
+
+        marker_d58312a87490b63b667ac6f6e22b063c.bindPopup(popup_b2099a8e670f5a4d1a374a33d73af40d)
+        ;
+
+        
+    
+    
+            marker_d58312a87490b63b667ac6f6e22b063c.bindTooltip(
+                `<div>
+                     Tres Gatos:<br>The beet salad ,
+15 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_7e321a1425eb08152c8c7aa9ea2c5b3f = L.marker(
+                [42.2664362, -71.0208214],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_979ad76937d3c5d880c4764d05e5d287 = L.divIcon({"className": "c-43039e", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_7e321a1425eb08152c8c7aa9ea2c5b3f.setIcon(div_icon_979ad76937d3c5d880c4764d05e5d287);
+        
+    
+        var popup_7553ab7d95c77be6dd8499a9df91d13b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_dce913e1425a00c70ca97fb8ad94a2f2 = $(`<div id="html_dce913e1425a00c70ca97fb8ad94a2f2" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Thai Saap Noodles & Rice Kitchen:<br>Pad thai <br>15 votes</div></div>`)[0];
+                popup_7553ab7d95c77be6dd8499a9df91d13b.setContent(html_dce913e1425a00c70ca97fb8ad94a2f2);
+            
+        
+
+        marker_7e321a1425eb08152c8c7aa9ea2c5b3f.bindPopup(popup_7553ab7d95c77be6dd8499a9df91d13b)
+        ;
+
+        
+    
+    
+            marker_7e321a1425eb08152c8c7aa9ea2c5b3f.bindTooltip(
+                `<div>
+                     Thai Saap Noodles & Rice Kitchen:<br>Pad thai ,
+15 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_84472b34ba897b46cd7c2a8bad730158 = L.marker(
+                [42.35761905, -71.06279506],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_a220cad4d75f91cf60576ce42f03eb4b = L.divIcon({"className": "c-3c049b", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_84472b34ba897b46cd7c2a8bad730158.setIcon(div_icon_a220cad4d75f91cf60576ce42f03eb4b);
+        
+    
+        var popup_76445584412c4660cd714dfc99156227 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e596f85a153bc76ed9301fc0d1c13f3c = $(`<div id="html_e596f85a153bc76ed9301fc0d1c13f3c" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">No. 9 Park:<br>Prune stuffed gnocchi<br>14 votes</div></div>`)[0];
+                popup_76445584412c4660cd714dfc99156227.setContent(html_e596f85a153bc76ed9301fc0d1c13f3c);
+            
+        
+
+        marker_84472b34ba897b46cd7c2a8bad730158.bindPopup(popup_76445584412c4660cd714dfc99156227)
+        ;
+
+        
+    
+    
+            marker_84472b34ba897b46cd7c2a8bad730158.bindTooltip(
+                `<div>
+                     No. 9 Park:<br>Prune stuffed gnocchi,
+14 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_e89eb0e39a95be6a699270de5cc8c344 = L.marker(
+                [42.37198548, -71.12024675],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_57ae39b73c6da0bfa61d0f846ddbe39a = L.divIcon({"className": "c-330597", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_e89eb0e39a95be6a699270de5cc8c344.setIcon(div_icon_57ae39b73c6da0bfa61d0f846ddbe39a);
+        
+    
+        var popup_e4a446ff715c73a1e1e5a52e5b9c9538 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ec372e3652108d67337b5ef1824a5375 = $(`<div id="html_ec372e3652108d67337b5ef1824a5375" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Pinocchios Pizza & Subs:<br>Tomato and basil slice<br>13 votes</div></div>`)[0];
+                popup_e4a446ff715c73a1e1e5a52e5b9c9538.setContent(html_ec372e3652108d67337b5ef1824a5375);
+            
+        
+
+        marker_e89eb0e39a95be6a699270de5cc8c344.bindPopup(popup_e4a446ff715c73a1e1e5a52e5b9c9538)
+        ;
+
+        
+    
+    
+            marker_e89eb0e39a95be6a699270de5cc8c344.bindTooltip(
+                `<div>
+                     Pinocchios Pizza & Subs:<br>Tomato and basil slice,
+13 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_512a5e68e0951a8891b69eda26ec9dba = L.marker(
+                [42.34276, -71.05645],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_2aaee5fba615210d435fce7489bfc4a4 = L.divIcon({"className": "c-330597", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_512a5e68e0951a8891b69eda26ec9dba.setIcon(div_icon_2aaee5fba615210d435fce7489bfc4a4);
+        
+    
+        var popup_6a400c946343da83a6975f072ac67653 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_fd8c369874669fb99233624f83e7b6fd = $(`<div id="html_fd8c369874669fb99233624f83e7b6fd" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Fox And The Knife:<br>The broccoli caesar <br>13 votes</div></div>`)[0];
+                popup_6a400c946343da83a6975f072ac67653.setContent(html_fd8c369874669fb99233624f83e7b6fd);
+            
+        
+
+        marker_512a5e68e0951a8891b69eda26ec9dba.bindPopup(popup_6a400c946343da83a6975f072ac67653)
+        ;
+
+        
+    
+    
+            marker_512a5e68e0951a8891b69eda26ec9dba.bindTooltip(
+                `<div>
+                     Fox And The Knife:<br>The broccoli caesar ,
+13 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_101438a42d39482f2591a0977de342b1 = L.marker(
+                [42.35081749, -71.06061666],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_7d342a982d6ccca8de4938ffa77fa505 = L.divIcon({"className": "c-280592", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_101438a42d39482f2591a0977de342b1.setIcon(div_icon_7d342a982d6ccca8de4938ffa77fa505);
+        
+    
+        var popup_2f8d3005871848ca6754931f08ec47df = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e342d9d9536167f5f1e98e9730ca8ddf = $(`<div id="html_e342d9d9536167f5f1e98e9730ca8ddf" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Shabu-Zen:<br>Hotpot<br>12 votes</div></div>`)[0];
+                popup_2f8d3005871848ca6754931f08ec47df.setContent(html_e342d9d9536167f5f1e98e9730ca8ddf);
+            
+        
+
+        marker_101438a42d39482f2591a0977de342b1.bindPopup(popup_2f8d3005871848ca6754931f08ec47df)
+        ;
+
+        
+    
+    
+            marker_101438a42d39482f2591a0977de342b1.bindTooltip(
+                `<div>
+                     Shabu-Zen:<br>Hotpot,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_de0492c3e29e659a50470fef70631e61 = L.marker(
+                [42.33698788, -71.07592429],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_db894c5be45e6aaa701442030a7a57a0 = L.divIcon({"className": "c-280592", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_de0492c3e29e659a50470fef70631e61.setIcon(div_icon_db894c5be45e6aaa701442030a7a57a0);
+        
+    
+        var popup_75f1d97c646dba9764423eaccd81b0c9 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9cf00efe4aa80bec9a4bb00f68ff11b3 = $(`<div id="html_9cf00efe4aa80bec9a4bb00f68ff11b3" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Toro:<br>Paella<br>12 votes</div></div>`)[0];
+                popup_75f1d97c646dba9764423eaccd81b0c9.setContent(html_9cf00efe4aa80bec9a4bb00f68ff11b3);
+            
+        
+
+        marker_de0492c3e29e659a50470fef70631e61.bindPopup(popup_75f1d97c646dba9764423eaccd81b0c9)
+        ;
+
+        
+    
+    
+            marker_de0492c3e29e659a50470fef70631e61.bindTooltip(
+                `<div>
+                     Toro:<br>Paella,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_7ca5e99a1da048d31950b727f33986e6 = L.marker(
+                [42.34518995, -71.09695204],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_a87ec746c585c2654f948344dfc5ecab = L.divIcon({"className": "c-280592", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_7ca5e99a1da048d31950b727f33986e6.setIcon(div_icon_a87ec746c585c2654f948344dfc5ecab);
+        
+    
+        var popup_8039f264e189cf3acfd4be02fac1ed8f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d28ed5d216bff224603e5992aeebdfad = $(`<div id="html_d28ed5d216bff224603e5992aeebdfad" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Hojoko Boston:<br>Burger<br>12 votes</div></div>`)[0];
+                popup_8039f264e189cf3acfd4be02fac1ed8f.setContent(html_d28ed5d216bff224603e5992aeebdfad);
+            
+        
+
+        marker_7ca5e99a1da048d31950b727f33986e6.bindPopup(popup_8039f264e189cf3acfd4be02fac1ed8f)
+        ;
+
+        
+    
+    
+            marker_7ca5e99a1da048d31950b727f33986e6.bindTooltip(
+                `<div>
+                     Hojoko Boston:<br>Burger,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_f97384dc86da2c5c4d7bbde08cb43ba8 = L.marker(
+                [42.30026, -71.1131],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_e631b313b17101ca6d9eef0abf73a6fa = L.divIcon({"className": "c-280592", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_f97384dc86da2c5c4d7bbde08cb43ba8.setIcon(div_icon_e631b313b17101ca6d9eef0abf73a6fa);
+        
+    
+        var popup_056dcf9dc192d2063784f3bf7a6a42b3 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d1c1957b63ee50e4dea73c46fe7ef171 = $(`<div id="html_d1c1957b63ee50e4dea73c46fe7ef171" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Brassica Kitchen & Cafe:<br>Donut with mango butter <br>12 votes</div></div>`)[0];
+                popup_056dcf9dc192d2063784f3bf7a6a42b3.setContent(html_d1c1957b63ee50e4dea73c46fe7ef171);
+            
+        
+
+        marker_f97384dc86da2c5c4d7bbde08cb43ba8.bindPopup(popup_056dcf9dc192d2063784f3bf7a6a42b3)
+        ;
+
+        
+    
+    
+            marker_f97384dc86da2c5c4d7bbde08cb43ba8.bindTooltip(
+                `<div>
+                     Brassica Kitchen & Cafe:<br>Donut with mango butter ,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_d91a99503088fc874efd3ec500daff3e = L.marker(
+                [42.3637299, -71.05425],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_7352a8b19d34f6366ecc6da7c08780b5 = L.divIcon({"className": "c-280592", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_d91a99503088fc874efd3ec500daff3e.setIcon(div_icon_7352a8b19d34f6366ecc6da7c08780b5);
+        
+    
+        var popup_6afb57c182e8d529839dca2941e55e13 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c0099375eb886205fd4ad9b7c3767640 = $(`<div id="html_c0099375eb886205fd4ad9b7c3767640" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Galleria Umberto:<br>Arancini <br>12 votes</div></div>`)[0];
+                popup_6afb57c182e8d529839dca2941e55e13.setContent(html_c0099375eb886205fd4ad9b7c3767640);
+            
+        
+
+        marker_d91a99503088fc874efd3ec500daff3e.bindPopup(popup_6afb57c182e8d529839dca2941e55e13)
+        ;
+
+        
+    
+    
+            marker_d91a99503088fc874efd3ec500daff3e.bindTooltip(
+                `<div>
+                     Galleria Umberto:<br>Arancini ,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_631aeb8d2b9445ef2e7d6ba6c8970b35 = L.marker(
+                [42.3965, -71.10396],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_95fb45a0048d34a51404bffc2ada4072 = L.divIcon({"className": "c-280592", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_631aeb8d2b9445ef2e7d6ba6c8970b35.setIcon(div_icon_95fb45a0048d34a51404bffc2ada4072);
+        
+    
+        var popup_7d21fe8090dfca4cd3c92fd7678832c3 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_59f757e18a344925e2ca1030ea87655d = $(`<div id="html_59f757e18a344925e2ca1030ea87655d" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Pennypacker'S:<br>The porchetta sandwich <br>12 votes</div></div>`)[0];
+                popup_7d21fe8090dfca4cd3c92fd7678832c3.setContent(html_59f757e18a344925e2ca1030ea87655d);
+            
+        
+
+        marker_631aeb8d2b9445ef2e7d6ba6c8970b35.bindPopup(popup_7d21fe8090dfca4cd3c92fd7678832c3)
+        ;
+
+        
+    
+    
+            marker_631aeb8d2b9445ef2e7d6ba6c8970b35.bindTooltip(
+                `<div>
+                     Pennypacker'S:<br>The porchetta sandwich ,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_167b549eed1d05d8663d8dde4465c273 = L.marker(
+                [42.40393945, -71.11446095],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_00afc7899cf9cb486fd4282017efeae0 = L.divIcon({"className": "c-280592", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_167b549eed1d05d8663d8dde4465c273.setIcon(div_icon_00afc7899cf9cb486fd4282017efeae0);
+        
+    
+        var popup_e7e8e1f3347dbe33d471c3c89a4a2e4d = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b885bab2322038b2e33de79d05276ef6 = $(`<div id="html_b885bab2322038b2e33de79d05276ef6" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Semolina Kitchen & Bar:<br>Bread pudding <br>12 votes</div></div>`)[0];
+                popup_e7e8e1f3347dbe33d471c3c89a4a2e4d.setContent(html_b885bab2322038b2e33de79d05276ef6);
+            
+        
+
+        marker_167b549eed1d05d8663d8dde4465c273.bindPopup(popup_e7e8e1f3347dbe33d471c3c89a4a2e4d)
+        ;
+
+        
+    
+    
+            marker_167b549eed1d05d8663d8dde4465c273.bindTooltip(
+                `<div>
+                     Semolina Kitchen & Bar:<br>Bread pudding ,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_17b0bddf59439ce40eb2b1b93e073fbd = L.marker(
+                [42.34958085, -71.04750441],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_ec70977f81a5daec7f8197afc8325b6b = L.divIcon({"className": "c-280592", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_17b0bddf59439ce40eb2b1b93e073fbd.setIcon(div_icon_ec70977f81a5daec7f8197afc8325b6b);
+        
+    
+        var popup_a5ec73b2231696286bc84903d58a3285 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_941397fac32dad61a6e0d64eb4d07db3 = $(`<div id="html_941397fac32dad61a6e0d64eb4d07db3" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Row 34:<br>The tuna crudo <br>12 votes</div></div>`)[0];
+                popup_a5ec73b2231696286bc84903d58a3285.setContent(html_941397fac32dad61a6e0d64eb4d07db3);
+            
+        
+
+        marker_17b0bddf59439ce40eb2b1b93e073fbd.bindPopup(popup_a5ec73b2231696286bc84903d58a3285)
+        ;
+
+        
+    
+    
+            marker_17b0bddf59439ce40eb2b1b93e073fbd.bindTooltip(
+                `<div>
+                     Row 34:<br>The tuna crudo ,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a0a83f96c44ee4d4cfb93f47e6132474 = L.marker(
+                [42.35829091, -71.06198115],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_0587080ae96add14003213468e037927 = L.divIcon({"className": "c-280592", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_a0a83f96c44ee4d4cfb93f47e6132474.setIcon(div_icon_0587080ae96add14003213468e037927);
+        
+    
+        var popup_37efd130481a4db0465414546628ae12 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a17948a4d57466eeab90a4a43c71135c = $(`<div id="html_a17948a4d57466eeab90a4a43c71135c" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Mooo Beacon Hill:<br>Parker house rolls <br>12 votes</div></div>`)[0];
+                popup_37efd130481a4db0465414546628ae12.setContent(html_a17948a4d57466eeab90a4a43c71135c);
+            
+        
+
+        marker_a0a83f96c44ee4d4cfb93f47e6132474.bindPopup(popup_37efd130481a4db0465414546628ae12)
+        ;
+
+        
+    
+    
+            marker_a0a83f96c44ee4d4cfb93f47e6132474.bindTooltip(
+                `<div>
+                     Mooo Beacon Hill:<br>Parker house rolls ,
+12 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_d4e54996cafdcdaaa03ab6ca5e2e3e61 = L.marker(
+                [42.37261, -71.03524],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_b27cbf5d111d719136b26966d5d0d827 = L.divIcon({"className": "c-1d068e", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_d4e54996cafdcdaaa03ab6ca5e2e3e61.setIcon(div_icon_b27cbf5d111d719136b26966d5d0d827);
+        
+    
+        var popup_d86a40e558cd28d3eec274752f0cab8c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_cccaf4e16b3b09b7fd20ea506e582ec4 = $(`<div id="html_cccaf4e16b3b09b7fd20ea506e582ec4" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Santarpio'S Pizza:<br>Sausage and garlic pizza <br>11 votes</div></div>`)[0];
+                popup_d86a40e558cd28d3eec274752f0cab8c.setContent(html_cccaf4e16b3b09b7fd20ea506e582ec4);
+            
+        
+
+        marker_d4e54996cafdcdaaa03ab6ca5e2e3e61.bindPopup(popup_d86a40e558cd28d3eec274752f0cab8c)
+        ;
+
+        
+    
+    
+            marker_d4e54996cafdcdaaa03ab6ca5e2e3e61.bindTooltip(
+                `<div>
+                     Santarpio'S Pizza:<br>Sausage and garlic pizza ,
+11 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_6a776e8bea2426619713b1c86ed5f203 = L.marker(
+                [42.33922, -71.0809],
+                {}
+            ).addTo(map_f2381d7e936c8397c5a2c57a6cd2cf8e);
+        
+    
+            var div_icon_faf861b1ce641203169dd3b2d569400e = L.divIcon({"className": "c-1d068e", "html": "\n    \u003csvg id=\"Layer_2\" data-name=\"Layer 2\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"\u003e\n    \u003cdefs\u003e\n        \u003cstyle\u003e\n        .c-f6e626 {fill: #f6e626;} .c-fdb130 {fill: #fdb130;} .c-fdac33 {fill: #fdac33;} .c-fa9b3d {fill: #fa9b3d;} .c-f1814d {fill: #f1814d;} .c-e4695e {fill: #e4695e;} .c-da5b69 {fill: #da5b69;} .c-d9586a {fill: #d9586a;} .c-d45270 {fill: #d45270;} .c-c5407e {fill: #c5407e;} .c-c03a83 {fill: #c03a83;} .c-bd3786 {fill: #bd3786;} .c-b52f8c {fill: #b52f8c;} .c-b12a90 {fill: #b12a90;} .c-b02991 {fill: #b02991;} .c-ac2694 {fill: #ac2694;} .c-a82296 {fill: #a82296;} .c-9e199d {fill: #9e199d;} .c-9613a1 {fill: #9613a1;} .c-8d0ba5 {fill: #8d0ba5;} .c-8808a6 {fill: #8808a6;} .c-6f00a8 {fill: #6f00a8;} .c-6a00a8 {fill: #6a00a8;} .c-6600a7 {fill: #6600a7;} .c-6100a7 {fill: #6100a7;} .c-5c01a6 {fill: #5c01a6;} .c-5601a4 {fill: #5601a4;} .c-5002a2 {fill: #5002a2;} .c-4903a0 {fill: #4903a0;} .c-43039e {fill: #43039e;} .c-3c049b {fill: #3c049b;} .c-330597 {fill: #330597;} .c-280592 {fill: #280592;} .c-1d068e {fill: #1d068e;} .c-0d0887 {fill: #0d0887;}\n        \u003c/style\u003e\n    \u003c/defs\u003e\n    \u003cg id=\"Layer_1-2\" data-name=\"Layer 1\"\u003e\n        \u003cpath d=\"m30.34,96.23c-.74-3.99-1.29-8.03-2.24-11.97-2.97-12.33-8.72-22.98-18.29-31.6C-2.73,41.35-3.26,21.96,8.27,9.62c11.5-12.31,30.67-12.88,42.94-1.27,12.04,11.39,13.06,31.28,1.12,42.74-13.04,12.52-19.17,27.85-21.99,45.15Zm.13-88.07c-12.3-.05-22.26,9.76-22.35,22-.09,12.37,9.99,22.53,22.3,22.5,12.19-.03,22.16-10.03,22.17-22.25.02-12.22-9.92-22.21-22.12-22.26Z\"/\u003e\n    \u003c/g\u003e\n    \u003c/svg\u003e\n    ", "iconSize": 30});
+            marker_6a776e8bea2426619713b1c86ed5f203.setIcon(div_icon_faf861b1ce641203169dd3b2d569400e);
+        
+    
+        var popup_fc65e6ea4ae47ec572b8c6f2354845a0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c1dc6256b1060cfd600ff5fea7f258d8 = $(`<div id="html_c1dc6256b1060cfd600ff5fea7f258d8" style="width: 100.0%; height: 100.0%;"><div style="width: 150px;">Ilona:<br>Crispy eggplant<br>11 votes</div></div>`)[0];
+                popup_fc65e6ea4ae47ec572b8c6f2354845a0.setContent(html_c1dc6256b1060cfd600ff5fea7f258d8);
+            
+        
+
+        marker_6a776e8bea2426619713b1c86ed5f203.bindPopup(popup_fc65e6ea4ae47ec572b8c6f2354845a0)
+        ;
+
+        
+    
+    
+            marker_6a776e8bea2426619713b1c86ed5f203.bindTooltip(
+                `<div>
+                     Ilona:<br>Crispy eggplant,
+11 votes
+                 </div>`,
+                {"sticky": true}
+            );
+        
+</script>
+</html>
