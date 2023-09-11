@@ -4,7 +4,7 @@ title: Kenny's Food Recs
 permalink: /food-recs/
 ---
 
-This is not a complete list. You can also get more food inspirations on my ig [@kchou.eats](https://www.instagram.com/kchou.eats/).
+This is not a complete list. The content of this list is updated automatically based on the raw data on [Google Sheets](https://docs.google.com/spreadsheets/d/1442-rzE9VLjcUoT80eWfmoxuxG2ZJrOAK4UG_LzO4dA/edit#gid=0). You can also get more food inspirations on my ig [@kchou.eats](https://www.instagram.com/kchou.eats/).
 
 **Rating System**:
 
