@@ -17,7 +17,22 @@ This is not a complete list. The content of this list is updated automatically b
 <br>
 
 <html>
-<!-- Include jQuery -->
+    <style>
+        .notes-column {
+            display: none;
+        }
+        .custom-tooltip {
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            max-width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+    </style>
+    <!-- Include jQuery -->
     <!-- Include DataTables CSS and JS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.0/mdb.min.css" />
@@ -32,7 +47,7 @@ This is not a complete list. The content of this list is updated automatically b
         function fetchData() {
             // Spreadsheet ID and range
             const spreadsheetId = "1442-rzE9VLjcUoT80eWfmoxuxG2ZJrOAK4UG_LzO4dA";
-            const range = "A:G"; // Replace with your sheet name
+            const range = "A:H"; // Replace with your sheet name
             gapi.client.sheets.spreadsheets.values.get({
                 spreadsheetId: spreadsheetId,
                 range: range,
@@ -52,18 +67,36 @@ This is not a complete list. The content of this list is updated automatically b
             table.id = "rec_table";
             // Create table headers
             const headerRow = thead.insertRow();
-            data[0].forEach(function(cellData) {
+            data[0].forEach(function(cellData, index) {
                 const th = document.createElement("th");
+                if(index === data[0].length - 1) th.classList.add('notes-column');
                 th.textContent = cellData;
                 headerRow.appendChild(th);
             });
             // Create table rows with data
             for (let i = 1; i < data.length; i++) {
                 const row = tbody.insertRow();
-                data[i].forEach(function(cellData) {
+                for (let j = 0; j < data[0].length; j++) {
                     const cell = row.insertCell();
-                    cell.textContent = cellData;
-                });
+                    if (j === data[0].length - 1) cell.classList.add('notes-column');
+                    cell.textContent = data[i][j] || 'n/a';
+                }
+                // Create tooltip
+                if(data[i][data[0].length - 1]) {
+                    const tooltip = document.createElement("div");
+                    tooltip.classList.add("custom-tooltip");
+                    tooltip.textContent = data[i][data[0].length - 1];
+
+                    row.addEventListener("mouseover", function(e) {
+                        tooltip.style.left = e.pageX + "px";
+                        tooltip.style.top = e.pageY + "px";
+                        document.body.appendChild(tooltip);
+                    });
+
+                    row.addEventListener("mouseout", function() {
+                        document.body.removeChild(tooltip);
+                    });
+                }
             }
             // Append the table to a container element
             const tableContainer = document.getElementById("table-container");
