@@ -6,18 +6,15 @@ permalink: /food-recs/
 
 This is not a complete list. The content of this list is updated automatically based on the raw data on [Google Sheets](https://docs.google.com/spreadsheets/d/1442-rzE9VLjcUoT80eWfmoxuxG2ZJrOAK4UG_LzO4dA/edit#gid=0). You can also get more food inspirations on my ig [@kchou.eats](https://www.instagram.com/kchou.eats/).
 
-**Rating System**:
+|**Rating System**:|
+| -- |
+| 1/5 = Terribad - I regret this decision | 
+| 2/5 = Bad - Will not go even if someone else wants to go | 
+| 3/5 = Aite - Will go if someone else wants to go  | 
+| 4/5 = Great - Would visit again of my own desire  | 
+| 5/5 = Wowza - Worth a special trip | 
 
-1/5 = Terribad - I regret this decision
-
-2/5 = Bad - Will not go even if someone else wants to go
-
-3/5 = Aite - Will go if someone else wants to go
-
-4/5 = Great - Would visit again of my own desire
-
-5/5 = Wowza - Worth a special trip
-
+<br>
 
 <html>
 <!-- Include jQuery -->
