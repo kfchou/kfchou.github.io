@@ -4,7 +4,7 @@ title: Kenny's Food Recs
 permalink: /food-recs/
 ---
 
-This is not a complete list. The content of this list is updated automatically based on the raw data on [Google Sheets](https://docs.google.com/spreadsheets/d/1442-rzE9VLjcUoT80eWfmoxuxG2ZJrOAK4UG_LzO4dA/edit#gid=0). You can also get more food inspirations on my ig [@kchou.eats](https://www.instagram.com/kchou.eats/).
+To contribute, please submit your reviews [here](https://docs.google.com/forms/d/e/1FAIpQLSc3rrsBrqAP7WhvTzkQ3CdWUecWeeHMEV7RmaX6Oj8K_jEf5w/viewform?usp=sf_link). The content of this list is updated automatically based on the raw data on [Google Sheets](https://docs.google.com/spreadsheets/d/1442-rzE9VLjcUoT80eWfmoxuxG2ZJrOAK4UG_LzO4dA/edit#gid=0), which is pulled from the survey responses. You can also get more food inspirations on my ig [@kchou.eats](https://www.instagram.com/kchou.eats/).
 
 |**Rating System**:|
 | -- |
@@ -15,7 +15,8 @@ This is not a complete list. The content of this list is updated automatically b
 | 5/5 = Wowza - Worth a special trip | 
 
 <br>
-
+All prices are in USD, includes taxes and tips, and excludes drinks.
+<br>
 <html>
     <style>
         .notes-column {
@@ -130,4 +131,6 @@ This is not a complete list. The content of this list is updated automatically b
 
 You can view the raw-form of the data [here](https://docs.google.com/spreadsheets/d/1442-rzE9VLjcUoT80eWfmoxuxG2ZJrOAK4UG_LzO4dA/edit#gid=0).
 
-Have restaurants you want to suggest? Shoot me an [email](kennethfchou@gmail.com).
+Want to contribute your own reviews? Fill out a form [here](https://docs.google.com/forms/d/e/1FAIpQLSc3rrsBrqAP7WhvTzkQ3CdWUecWeeHMEV7RmaX6Oj8K_jEf5w/viewform?usp=sf_link)
+
+Suggestions? Shoot me an [email](kennethfchou@gmail.com).
