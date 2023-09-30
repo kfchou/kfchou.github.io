@@ -29,7 +29,7 @@ All prices are in USD, includes taxes and tips, and excludes drinks.
         <script src='https://apis.google.com/js/api.js'></script>
     </head>
     <style>
-        .notes-column {
+        .hidden-column {
             display: none;
         }
         .custom-tooltip {
