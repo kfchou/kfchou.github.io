@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Displaying and sasving live serial port data with FuncAnimation.
+title: Displaying and saving live serial port data with FuncAnimation
 categories: [Visualizations, matplotlib, python]
 ---
 
