@@ -1,7 +1,7 @@
 ---
 layout: post
 title: r/boston's favorite dishes, 2023.
-categories: [Visualizations, Plotly, Folium]
+categories: [Visualizations, Plotly, Folium, python]
 ---
 
 <style>
