@@ -37,7 +37,7 @@ Note: I won't discuss how to read live data from the serial port here. There are
 
 Under the hood:
 1. `FuncAnimation` calls the function you provided in `init_func`, this is where you set up your first animation frame.
-2. The `generator` function is called. This provides the data to the `update` function. This is usually where you update the lines on your canvas.
+2. The `generator` function is called to provide new data to the `update` function, in which the artist objects on your canvas are updated. The `generator` is called every time a new animation frame is created.
 
 
 
@@ -154,7 +154,7 @@ In this use case, it is very common to see the `while`/`yield` pattern.
 Now, when `ani.save()` is called, `FuncAnimation` is executed. It will call `generator_with_complete_data()`, then for each object yielded in the while loop, write that data object to each frame.
 
 # Summary
-To both view the live data ***and*** save that animation, two separate generators must be used. Meaning you must do the following:
+To both view the live data ***and*** save that animation, two separate generators must be used. Meaning, you must do the following:
 1. Write a generator to continuously read the latest data for display.
 2. Write a separate generator to read the complete data, but only giving `FuncAnimation` the appropriate data to display in each frame.
 3. Have one FuncAnimation call for live data display, executing it with `plt.show()`
