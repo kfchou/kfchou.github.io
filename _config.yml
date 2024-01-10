@@ -100,3 +100,8 @@ exclude:
   - README.md
   - CNAME
 
+assets:
+  sources:
+    - assets
+  compressed: true
+  digest: true
