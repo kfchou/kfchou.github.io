@@ -3,6 +3,8 @@ layout: post
 title:  Makefile Cheatsheet
 categories: [Cheatsheet,Software,Makefile,Docker]
 ---
+A template for using Makefiles to orchestrate Docker containers
+
 # Makewhat?
 Makefile is a *build tool* that helps us build & test our software, without having to remember potentially long shell commands. It's been around since the 1970s, and was primarily used to build & test C and C++ applications. 
 
