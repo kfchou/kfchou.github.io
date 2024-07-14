@@ -93,7 +93,10 @@ A look at how the shoreline of Boston changed over time, which partially explain
 </div>
 </body>
 
+Cartography based on [1] Edited by Kenny Chou, 2024.
+
 ### Credits
 Inspired by [Daniel Steiner](https://www.youtube.com/watch?v=UA63zaIXCZw)'s video on Boston.
 
-Cartography by Herb Heidt and Eliza McClennen of MapWorks for Mapping Boston edited by Alex Krieger and David Cobb with Amy Turner. Cambridge, MA : MIT Press, 1999. Accessed via the [Levanthal Map Collections](https://collections.leventhalmap.org/search/commonwealth:q524n4440).
+
+[1] Original Cartography by Herb Heidt and Eliza McClennen of MapWorks for Mapping Boston edited by Alex Krieger and David Cobb with Amy Turner. Cambridge, MA : MIT Press, 1999. Accessed via the [Levanthal Map Collections](https://collections.leventhalmap.org/search/commonwealth:q524n4440).
