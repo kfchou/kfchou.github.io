@@ -3,6 +3,8 @@ layout: post
 title:  Boston Shoreline Over Time
 categories: [Visualization]
 ---
+A look at how the shoreline of Boston changed over time, which partially explains why the streets of Boston is so poorly laid out.
+
 <style>
 .content-container {
     display: flex;
@@ -58,8 +60,6 @@ categories: [Visualization]
 
 <script src="{{ site.baseurl }}/assets/2024-07-13-boston-map/script.js"></script>
 
-
-A look at how the shoreline of Boston changed over time, which partially explains why the streets of Boston is so poorly laid out.
 
 <div class="content-container">
     <div class="slider-container">
