@@ -5,62 +5,74 @@ categories: [Visualization]
 ---
 A look at how the shoreline of Boston changed over time, which partially explains why the streets of Boston is so poorly laid out.
 
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
+</head>
+
 <style>
-.content-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    height: 70%;
-    background-color: #fff;
-    position: relative;
-}
-#background-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-}
-#displayed-image {
-    position: relative;
+    body {
+        touch-action: manipulation; /* Allow pinch-to-zoom on mobile devices */
+    }
+    .content-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80%;
+        height: 70%;
+        background-color: #fff;
+        position: relative;
+        touch-action: pinch-zoom; /* Allow pinch-to-zoom on mobile devices */
+    }
+    #background-image, #displayed-image {
     max-width: 100%;
     max-height: 100%;
-    z-index: 2;
-}
-.slider-container {
-    width: 80%;
-    margin-top: 20px;
-    position: relative;
-}
+    user-select: none; /* Prevents selection of the image */
+    }
 
-#image-slider {
-    width: 100%;
-}
+    #background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+    }
+    #displayed-image {
+        position: relative;
+        z-index: 2;
+    }
+    .slider-container {
+        width: 80%;
+        margin-top: 20px;
+        position: relative;
+    }
 
-.slider-labels {
-    display: flex;
-    justify-content: space-between;
-    top: 25px;  /* Adjust this value to fine-tune the vertical alignment */
-    width: 100%;
-}
+    #image-slider {
+        width: 100%;
+    }
 
-.slider-labels span {
-    text-align: center;
-    position: relative;
-}
+    .slider-labels {
+        display: flex;
+        justify-content: space-between;
+        top: 25px;  /* Adjust this value to fine-tune the vertical alignment */
+        width: 100%;
+    }
+
+    .slider-labels span {
+        text-align: center;
+        position: relative;
+    }
 </style>
 
 <script src="{{ site.baseurl }}/assets/2024-07-13-boston-map/script.js"></script>
 
-
+<body>
 <div class="content-container">
     <div class="slider-container">
         <div class="slider-labels">
@@ -79,6 +91,7 @@ A look at how the shoreline of Boston changed over time, which partially explain
         <img id="displayed-image" src="{{ site.baseurl }}/assets/2024-07-13-boston-map/boston_1630.png" alt="Image">
     </div>
 </div>
+</body>
 
 ### Credits
 Inspired by [Daniel Steiner](https://www.youtube.com/watch?v=UA63zaIXCZw)'s video on Boston.
