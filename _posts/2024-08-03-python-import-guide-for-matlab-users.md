@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Intro to Python Imports and Modules for Matlab users
-categories: [Python, Malab, Tutorials]
+categories: [Python, Matlab, Tutorials]
 ---
 
 When you write a function in MATLAB, each function typically is a single `.m` file. So let's say you've written `my_function()` and saved that function as `my_function.m`. 
@@ -12,7 +12,7 @@ To gain access to this function, you would use the `addpath` function to add tha
 * Modules are organized in packages (directories with `__init__.py` files)
 * `__init__.py` files can be empty. See [init files](#init-files), below.
 * Each package can contain multiple modules
-* A package can only be imported if it's within your python interpreter's searach path (see [path management](#path-management))
+* A package can only be imported if it's within your python interpreter's search path (see [path management](#path-management))
 
 For example, you might set up a project with `package1` and two modules like this:
 ```
@@ -68,7 +68,7 @@ Add packages to your python interpreter search path by one of the following meth
   ```
   print(sys.path)
   ```
-* Or by setting the `PYTHONPATH` environmente variable. In linux, you can set the `PYTHONPATH` for your current terminal session with:
+* Or by setting the `PYTHONPATH` environment variable. In linux, you can set the `PYTHONPATH` for your current terminal session with:
   ```bash
   export PYTHONPATH=/path/to/your/package
   ```
