@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Makefile Cheatsheet
-categories: [Cheatsheet,Software,Makefile,Docker]
+categories: [Templates,Cheatsheet,Software,Makefile,Docker]
 ---
 A template for using Makefiles to orchestrate Docker containers
 
