@@ -46,9 +46,7 @@ You can have `poetry` create a pyproject file for you:
 poetry init --no-interaction
 ```
 
-Let's take a look at how a toml file is used in Microsoft's [graphrag](https://github.com/microsoft/graphrag) package. Notice that instead of a `[project]` table, it defines all metadata with `[tool.poetry]`. This is considered an older standard, but considering how `poetry` is still the preferred modern package manager, many many projects still write their `pyproject` file this way.
-
-Here's an example:
+Here's an example using `poetry` as the backend. Notice that instead of a `[project]` table, it defines all metadata with `[tool.poetry]`. This is an older standard, but considering how `poetry` is still the preferred modern package manager, many many projects still write their `pyproject` file this way.
 
 ```toml
 # here we specify that the built-system backend is poetry
@@ -66,16 +64,16 @@ authors = [
 maintainers = ["First Last <name@domain.com>",]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/yunojuno/poetry-template"
-repository = "https://github.com/yunojuno/poetry-template"
-documentation = "https://github.com/yunojuno/poetry-template"
+homepage = "https://github.com/user/my_project"
+repository = "https://github.com/user/my_project"
+documentation = "https://github.com/user/my_project"
 packages = [{ include = "my_package" }]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
 environs = "^11.0.0"
 datashaper = "^0.0.49"
-# data science
+# data science <--- annotate dependency groups
 numba = "0.60.0"
 numpy = "^1.25.2"
 graspologic = "^3.4.1"
@@ -101,3 +99,4 @@ update-toml = "^0.2.1"
 * If using 'setuptools' as back end, see the [setup-tools specific guide](https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html)
 * Poetry [pyproject example](https://github.com/yunojuno/poetry-template/blob/master/pyproject.toml)
 * A [template by pypa](https://github.com/pypa/sampleproject/blob/main/pyproject.toml) with in-depth explanations
+* Pyproject in the wild: Microsoft's [graphrag](https://github.com/microsoft/graphrag) package
