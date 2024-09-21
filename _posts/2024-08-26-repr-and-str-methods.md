@@ -67,3 +67,25 @@ We can specify f-strings to show the `__repr__` or `__str__ ` of an object.
 >>> print(f'{a!s}') # the __str__ method is called
 hello
 ```
+
+## Example code for you to play around with:
+```py
+class MyClass:
+    def __init__(self, value):
+        self.value = value
+
+    def __repr__(self):
+        return f"MyClass(value={self.value!r})"
+
+    def __str__(self):
+        return f"MyClass with value: {self.value}"
+
+def main():
+    # Example usage
+    obj = MyClass(42)
+    print(repr(obj))  # Output: MyClass(value=42)
+    print(str(obj))   # Output: MyClass with value: 42
+
+if __name__=='__main__':
+    main()
+```
