@@ -4,58 +4,7 @@ title:  Pytest Markers
 categories: [Python,Tutorials, Pytest]
 ---
 
-Pytest markers are like tags. Tag your tests to keep them organized. Use markers to indicate test priority, skip under certain conditions, or group them by performance, integration, or acceptance.
-
-# Custom Markers
-Customized markers must be "registered" in `pytest.ini` or `pyproject` for them to be recognized. Examples are provided below.
-
-## Tagging Tests
-For example, you can tag tests as "smoke tests" for quick, essential checks, or "regression tests" for a more comprehensive check. Other than registering them in your config file, these "tags" don't need any additional definition to be used.
-
-```py
-import pytest
-
-@pytest.mark.smoke
-def test_homepage_loads():
-    # Test to check if the homepage loads quickly
-    assert ...
-
-@pytest.mark.regression
-def test_login_successful():
-    # Test to check if the login process works as expected
-    assert ...
-
-@pytest.mark.regression
-def test_user_profile_update():
-    # Test to check if user profile updates are saved correctly
-    assert ...
-```
-
-Register them to your config file:
-```toml
-# pyproject.toml
-
-[tool.pytest.ini_options]
-markers = [
-    "smoke: description for smoke",
-    "regression: description for regression"
-]
-```
-
-You can then use markers to run specific types of tests using the -m flag, for instance:
-
-```bash
-pytest -m smoke    # Run only smoke tests
-pytest -m regression    # Run only regression tests
-```
-
-You can mark all tests in a file with `pytestmark`
-```py
-import pytest
-pytestmark = pytest.mark.foo # marks all tests with "foo"
-# or
-pytestmark = [pytest.mark.foo, pytest.mark.bar, pytest.mark.baz] # apply multiple marks to all tests in this file
-```
+Pytest markers are like tags. Tag your tests to keep them organized. Use markers to indicate test priority, or group them by performance, integration, or acceptance. Use them to skip tests under certain conditions, or mark them as expected failures. Use parametrization to run your test under different parameters.
 
 # Common built-in markers
 ## Skipping tests (skip)
@@ -158,6 +107,57 @@ def test_addition(test_input, expected):
 
 You can parametrize functions, classes, pytest fixtures. See more examples:
 * [pytest-with-eric](https://pytest-with-eric.com/introduction/pytest-parameterized-tests/)
+
+# Custom Markers
+Customized markers must be "registered" in `pytest.ini` or `pyproject` for them to be recognized. Examples are provided below.
+
+## Tagging Tests
+For example, you can tag tests as "smoke tests" for quick, essential checks, or "regression tests" for a more comprehensive check. Other than registering them in your config file, these "tags" don't need any additional definition to be used.
+
+```py
+import pytest
+
+@pytest.mark.smoke
+def test_homepage_loads():
+    # Test to check if the homepage loads quickly
+    assert ...
+
+@pytest.mark.regression
+def test_login_successful():
+    # Test to check if the login process works as expected
+    assert ...
+
+@pytest.mark.regression
+def test_user_profile_update():
+    # Test to check if user profile updates are saved correctly
+    assert ...
+```
+
+Register them to your config file:
+```toml
+# pyproject.toml
+
+[tool.pytest.ini_options]
+markers = [
+    "smoke: description for smoke",
+    "regression: description for regression"
+]
+```
+
+You can then use markers to run specific types of tests using the -m flag, for instance:
+
+```bash
+pytest -m smoke    # Run only smoke tests
+pytest -m regression    # Run only regression tests
+```
+
+You can mark all tests in a file with `pytestmark`
+```py
+import pytest
+pytestmark = pytest.mark.foo # marks all tests with "foo"
+# or
+pytestmark = [pytest.mark.foo, pytest.mark.bar, pytest.mark.baz] # apply multiple marks to all tests in this file
+```
 
 # Plug-ins required markers:
 ## Pytest Timeout (timeout)
