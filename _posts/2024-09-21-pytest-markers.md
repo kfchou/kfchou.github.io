@@ -6,6 +6,23 @@ categories: [Python,Tutorials, Pytest]
 
 Pytest markers are like tags. Tag your tests to keep them organized. Use markers to indicate test priority, or group them by performance, integration, or acceptance. Use them to skip tests under certain conditions, or mark them as expected failures. Use parametrization to run your test under different parameters.
 
+In this notebook:
+- [Common built-in markers](#common-built-in-markers)
+  - [Skipping tests (skip)](#skipping-tests-skip)
+  - [Expected Failures (xfail)](#expected-failures-xfail)
+  - [Specifying Fixtures (usefixtures)](#specifying-fixtures-usefixtures)
+  - [Specifying Fixtures (fixtures as input arguments)](#specifying-fixtures-fixtures-as-input-arguments)
+  - [Parameterization (Parametrize)](#parameterization-parametrize)
+    - [Use `ids` to make test cases more human-readable](#use-ids-to-make-test-cases-more-human-readable)
+    - [Parametrization pro-tips:](#parametrization-pro-tips)
+- [Custom Markers](#custom-markers)
+  - [Tagging Tests](#tagging-tests)
+- [Plug-ins required markers:](#plug-ins-required-markers)
+  - [Pytest Timeout (timeout)](#pytest-timeout-timeout)
+  - [Pytest run order (source)](#pytest-run-order-source)
+- [Further Reading](#further-reading)
+
+
 # Common built-in markers
 ## Skipping tests (skip)
 If you want to skip tests, always state the reason for doing so to provide context for your colleagues and your future self.
@@ -45,7 +62,7 @@ In pre-production testing, run your tests with `--runxfail` flag. It basically i
 
 ! important - if you use `skip` and `xfail` marks, you should run your tests with the `-rax` flag to see reasons for skipped tests and expected failures.
 
-## Specifying Fixtures (1)
+## Specifying Fixtures (usefixtures)
 Pytest Fixtures help share common test data and logic across multiple tests, reducing code duplication and improving test maintainability.
 
 You can specify which features to use in one of two ways. The first is to decorate the function with `usefixtures("fixture_name")`
@@ -66,7 +83,7 @@ This applies the fixture to the test function, ensuring it runs before the test 
 
 However, the fixture's return value is not available directly within the test. It's more useful for fixtures that perform setup/teardown tasks but whose return value is not needed.
 
-## Specifying Fixtures (2)
+## Specifying Fixtures (fixtures as input arguments)
 The second method is to pass the feature into your test function as an input argument:
 ```py
 import pytest
@@ -87,13 +104,11 @@ The fixture is applied, and its return value (if any) is made available to the t
 
 This is useful when the test needs to directly interact with the fixture's return value.
 
-## parametrize
-You can run tests multiple times with various parameters via parametrization. For example:
+## Parameterization (Parametrize)
+You can run tests multiple times with various parameters via parametrization. For example, the following will generate 3 sets of tests with the given parameters:
 ```py
 import pytest
 
-# Test function demonstrating the parametrize feature.
-# It will run 3 times with different inputs.
 @pytest.mark.parametrize(
     "test_input,expected", # the input args to parametrize
     [ # the parameters are given as a list of tuples
@@ -105,8 +120,49 @@ def test_addition(test_input, expected):
     assert test_input + 2 == expected
 ```
 
+### Use `ids` to make test cases more human-readable
+For example, `ids` can be a list of strings:
+```py
+import pytest
+
+@pytest.mark.parametrize("input,expected", [(1, 2), (3, 4)], ids=["case_1", "case_2"])
+def test_add(input, expected):
+    assert input + 1 == expected
+```
+the tests would be named
+```bash
+test_add[case_1]
+test_add[case_2]
+```
+
+`ids` can also be callable functions based on the parameter values:
+```py
+import pytest
+
+def idfn(val):
+    return f"input_{val}"
+
+@pytest.mark.parametrize("input,expected", [(1, 2), (3, 4)], ids=idfn)
+def test_add(input, expected):
+    assert input + 1 == expected
+```
+which would give:
+```bash
+test_add[input_1]
+test_add[input_3]
+
+```
+
 You can parametrize functions, classes, pytest fixtures. See more examples:
 * [pytest-with-eric](https://pytest-with-eric.com/introduction/pytest-parameterized-tests/)
+
+### Parametrization pro-tips:
+Some important things to keep in mind:
+* Function parametrization is preferred over fixture and pytest_generate_tests.
+* Use fixture parametrization if work per parameter is needed.
+* Use pytest_generate_tests based parametrization when you absolutely know it’s the only way to solve your needs.
+* Utilize `ids` functions to get more human readable parametrized test cases.
+* Parameters can be marked.
 
 # Custom Markers
 Customized markers must be "registered" in `pytest.ini` or `pyproject` for them to be recognized. Examples are provided below.
