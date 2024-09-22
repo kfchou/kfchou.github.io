@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Pytest Markers
+title:  Pytest Markers & Parametrization
 categories: [Python,Tutorials, Pytest]
 ---
 
@@ -13,8 +13,10 @@ In this notebook:
   - [Specifying Fixtures (usefixtures)](#specifying-fixtures-usefixtures)
   - [Specifying Fixtures (fixtures as input arguments)](#specifying-fixtures-fixtures-as-input-arguments)
   - [Parameterization (Parametrize)](#parameterization-parametrize)
-    - [Use `ids` to make test cases more human-readable](#use-ids-to-make-test-cases-more-human-readable)
     - [Parametrization pro-tips:](#parametrization-pro-tips)
+    - [Use `ids` to make test cases more human-readable](#use-ids-to-make-test-cases-more-human-readable)
+    - [Mark Individual parameters](#mark-individual-parameters)
+    - [Use dataclasses with Parametrize for complicated args](#use-dataclasses-with-parametrize-for-complicated-args)
 - [Custom Markers](#custom-markers)
   - [Tagging Tests](#tagging-tests)
 - [Plug-ins required markers:](#plug-ins-required-markers)
@@ -120,6 +122,18 @@ def test_addition(test_input, expected):
     assert test_input + 2 == expected
 ```
 
+You can parametrize functions, classes, pytest fixtures. See more examples:
+* [pytest-with-eric](https://pytest-with-eric.com/introduction/pytest-parameterized-tests/)
+
+### Parametrization pro-tips:
+Some important things to keep in mind:
+* Function parametrization is preferred over fixture and pytest_generate_tests.
+* Use fixture parametrization if work per parameter is needed.
+* Use pytest_generate_tests based parametrization when you absolutely know it’s the only way to solve your needs.
+* Utilize `ids` functions to get more human readable parametrized test cases - see [here](#use-ids-to-make-test-cases-more-human-readable).
+* Parameters can be marked - see [here](#mark-individual-parameters).
+* `@pytest.mark.parametrize` is the simplest way to parametrize your tests. But if you want to use parametrization in combination with the command line, or other more interesting things, see the official docs [here](https://docs.pytest.org/en/stable/example/parametrize.html).
+
 ### Use `ids` to make test cases more human-readable
 For example, `ids` can be a list of strings:
 ```py
@@ -153,16 +167,55 @@ test_add[input_3]
 
 ```
 
-You can parametrize functions, classes, pytest fixtures. See more examples:
-* [pytest-with-eric](https://pytest-with-eric.com/introduction/pytest-parameterized-tests/)
+### Mark Individual parameters
+Use `pytest.param()` on individual parameters to mark them:
 
-### Parametrization pro-tips:
-Some important things to keep in mind:
-* Function parametrization is preferred over fixture and pytest_generate_tests.
-* Use fixture parametrization if work per parameter is needed.
-* Use pytest_generate_tests based parametrization when you absolutely know it’s the only way to solve your needs.
-* Utilize `ids` functions to get more human readable parametrized test cases.
-* Parameters can be marked.
+```py
+@pytest.mark.parametrize("a, b, op, expected", [
+    pytest.param(1, 2, "+", 3, id= "add"),
+    pytest.param(3, 1, "-", 5, id= "sub"),
+    pytest.param(2, 3, marks=pytest.mark.xfail, id="xfail_case"),
+    pytest.param(3, 4, marks=pytest.mark.skip, id="skip_case"),
+    ])
+def test_calc(a, b, op, expected):
+assert calc(a, b, op) == expected
+```
+
+### Use dataclasses with Parametrize for complicated args
+
+Dataclasses help make your test parametrization even more robust:
+- Easy setting of test names – could even write a custom
+`def __str__(self)`: and use `ids=str`
+- Thanks to default arguments, we only need to specify
+values that differ from the default (no op="+")
+- Better type safety, better autocompletion
+- More readability for complex test cases
+ 
+```py
+@dataclass
+    class CalcCase:
+    name: str
+    a: int
+    b: int
+    result: int
+    op: str = "+"
+
+@pytest.mark.parametrize("tc", [
+    CalcCase("add", a=1, b=2, result=3),
+    CalcCase("add-neg", a=-2, b=-3, result=-5),
+    CalcCase("sub", a=2, b=1, op="-", result=1),
+    ], ids=lambda tc: tc.name)
+def test_calc(tc):
+    assert calc(tc.a, tc.b, tc.op) == tc.result
+```
+gives
+```
+test_calc[add]
+test_calc[add-neg]
+test_calc[sub]
+```
+[source](https://github.com/The-Compiler/pytest-tips-and-tricks)
+
 
 # Custom Markers
 Customized markers must be "registered" in `pytest.ini` or `pyproject` for them to be recognized. Examples are provided below.
@@ -260,3 +313,6 @@ This is a trivial example, but ordering is respected across test files.
 # Further Reading
 * A quick summary of pytest markers - [tips and tricks](https://pythontest.com/pytest-tips-tricks/#markers)
 * Examples from [pytest-with-eric](https://pytest-with-eric.com/pytest-best-practices/pytest-markers/)
+* The official docs on parametrization:
+  * [@pytest.mark.parametrize](https://docs.pytest.org/en/7.1.x/how-to/parametrize.html)
+  * [Parametrizing tests](https://docs.pytest.org/en/stable/example/parametrize.html)
