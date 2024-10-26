@@ -4,7 +4,7 @@ title:  uv & Python Virtual Environment Tools
 categories: [Python, Tutorials, virtual environments, uv]
 ---
 
-[uv](https://docs.astral.sh/uv/) is a super fast Python package and project manager, written in Rust. It purports to be a drop-in replacement for many of the familiar tools we use, such as Pip, Conda, Poetry, Virtualenv, Pipx, etc... But how realistic is this? What is the developer experience if we ditch our existing tools for uv? Kevin Renskers wrote a nice comparison between [Poetry and Uv](https://www.loopwerk.io/articles/2024/python-poetry-vs-uv/) and came to the conclusion that the number one strength of uv is in how it manages virtual environments. So in this brain dump, I'll focus on virtual environment management aspect of uv, and compare it to other tools like poetry, conda, and virtualenv.
+[uv](https://docs.astral.sh/uv/) is a super fast Python package and project manager, written in Rust. It purports to be a drop-in replacement for many of the familiar tools we use, such as Pip, Conda, Poetry, Virtualenv, Pipx, etc... But how realistic is this? What is the developer experience if we ditch our existing tools for uv? Kevin Renskers wrote a nice comparison between [Poetry and uv](https://www.loopwerk.io/articles/2024/python-poetry-vs-uv/) and came to the conclusion that the number one strength of uv is in how it manages virtual environments. So in this brain dump, I'll focus on virtual environment management aspect of uv, and compare it to other tools like poetry, conda, and virtualenv.
 
 - [A quick snapshot of uv's strengths](#a-quick-snapshot-of-uvs-strengths)
 - [The state of virtual environment tools](#the-state-of-virtual-environment-tools)
@@ -19,7 +19,7 @@ categories: [Python, Tutorials, virtual environments, uv]
 
 
 # A quick snapshot of uv's strengths
-As a data scientist, I used to use Conda to manage everything, from packages to dependencies to virtual environments. But Conda is burdensome to set up and resource intensive. It is also extremely slow, especially when it encounters dependency conflicts. So I switched to Poetry and have had a great experience so far, except for how it deals with python versions and virtual environments. Uv promises to solve all of these issues.
+As a data scientist, I used to use Conda to manage everything, from packages to dependencies to virtual environments. But Conda is burdensome to set up and resource intensive. It is also extremely slow, especially when it encounters dependency conflicts. So I switched to Poetry and have had a great experience so far, except for how it deals with python versions and virtual environments. uv promises to solve all of these issues.
 
 Kevin Renskers did a [concise comparison](https://www.loopwerk.io/articles/2024/python-poetry-vs-uv/) between poetry and uv:
 * 👍 uv is by far the easiest tool to install, with the least amount of pre-requisites. Unlike Poetry, it does not depend on Python.
@@ -37,7 +37,7 @@ Kevin Renskers did a [concise comparison](https://www.loopwerk.io/articles/2024/
     ```
     But both tools allow you do update all dependencies easily.
 * 👍 uv replaces pipx. Pipx is used to "install and run Python applications in isolated environments". The apps are also added to your PATH variable. Both tools have similar syntaxes for this task, but uv is much faster.
-* 👍 uv replaces pyenv. Uv does a phenomenal job at virtual environment management and outperforms all other options.
+* 👍 uv replaces pyenv. uv does a phenomenal job at virtual environment management and outperforms all other options.
 
 This last point intrigues me, so let's dive in and see why.
 
@@ -69,7 +69,7 @@ Over time, tools that combined package, dependency, and virtual environment mana
 
 
 
-*This table was generated with a bot so it might not be 100% accurate. Uv was less than a year old at the time of writing, so its information may be incomplete
+*This table was generated with a bot so it might not be 100% accurate. uv was less than a year old at the time of writing, so its information may be incomplete
 
 
 # Detailed Comparison
@@ -183,4 +183,4 @@ Conda is easy to use, but burdensome to set up (e.g., in a docker container). It
 
 Traditional virtual environment tools (virtualenv and venv) either cannot manage python versions, or is budensome to set up as well (pyenv-virtualenv). 
 
-Uv seems to overcome these shortcomings by being **easy to set up** and can **download and manage different python versions** efficiently. Additionally, uv-managed python versions need no additional configuration set up from the user side. So it seems like uv will be making its way into my toolchain.
+All in all, uv seems to overcome these shortcomings by being **easy to set up** and can **download and manage different python versions** efficiently. Additionally, uv-managed python versions need no additional configuration set up from the user side. So it seems like uv will be making its way into my toolchain.
