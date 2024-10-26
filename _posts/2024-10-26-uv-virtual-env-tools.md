@@ -4,7 +4,7 @@ title:  uv & Python Virtual Environment Tools
 categories: [Python, Tutorials, virtual environments, uv]
 ---
 
-[uv](https://docs.astral.sh/uv/) is a super fast Python package and project manager, written in Rust. It purports to be a drop-in replacement for many of the familiar tools we use, such as Pip, Conda, Poetry, Virtualenv, Pipx, etc... But how realistic is this? What is the developer experience if we ditch our existing tools for uv? Kevin Renskers wrote a nice comparison between [Poetry and uv](https://www.loopwerk.io/articles/2024/python-poetry-vs-uv/) and came to the conclusion that the number one strength of uv is in how it manages virtual environments. So in this brain dump, I'll focus on virtual environment management aspect of uv, and compare it to other tools like poetry, conda, and virtualenv.
+[uv](https://docs.astral.sh/uv/) is a super fast Python package and project manager, written in Rust. It purports to be a drop-in replacement for many of the familiar tools we use, such as Pip, Conda, Poetry, Virtualenv, Pipx, etc... But how realistic is this? What is the developer experience if we ditch our existing tools for uv? Kevin Renskers wrote a nice [comparison](https://www.loopwerk.io/articles/2024/python-poetry-vs-uv/) between Poetry and uv, and came to the conclusion that the number one strength of uv is in how it manages virtual environments. So in this brain dump, I'll focus on virtual environment management aspect of uv, and compare it to other tools like poetry, conda, and virtualenv.
 
 - [A quick snapshot of uv's strengths](#a-quick-snapshot-of-uvs-strengths)
 - [The state of virtual environment tools](#the-state-of-virtual-environment-tools)
