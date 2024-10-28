@@ -46,9 +46,9 @@ First, let me differentiate between a virtual environment tool (something used t
 
 [virtualenv](https://virtualenv.pypa.io/en/latest/) is a tool to create isolated Python environments. Since Python 3.3, a subset of it has been integrated into the native python [venv module](https://docs.python.org/3/library/venv.html). But you cannot create environments with different python versions with `venv`. i.e., if your base python version is 3.7, you cannot create an environment with python 3.8. Therefore, `venv` is often used in conjunction with [`pyenv`](https://github.com/pyenv/pyenv) - a python version management tool. But having two separate tools is a pain, so [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) was created to combine virtual environment creation with environment-sepcific python version control.
 
-Over time, tools that combined package, dependency, and virtual environment management became available. Each has their strengths and weaknesses. [Conda](https://docs.conda.io/en/latest/) is great for environment management, since it can handle non-python packages as well, but it is extremely slow and can be complex to set up. [Poetry](https://python-poetry.org/docs/) is much better at dependency management and packaging, but is not designed to be an environment manager and is not suited to wrangle multiple environments and python versions per project. 
+Over time, tools that combined package, dependency, and virtual environment management became available. Each has their strengths and weaknesses. [Conda](https://docs.conda.io/en/latest/) is great for environment management since it can handle non-python packages as well, but it is extremely slow and can be complex to set up. [Poetry](https://python-poetry.org/docs/) is much better at dependency management and packaging, but is not designed to be an environment manager and is not suited to wrangle multiple environments and python versions per project, since it [uses](https://github.com/python-poetry/poetry/issues/2792#issuecomment-672730038) the virtualenv package under the hood.
 
-[uv](https://docs.astral.sh/uv/) promises do all of these tasks efficiently, but so far, it seems best suited to handle virtual environments purely due to **its speed and its lack of python dependency**. Since it does not depend on python, uv can be used to handle python version management.
+[uv](https://docs.astral.sh/uv/) promises do all of these tasks efficiently, but so far, it seems best suited to handle virtual environments purely due to **its speed and its built-in python version management** capabilities.
 
 
 
@@ -89,6 +89,12 @@ uv venv <path/myenv> --python 3.11
 source <path/myenv>/bin/activate
 ```
 Here, `<path/myenv>` is `.venv` by default. If uv cannot find the specified python version in your system, **uv will download that Python version for you**.
+
+uv doesn't expliclitly manage multiple virtual environments, instead it manages python interpreters.
+```
+uv python list
+```
+You can then select specific interpreters to use.
 
 ### Virtualenv
 You can specify the python interpreter you want to use with the `-p` flag.
