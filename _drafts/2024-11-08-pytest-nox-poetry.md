@@ -30,6 +30,8 @@ uv python install 3.11 3.12 -vvv
 
 The `-vvv` flag prints out debugging messages. There's an [issue](https://github.com/astral-sh/uv/issues/8812) with `uv` where it shows the Python installation as successful when it actually failed.
 
+> ! If you run into `invalid peer certificate: UnknownIssuer solution` issues, run `export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt` in console then try again. ([source](https://github.com/astral-sh/uv/issues/1819))
+
 At the time of writing, `uv` does not have an integration with `nox`. We must set up a script so that `nox` can find the Python versions installed with `uv` during runtime:
 ```sh
 #!/usr/bin/env bash
