@@ -4,12 +4,12 @@ title: About
 permalink: /about/
 ---
 
-Currently a Data Scientist / Engineer @ Philips
+Currently a Data Scientist / Engineer @ Philips; bridging data science research & production.
 
-I help bring research-grade software into production.
+I thinking about tooling a lot.
 
 Previously:
 * Data Scientist & Engineer @ Global Health Labs
-* Business Analyst & Applied Data Scientist @ Current Health
+* Applied Data Scientist @ Current Health
 * Ph.D. Biomedical Engineering (Auditory Neuroscience) @ Boston University
 * B.S. EE & B.S. Bioengineering @ University of Washington
