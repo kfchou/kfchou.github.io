@@ -70,12 +70,12 @@ nox.options.default_venv_backend = "uv|virtualenv"
 Since I always use Poetry as my dependency manager, I must make use of the `nox-poetry` package, otherwise Nox will just use `pip` to do the installation.
 
 Install Nox globally. If using `pipx`:
-```
+```sh
 pipx install nox
 pipx inject nox nox-poetry
 ```
 Otherwise,
-```
+```sh
 pip install nox
 pip nox-poetry
 ```
@@ -87,7 +87,7 @@ Here an example to run your tests with Python versions 3.10, 3.11, and 3.12. In 
 2. Install pytest plugins
 3. Run tests with the parameters shown
 
-```
+```py
 from nox_poetry import session
 
 python_versions = ["3.10", "3.11", "3.12"]
@@ -118,8 +118,9 @@ def tests(session):
 ```
 
 Finally, run the tests with nox:
-```
-sh shim-uv.sh nox -s tests
+
+```sh
+nox -s tests
 ```
 
 et voila.
