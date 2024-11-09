@@ -1,9 +1,20 @@
 ---
 layout: post
 title:  Testing your code in multiple environments with nox and uv
-categories: [Python, Tutorials, virtual environments, pytest, uv, nox, peotry]
+categories: [Python, Tutorials, virtual environments, pytest, uv, nox, poetry]
+excerpt: Often in production, you might want to test your code in different python versions or environment variables. You could use the `matrix` command in Github CI, but it's much more tedious to do the same thing locally. Instead of manually setting up each environment and variable, Nox helps you automate this kind of testing. Let's see what it takes to set up Nox and test my Poetry-managed package in three different Python environments.
 ---
 Often in production, you might want to test your code in different python versions or environment variables. You could use the `matrix` command in Github CI, but it's much more tedious to do the same thing locally. Instead of manually setting up each environment and variable, Nox helps you automate this kind of testing. Let's see what it takes to set up Nox and test my Poetry-managed package in three different Python environments.
+
+In this post:
+- [Nox in a nutshell](#nox-in-a-nutshell)
+- [Testing a Poetry-managed package with Nox](#testing-a-poetry-managed-package-with-nox)
+  - [Install the desired python versions](#install-the-desired-python-versions)
+  - [Install nox and nox-poetry](#install-nox-and-nox-poetry)
+  - [Set up noxfile.py](#set-up-noxfilepy)
+- [Other common Nox uses](#other-common-nox-uses)
+- [Wrapping up](#wrapping-up)
+
 
 # Nox in a nutshell
 First, there was Tox. Tox is a CLI tool to automate and standardize testing in python. Its options are stored in a config file, which can be a `.ini` or a `.toml` file. In fact, its configs can also be stored in your `pyproject.toml` file. However, config files can be limiting. Tox grants Python users more freedom by storing test configurations in a Python file instead.
