@@ -66,7 +66,7 @@ nox.options.default_venv_backend = "uv|virtualenv"
 ```
 Or specify the session backend with
 ```py
-@nox.session(venv_backend='venv')
+@nox.session(venv_backend='uv')
 ```
 
 
