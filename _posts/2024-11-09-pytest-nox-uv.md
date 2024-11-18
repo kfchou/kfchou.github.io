@@ -56,13 +56,17 @@ done
 PATH=$p "$@"
 ```
 
-edit 2024-11-09: As I was writing this, a better solution was introduced. You can set the default backend of Nox to use `uv`: 
+edit 2024-11-09: As I was writing this, a better solution was introduced. Instead of relying on the script above, you can set the default backend of Nox to use `uv` as you run your test: 
 ```sh
-nox --default-venv-backend uv ...
+nox --default-venv-backend uv mytest.py
 ```
 Or add the following to your noxfiles to use `uv` in specific projects:
 ```py
 nox.options.default_venv_backend = "uv|virtualenv"
+```
+Or specify the session backend with
+```py
+@nox.session(venv_backend='venv')
 ```
 
 
@@ -77,7 +81,7 @@ pipx inject nox nox-poetry
 Otherwise,
 ```sh
 pip install nox
-pip nox-poetry
+pip install nox-poetry
 ```
 
 
@@ -92,7 +96,7 @@ from nox_poetry import session
 
 python_versions = ["3.10", "3.11", "3.12"]
 
-@session(python=python_versions)
+@session(python=python_versions, venv_backend='uv')
 def tests(session):
     """Run tests on specified Python versions."""
     # Install the package and test dependencies
@@ -132,4 +136,4 @@ Since Nox is just like Make, you can run the sessions to do much more than testi
 * Use it with Github Actions (just like a makefile)
 
 # Wrapping up
-By following this guide, you've gained the tools to efficiently test Python code across multiple environments locally using Nox and uv. Instead of the manual setup for each Python version, you can now automate the process, ensuring consistent testing and compatibility across environments. You’ve learned how to install multiple Python versions with uv, configure Nox to handle testing with Poetry dependencies, and create flexible, reusable test sessions. This setup not only saves time but also brings you closer to a robust, production-ready development workflow. Happy testing!
+By following this guide, you've gained the tools to efficiently test Python code across multiple environments locally using Nox and uv. Instead of the manual setup for each Python version, you can now automate the process, ensuring consistent testing and compatibility across environments. You've learned how to install multiple Python versions with uv, configure Nox to handle testing with Poetry dependencies, and create flexible, reusable test sessions. This setup not only saves time but also brings you closer to a robust, production-ready development workflow. Happy testing!
