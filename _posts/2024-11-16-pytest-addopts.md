@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  Pytest command line interaction
-categories: [Python, Tutorials, virtual environments, pytest]
-excerpt: 
+title:  Specifying tests via command line arguments
+categories: [Python, Tutorials, Pytest]
+excerpt: Maybe you've parametrized your test, but want to give custom parameters to debug specific cases. This is done most efficiently by passing in command line arguments. How do we do this in the pytest framework?
 ---
 
 In the past couple of posts, I've written about using markers and fixtures to help you write better tests. So now your project has a high test coverage, and you've caught bugs. To investigate, you want to access specific tests with specific parameters. And perhaps you also want to run tests with different parameters without changing your code. So, how do you structure your test to achieve this?
 
-Let's illustrate the solution with an exmaple. You want to create a test with four parameters, A, B, C, and D. Additionally, you have the following requirements:
+Let's illustrate the solution with an example. You want to create a test with four parameters, A, B, C, and D. Additionally, you have the following requirements:
 1. Have default values for each parameter,
 2. Specify values for a subset of the parameters if desired (such as via the command line)
 3. Use `pytest.mark.parametrize()` to parametrize a subset of parameters
@@ -15,6 +15,7 @@ Let's illustrate the solution with an exmaple. You want to create a test with fo
 Let's see how we can achieve this.
 
 # 1. Adding Custom CLI Options to Pytest
+
 You can extend Pytest's default functionality by adding custom command-line options using the `pytest_addoption` hook. This is particularly useful for customizing tests dynamically without modifying the code.
 
 ```py
@@ -32,7 +33,7 @@ def pytest_addoption(parser):
 
 `pytest_addoption` is a special "hook function" by Pytest's hook-based plugin system. If hook functions are defined in a test suite, Pytest will discover them and automatically call them during its initialization. This hook __must__ be place in `conftest.py` ([docs](https://docs.pytest.org/en/latest/reference/reference.html#_pytest.hookspec.pytest_addoption)).
 
-The `parser` object is part of the `pytest_addoption` hook. The `parser.addoption()` method adds new arguments to pytest's CLI. The syntax used here is equivalent to argparse library’s [add_argument()](https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser.add_argument) function. For example, each argument can have:
+The `parser` object is part of the `pytest_addoption` hook. The `parser.addoption()` method adds new arguments to pytest's CLI. The syntax used here is equivalent to `argparse` library’s [add_argument()](https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser.add_argument) function. For example, each argument can have:
 * A name (e.g., --A, --B).
 * An action (e.g., store saves the argument's value). Unfortunately I honestly could not find documentation that has a list of all the options available.
 * A default value used when the argument is not provided.
