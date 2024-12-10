@@ -1,0 +1,40 @@
+---
+layout: post 
+title: "\"Checkout\" Github action can pull from the wrong commit"
+categories: [Github, CI/CD]
+excerpt: A crucial step in the CI/CD process is checking out your working repository. Typically, we rely on `actions/checkout` to pull the branch we're working on for testing. However, it turns out that there are some quirks in this action that is not well documented. The action can sometimes pull from the wrong commit SHA, leading to unexpected behaviors.
+---
+
+# The Problem
+After spending many hours trying to find the root cause of a failing test, it turns out that `actions/checkout` was checking out a commit that is __different from the branch I was working on__. This is an issue known since 2020, but is still being referenced as recently as January 2024 by prominent projects like Google Research, Firebase, and Ansible:
+* [On pull request, checkout@v2 built some ref other than the one that was claimed](https://github.com/actions/checkout/issues/237)
+* [Checking out wrong commit?](https://github.com/actions/checkout/issues/299)
+
+# Root Cause
+It turns out that this behavior is intentional, rather than a bug. On the Github Actions marketplace, the `checkout@v4` description contains the following [section](https://github.com/marketplace/actions/checkout#checkout-pull-request-head-commit-instead-of-merge-commit) titled __"Checkout pull request HEAD commit instead of merge commit"__.
+
+Meaning that
+1. The default behavior of the `checkout` action to is pull the merge commit SHA, NOT the HEAD of the pull request.
+2. If the parent branch of the pull request is ahead of the PR, unexpected behaviors can occur in your CI.
+
+I suppose it's usually best practice to keep a branch up to date with the parent branch, but I imagine this is not always desired.
+
+# Workaround
+- This issue can be fixed by making a commit that is up to date with the parent branch, or
+- Specifying the referenced hash during checkout as [documented](https://github.com/marketplace/actions/checkout#checkout-pull-request-head-commit-instead-of-merge-commit)
+
+    ```yaml
+    [... trimmed ...]
+            - name: Checkout code
+            uses: actions/checkout@v2
+            with:
+                # Check out pull request's HEAD commit instead of the merge commit to
+                # work-around an issue where wrong a commit is being checked out.
+                # For more details, see:
+                # https://github.com/actions/checkout/issues/299.
+                ref: {% raw %}${{ github.event.pull_request.head.sha }}{% endraw %}
+    [... trimmed ...]
+
+    ```
+
+I hope this post saves you hours of headache.
