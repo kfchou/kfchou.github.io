@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Testing your code in multiple environments with nox and uv
+title:  Class diagram
 categories: [Python, Tutorials, Visualizations]
 ---
 
