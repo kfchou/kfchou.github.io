@@ -10,8 +10,9 @@ In this post:
 - [Nox in a nutshell](#nox-in-a-nutshell)
 - [Testing a Poetry-managed package with Nox](#testing-a-poetry-managed-package-with-nox)
   - [Install the desired python versions](#install-the-desired-python-versions)
-  - [Install nox and nox-poetry](#install-nox-and-nox-poetry)
-  - [Set up noxfile.py](#set-up-noxfilepy)
+  - [Install nox and (optional) nox-poetry](#install-nox-and-optional-nox-poetry)
+  - [Set up noxfile.py for uv installation (preferred)](#set-up-noxfilepy-for-uv-installation-preferred)
+  - [Set up noxfile.py for Poetry installation (no longer preferred)](#set-up-noxfilepy-for-poetry-installation-no-longer-preferred)
 - [Other common Nox uses](#other-common-nox-uses)
 - [Wrapping up](#wrapping-up)
 
@@ -44,19 +45,7 @@ The `-vvv` flag prints out debugging messages. There's an [issue](https://github
 
 > ! If you run into `invalid peer certificate: UnknownIssuer solution` issues, run `export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt` in console then try again. ([source](https://github.com/astral-sh/uv/issues/1819))
 
-At the time of writing, `uv` does not have an integration with Nox. We must set up a script so that Nox can find the Python versions installed with `uv` during runtime ([source](https://github.com/astral-sh/uv/issues/6579)):
-```sh
-#!/usr/bin/env bash
-
-p=$PATH
-for k in "$(uv python dir)"/*/bin; do
-    p="${k}:${p}"
-done
-
-PATH=$p "$@"
-```
-
-edit 2024-11-09: As I was writing this, a better solution was introduced. Instead of relying on the script above, you can set the default backend of Nox to use `uv` as you run your test: 
+edit 2024-11-09: As I was writing this, an update to Nox was made; you can set the default backend of Nox to use `uv` as you run your test: 
 ```sh
 nox --default-venv-backend uv mytest.py
 ```
@@ -70,8 +59,8 @@ Or specify the session backend with
 ```
 
 
-## Install nox and nox-poetry
-Since I always use Poetry as my dependency manager, I must make use of the `nox-poetry` package, otherwise Nox will just use `pip` to do the installation.
+## Install nox and (optional) nox-poetry
+Nox will use the specified backend to install your packages, defaulting to `pip`. Currently, other supported back ends are `uv`, `conda`, `mamba`, and `micromamba`. If you want to use Poetry for installation, you must install the `nox-poetry` package.
 
 Install Nox globally. If using `pipx`:
 ```sh
@@ -84,8 +73,51 @@ pip install nox
 pip install nox-poetry
 ```
 
+## Set up noxfile.py for uv installation (preferred)
+Here an example to run your tests with Python versions 3.10, 3.11, and 3.12. In each session, Nox will 
+1. use uv to install your dependencies (without the `dev` group), 
+2. Install pytest plugins
+3. Run tests with the parameters shown
 
-## Set up noxfile.py
+```py
+import nox
+
+python_versions = ["3.10", "3.11", "3.12"]
+
+@nox.session(python=python_versions, venv_backend='uv')
+def tests(session):
+    """Run tests on specified Python versions."""
+    # Install the package and test dependencies
+    session.run_always("uv", "pip", "install", ".", external=True)
+    
+    session.install(
+        "pytest-xdist",
+        "pytest-randomly",
+        "pytest-sugar",
+    )
+    
+    # Run pytest with common options
+    session.run(
+        "pytest",
+        "tests/",
+        "-v",                   # verbose output
+        "-s",                   # don't capture output
+        "--tb=short",           # shorter traceback format
+        "--strict-markers",     # treat unregistered markers as errors
+        "-n", "auto",           # parallel testing
+        *session.posargs        # allows passing additional pytest args from command line
+    )
+```
+
+Finally, run the tests with nox:
+
+```sh
+nox -s tests
+```
+
+et voila.
+
+## Set up noxfile.py for Poetry installation (no longer preferred)
 Here an example to run your tests with Python versions 3.10, 3.11, and 3.12. In each session, Nox will 
 1. use Poetry to install your dependencies (without the `dev` group), 
 2. Install pytest plugins
@@ -128,6 +160,8 @@ nox -s tests
 ```
 
 et voila.
+
+But notice that installing requirements with Poetry is much slower than uv.
 
 # Other common Nox uses
 Since Nox is just like Make, you can run the sessions to do much more than testing, [such as](https://nox.thea.codes/en/stable/cookbook.html):
