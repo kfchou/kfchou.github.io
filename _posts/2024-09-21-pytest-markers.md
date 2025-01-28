@@ -311,6 +311,8 @@ test_foo.py:3: test_foo PASSED
 This is a trivial example, but ordering is respected across test files.
 
 # Further Reading
+* Tutorial by Florian Bruhin ([pdf](https://github.com/The-Compiler/pytest-tips-and-tricks/blob/main/pytest-tips-and-tricks-ep2024.pdf)) given at PyConDE2024
+* Other tutorials by [Florian](https://bruhin.software/#talks-and-trainings)
 * A quick summary of pytest markers - [tips and tricks](https://pythontest.com/pytest-tips-tricks/#markers)
 * Examples from [pytest-with-eric](https://pytest-with-eric.com/pytest-best-practices/pytest-markers/)
 * The official docs on parametrization:
