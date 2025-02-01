@@ -52,7 +52,7 @@ By default, `uv` will also utilize your `~/.cache` directory. So I recommend cre
 ln -s my_unrestricted_dir/.cache ~/.cache
 ```
 
-## (optional) Install desired python versions with
+## (optional) Install desired python versions
 This step is optional because `uv` will automatically install missing python versions for you.
 ```sh
 uv python install 3.11 3.12 -vvv
@@ -91,7 +91,7 @@ Or specify the session backend with
 @nox.session(venv_backend='uv')
 ```
 
-## Use uv to handle package installations
+## Use uv to handle package installations (preferred)
 Here is an example to run your tests with Python versions 3.10, 3.11, and 3.12. In each session, Nox will 
 1. use uv to install your dependencies (without the `dev` group), 
 2. Install pytest plugins
@@ -182,10 +182,54 @@ et voila.
 
 But notice that installing requirements with Poetry is much slower than uv.
 
-# Using Nox to compare pip, poetry, and uv
+# Using Nox to benchmark pip, poetry, and uv
 uv is build to be much, much faster than pip and poetry. Let's write a noxfile to test whether this is the case.
 
 Here, I assume `pip`, `poetry`, and `uv` are all set up in your system, and you have a `pyproject.toml` file configured for poetry, and a corresponding `requirements.txt` file exists.
+
+```py
+import nox
+import time
+
+@nox.session(python="3.10",venv_backend='uv')
+@nox.parametrize(
+    "installer",
+    [
+        ("pip"),
+        ("poetry"),
+        ("uv"),
+    ]
+)
+def compare_installers(session, installer):
+    if installer == "pip":
+        session.run("python", "-m", "ensurepip", "--upgrade")
+
+        start = time.time()
+        session.run("python", "-m", "pip", "install", "-r", "requirements.txt", ".")
+        elapsed = time.time() - start
+
+        session.log("pip install time: %s", elapsed)
+    elif installer == "poetry":
+        start = time.time()
+        session.run("poetry", "install", "--without", "dev,test,lambda", external=True)
+        elapsed = time.time() - start
+        
+        session.log("poetry install time: %s", elapsed)
+    elif installer == "uv":
+        start = time.time()
+        session.run("uv", "pip", "install", "-r", "requirements.txt", ".")
+        elapsed = time.time() - start
+        
+        session.log("uv install time: %s", elapsed)
+```
+
+for my particular dependencies, we can see that `uv` is faster than `poetry`, which is faster than `pip`:
+```
+nox > pip install time: 38.855388164520264
+nox > poetry install time: 8.043816328048706
+nox > uv install time: 0.2378978729248047
+```
+the results are similar to what is shown in the `uv` github repository.
 
 # Other common Nox uses
 Since Nox is just like Make, you can run the sessions to do much more than testing, [such as](https://nox.thea.codes/en/stable/cookbook.html):
