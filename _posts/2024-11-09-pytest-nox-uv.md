@@ -183,9 +183,11 @@ et voila.
 But notice that installing requirements with Poetry is much slower than uv.
 
 # Using Nox to benchmark pip, poetry, and uv
-uv is build to be much, much faster than pip and poetry. Let's write a noxfile to test whether this is the case.
+uv is built to be much, much faster than pip and poetry. Let's write a noxfile to test whether this is the case.
 
-Here, I assume `pip`, `poetry`, and `uv` are all set up in your system, and you have a `pyproject.toml` file configured for poetry, and a corresponding `requirements.txt` file exists.
+Here, I assume `pip`, `poetry`, and `uv` are all set up in your system. Additionally, you have a `pyproject.toml` file configured for Poetry, and a corresponding `requirements.txt` file exists.
+
+In this session, I simply install my requirements with the specified installer, and time that installation. `session.log` prints the logged message to the console.
 
 ```py
 import nox
@@ -224,7 +226,7 @@ def compare_installers(session, installer):
 ```
 
 for my particular dependencies, we can see that `uv` is faster than `poetry`, which is faster than `pip`:
-```
+```sh
 nox > pip install time: 38.855388164520264
 nox > poetry install time: 8.043816328048706
 nox > uv install time: 0.2378978729248047
@@ -233,8 +235,8 @@ the results are similar to what is shown in the `uv` github repository.
 
 # Other common Nox uses
 Since Nox is just like Make, you can run the sessions to do much more than testing, [such as](https://nox.thea.codes/en/stable/cookbook.html):
-* Creating Dev Environments
-* Auto-Release your project
+* Creating Dev Environments 
+* [Auto-Release](https://codewitholi.com/_posts/python-nox-automation) your project
 * Use it with Github Actions (just like a makefile)
 
 # Wrapping up
