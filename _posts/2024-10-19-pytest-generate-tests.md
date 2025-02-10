@@ -1,17 +1,17 @@
 ---
 layout: post
-title:  pytest.mark.parametrize vs pytest_generate_tests
+title:  pytest_generate_tests
 categories: [Python,Tutorials, Pytest]
 excerpt: Parametrization on crack
 ---
 
 As I wrote before, 
-* parametrization is preferred over fixture and pytest_generate_tests.
-  * pytest.mark.parametrization() is simpler and easier to read.
+* parametrization is preferred over fixtures and `pytest_generate_tests`.
+  * `pytest.mark.parametrization()` is simpler and easier to read.
   * If your parameters are fixed, use parametrization
-* Use pytest_generate_tests based parametrization when you absolutely know it’s the only way to solve your needs.
+* Use `pytest_generate_tests`-based parametrization when you absolutely know it’s the only way to solve your needs. e.g.,
   * If your parameters need to be generated dynamically
-  * Harder to debug
+  * It is harder to debug
 
 Now, let's take a look at `pytest_generate_tests`, assuming parameterization doesn't solve your needs
 
