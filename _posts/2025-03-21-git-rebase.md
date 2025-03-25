@@ -12,14 +12,17 @@ A key tool in keeping a clean commit history is `git rebase`. But most people I'
 
 
 # The basic rebase
+You're working on the `feature` branch, and need to merge it back into `main`. Rebase is used to keep the git history linear and synchronize your branch with the additional commits made in `F` and `G`.
+
+The syntax for rebase is `git rebase <target branch>`
+
 ```bash
 git pull origin main # update your target branch
 git checkout feature # switch to your branch
 git rebase main # initiate the rebase
 ```
 
-The syntax for rebase is `git rebase <target branch>`
-
+This would have the following effect:
 ```
           Before                           After
     A---B---C---F---G (main)        A---B---C---F---G (main)
