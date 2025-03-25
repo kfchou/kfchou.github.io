@@ -36,9 +36,9 @@ After rebasing, you must force push your changes:
 git push --force
 ```
 
-[Why do you need to force push](https://stackoverflow.com/questions/77029078/why-do-i-need-a-force-push-after-a-rebase)? The short answer is that notice the commits in the feature branch has changed (`D->D'`,`E->E'`).
+Why do you need to force push after a rebase? Because the commits in the feature branch has changed (`D -> D'`,`E -> E'`). You can read the [long answer here](https://stackoverflow.com/questions/77029078/why-do-i-need-a-force-push-after-a-rebase).
 
-I recommand reading [Git rebase illustrated](https://dev.to/joemsak/git-rebase-explained-and-eventually-illustrated-5hlb) to see what's happening under the hood.Specifically, having an understanding of what happens when git "rewinds" then "replays" your commits is very helpful in branch management.
+I recommand reading [Git rebase illustrated](https://dev.to/joemsak/git-rebase-explained-and-eventually-illustrated-5hlb) to see what's happening under the hood. Specifically, having an understanding of what happens when git "rewinds" then "replays" your commits is very helpful in branch management.
 
 # Rebasing with 2 arguments
 `git rebase --onto` allows you to rebase starting from a specific commit. It grants you exact control over what is being rebased and where. This is for scenarios where you need to be precise [1].
