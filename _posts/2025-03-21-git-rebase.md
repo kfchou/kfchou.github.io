@@ -58,7 +58,7 @@ You can think of it like we are changing the parent of `E` from `D` to `F`. The 
 git rebase --onto <new_base> <old_base>
 ```
 
-## Dealing with squashed parent branches
+## Use case: Dealing with squashed parent branches
 This syntax is very useful when you have branched off of `feature-1`, but `feature-1` has been squash-merged into `main`:
 
 ```
@@ -88,7 +88,7 @@ Which would look like
            D---E   [abandoned]
 ```
 
-## Squashed parent brahcnes with additional commits
+## Use case: Squashed parent brahcnes with additional commits
 Let's complicate the situation a bit. Someone has made additional commits to `feature-1` after you've branched off it, then squash-merged `feature-1` into `main`. To keep your own commit history clean in this case, do the same as above:
 ```bash
 git switch feature-2 && git rebase --onto main feature-1
