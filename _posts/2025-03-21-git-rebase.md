@@ -4,6 +4,13 @@ title:  Maintain a tidy commit history with git rebase
 categories: [git, tutorial]
 excerpt: A closer look into `git rebase`
 ---
+- [The basic rebase](#the-basic-rebase)
+- [Rebasing with 2 arguments](#rebasing-with-2-arguments)
+  - [Use case: Dealing with squashed parent branches](#use-case-dealing-with-squashed-parent-branches)
+  - [Use case: Squashed parent brahcnes with additional commits](#use-case-squashed-parent-brahcnes-with-additional-commits)
+  - [Use case: Removing a commit from history](#use-case-removing-a-commit-from-history)
+- [Rebasing with 3 arguments](#rebasing-with-3-arguments)
+- [Further reading](#further-reading)
 
 What does a clean commit history look like? Let's take a look at a the commit history of the main branch of a repository like [Poetry](https://github.com/python-poetry/poetry/commits/main/). Two things stand out to me -- 1. Each commit is bite-sized (atomic commits); changes are limited to a few files and functionalities, and 2. each commit message succinctly describes the change made, so if anything goes wrong, devs know exactly where to look. This is not only helpful for debugging, but it also helps with automated generation of [release notes](https://github.com/python-poetry/poetry/releases/tag/2.1.1).
 
@@ -31,7 +38,7 @@ This would have the following effect:
 ```
 In git jargon, we call this "__rebase onto main__".
 
-After rebasing, you must force push your changes:
+> ⚠️ After rebasing, you must force push your changes:
 ```bash
 git push --force
 ```
@@ -107,6 +114,23 @@ Which looks like
 ```
 
 See detailed discussion [here](https://stackoverflow.com/questions/63218716/branching-off-of-squashed-branches).
+
+## Use case: Removing a commit from history
+Have you ever committed a secret by accident? It's ok, we all have. I'll show you how to remove that commit from your git history.
+
+Let's say you've made the commit `A`, `B`, `C`, ... `G`. If you need to remove `C` from your history, do the following:
+```
+# Assuming you're on the correct branch
+git rebase --onto <commit-B> <commit-C>
+```
+You'll get
+```
+            Before                                   After
+                                                       
+      A---B---C---D---E                         A---B---D---E 
+```
+
+Unlike `git revert`, `rebase` will remove the "oopsie" commit without leaving a trace (remember to --force push). Use with caution...
 
 # Rebasing with 3 arguments
 We can be even more precise while rebasing. In the examples above, you can specify which branch you're referring to with
