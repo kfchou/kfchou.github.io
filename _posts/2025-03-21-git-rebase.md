@@ -116,7 +116,7 @@ Which looks like
 See detailed discussion [here](https://stackoverflow.com/questions/63218716/branching-off-of-squashed-branches).
 
 ## Use case: Removing a commit from history
-Have you ever committed a secret by accident? It's ok, we all have. I'll show you how to remove that commit from your git history.
+Have you ever pushed a commit by accident? It's ok, we all have. I'll show you how to remove that commit from your git history.
 
 Let's say you've made the commit `A`, `B`, `C`, ... `G`. If you need to remove `C` from your history, do the following:
 ```
@@ -130,7 +130,7 @@ You'll get
       A---B---C---D---E                         A---B---D---E 
 ```
 
-Unlike `git revert`, `rebase` will remove the "oopsie" commit without leaving a trace (remember to --force push). Use with caution...
+However, once you `push --force`, the git commit history will still show that you've force pushed. So the original commits will still be visible.
 
 # Rebasing with 3 arguments
 We can be even more precise while rebasing. In the examples above, you can specify which branch you're referring to with
