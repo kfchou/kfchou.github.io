@@ -136,6 +136,11 @@ nox -s tests
 
 et voila.
 
+Note: `uv` tries really hard to cache, and you may want to force force-reinstall your package during development testing:
+```py
+session.run_always("uv", "pip", "install", ".", "--reinstall-package","my_package",external=True)
+```
+
 ## Poetry installation (no longer preferred)
 Here an example to run your tests with Python versions 3.10, 3.11, and 3.12. In each session, Nox will 
 1. use Poetry to install your dependencies (without the `dev` group), 
