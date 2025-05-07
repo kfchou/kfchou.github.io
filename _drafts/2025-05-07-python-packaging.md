@@ -32,3 +32,25 @@ Packages will overwrite each other when:
 
 This overwriting behavior explains why you might only see one set of submodules or experience unpredictable behavior when importing.
 How to check which case you have
+
+## Src vs Flat Layout
+
+## Mixed Layout
+
+```
+my_repo/
+├── src/                      # A namespace package (no __init__.py)
+│   ├── component_a/          # Regular package
+│   │   ├── __init__.py
+│   │   └── module.py
+│   └── component_b/          # Regular package
+│       ├── __init__.py
+│       └── module.py
+├── regular_pkg/              # A regular package
+│   ├── __init__.py
+│   └── module.py
+└── setup.py
+```
+* The top-level "src" directory is a namespace package (no __init__.py), so it can merge with "src" packages from other repositories.
+* Subdirectories within "src" are regular packages with __init__.py files, making them structured, self-contained components.
+* The "regular_pkg" directory is completely independent of the namespace hierarchy, functioning as a normal package.
