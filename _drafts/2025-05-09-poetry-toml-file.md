@@ -1,16 +1,16 @@
 ---
 layout: post
-title:  tbd
-categories: [python, tutorials]
-excerpt: tbd
+title:  Python Packging: Extras versus Dependency Groups
+categories: [python, tutorials, poetry, uv]
+excerpt: Making pyproject.toml compatible with multiple build systems (Poetry and uv)
 ---
 
 Poetry is a popular dependency management and packing tool for Python, but it doesn't strictly follow certain Python Enhancement Proposals (PEPs). This makes a `pyproject.toml` file written for `Poetry` incompatible with other build systems, like `uv`. In January 2025, Poetry released a [major update](https://python-poetry.org/blog/announcing-poetry-2.0.0/) to be incompliance with several PEPs. Let's see how a `pyproject.toml` file for `Poetry 2.x` can be written to be compatible with build systems like `uv`.
 
 Our goal here is to:
 1. Transition a `pyproject` file from Poetry 1.x to 2.x
-2. Have our newly migrated `pyproject` file compatible with other build systems
-3. Gain a deeper understanding of the `pyproject.toml` file
+2. Have our newly migrated `pyproject` file compatible with other build systems, like `uv`
+3. Gain a deeper understanding of the `pyproject.toml` file to correctly package our projects
 
 # Major differences between Poetry 1.x and 2.x
 * Project metadata is moved from the `[tool.poetry]` table to the `[project]` table (PEP 621)
