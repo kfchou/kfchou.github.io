@@ -12,6 +12,16 @@ Our goal here is to:
 2. Have our newly migrated `pyproject` file compatible with other build systems, like `uv`
 3. Gain a deeper understanding of the `pyproject.toml` file to correctly package our projects
 
+- [Major differences between Poetry 1.x and 2.x](#major-differences-between-poetry-1x-and-2x)
+- [Dependency groups vs Extras](#dependency-groups-vs-extras)
+  - [Optional Dependencies (Extras)](#optional-dependencies-extras)
+  - [Dependency Groups](#dependency-groups)
+  - [Useing both Extras and Groups](#useing-both-extras-and-groups)
+- [In a monorepo context](#in-a-monorepo-context)
+  - [Example files](#example-files)
+- [Cross-system compatibility](#cross-system-compatibility)
+
+
 # Major differences between Poetry 1.x and 2.x
 * Project metadata is moved from the `[tool.poetry]` table to the `[project]` table (PEP 621)
 * Python version specification is now defined by the `requires-python` key under `[project]`
@@ -62,6 +72,8 @@ Because dependency groups are primarily used for developers, you can specify tha
 
 Dependency groups _were_ a Poetry-specific concept. In October 2024, Python adopted [PEP 735](https://peps.python.org/pep-0735/) to define how dependency groups are specified. However, Poetry is not yet compatible with PEP 735 (see the [open issue](https://github.com/python-poetry/poetry/issues/9751)). So for now, we need to keep using Poetry's tool-specific dependency groups, defined in the `tool.poetry` section.
 
+Note: `uv` does support dependency groups specified in the PEP 735 format.
+
 ## Useing both Extras and Groups
 If you want to define additional information that is not required for building but only for locking (for example, an explicit source), you can enrich dependency information in the tool.poetry section.
 ```
@@ -79,6 +91,9 @@ When both are specified, project.dependencies are used for metadata when buildin
 You can enrich optional dependencies for locking in the tool.poetry section analogous to dependencies.
 
 # In a monorepo context
+The root monorepo is not intended to be built as a package, so the `pyproject.toml` needs to be adjusted slightly.
+
+1. Relative Paths 
 (taken straight from [the docs](https://python-poetry.org/docs/dependency-specification/))
 
 You can add `dependencies` to `dynamic` and define your dependencies completely in the `tool.poetry` section. Using only the `tool.poetry` section might make sense in non-package mode when you will not build an sdist or a wheel.
@@ -93,8 +108,65 @@ requests = { version = ">=2.13.0", source = "private-source" }
 ```
 Another use case for tool.poetry.dependencies are relative path dependencies since `project.dependencies` only support absolute paths.
 
-# Using non-poetry build systems
-These should work:
+
+## Example files
+```
+[project]
+name = "monorepo-wrapper"
+description = ""
+license = "MIT"
+dynamic = ["version"]
+readme = "README.md"
+authors = [{name = "Your Name", email = "you@example.com"}]
+requires-python = '>=3.10,<4.0'
+dependencies = []
+
+[tool.poetry]
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+my_project = {path ="./my_project", develop=true}
+plugin = {path ="./plugins/my_plugin", develop=true, extras=['test']}
+```
+Try running `poetry install` and `uv sync`. They should both work. You should also find your plugin installed along with its extra "test" dependencies.
+
+
+```
+[project]
+name = "my_plugin"
+description = ""
+license = "MIT"
+dynamic = ["version"]
+readme = "README.md"
+authors = [{name = "Your Name", email = "you@example.com"}]
+requires-python = '>=3.10,<4.0'
+dependencies = [
+    'numpy (>=2.0.2) ; python_version >= "3.10"',
+]
+
+[tool.poetry]
+version = "0.1.0"
+
+[project.optional-dependencies]
+test = [
+    "pytest (>=8.2.2,<9.0.0)", 
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+```
+Try running `poetry install` and `uv sync`. They should both work. But in this case, running `uv sync` will only install the main dependency group. To install the extras, run
+```
+# install the test group
+uv sync --extra test
+
+# install all optional groups
+uv sync --all-extras
+```
+
+# Cross-system compatibility
+With your `pyproject.toml` properly configured, all of the following should work:
 ```
 $ poetry sync --extras dev
 
@@ -105,7 +177,8 @@ $ uv sync --extra dev
 $ uv sync --all--extras
 ```
 
+
+
 Full docs: https://python-poetry.org/docs/pyproject/
 
-References:
-https://stackoverflow.com/questions/79523584/use-a-single-pyproject-toml-for-poetry-uv-dev-dependencies
+References: https://stackoverflow.com/questions/79523584/use-a-single-pyproject-toml-for-poetry-uv-dev-dependencies
