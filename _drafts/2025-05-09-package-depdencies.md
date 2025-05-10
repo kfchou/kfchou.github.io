@@ -2,7 +2,7 @@
 layout: post
 title:  Dependencies in Python Packging
 categories: [python, tutorials, poetry, uv]
-excerpt: Optional Dependencies, Dependency Groups, and Local Dependencies. And, making your Poetry-based pyproject.toml compatible with uv.
+excerpt: Optional Dependencies, Dependency Groups, Local Dependencies, and editable dependencies. And, making your Poetry-based pyproject.toml compatible with uv.
 ---
 
 Poetry is a popular dependency management and packing tool for Python, but it doesn't strictly follow certain Python Enhancement Proposals (PEPs). This makes a `pyproject.toml` file written for `Poetry` incompatible with other build systems, like `uv`. In January 2025, Poetry released a [major update](https://python-poetry.org/blog/announcing-poetry-2.0.0/) to be incompliance with several PEPs. Let's see how a `pyproject.toml` file for `Poetry 2.x` can be written to be compatible with build systems like `uv`.
@@ -174,5 +174,36 @@ uv sync --all-extras
 ```
 see another example [here](https://stackoverflow.com/questions/79523584/use-a-single-pyproject-toml-for-poetry-uv-dev-dependencies).
 
-# Caveat: Local Dependencies with uv
-The way Poetry defines local dependencies are not yet compatible with uv. 
+# Bonus/Caveat: Install Local Packages in Editable Mode
+Unforutnately, the way packages are specified as editable in Poetry and UV are not yet compatible. You would need to define your editable packages in one way or another (or both, if you want to use both Poetry and UV):
+
+```
+# top level pyproject.toml
+[project]
+...
+dependencies = [
+    "my_package[test]",
+    "my_plugin",
+]
+
+# --------- uv settings -------- 
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+my_package = { path = "./my_package", editable = true, extras = ["test"] }
+my_plugin = { path = "./plugins/my_plugin", editable = true }
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+# -------- poetry settings -------- 
+[tool.poetry]
+version = "0.1.0"
+# package-mode = false #this need to be toggled on if installing via Poetry
+
+[tool.poetry.dependencies]
+my_package = {path = "./my_package", develop=true, extras = ["test"]}
+my_plugin = {path = "./plugins/my_plugin", develop=true}
+```
+Hopefully, these discrepencies will be resolved in the near future.
