@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  Dependencies in Python Packaging
-categories: [python, tutorials, poetry, uv]
-excerpt: Optional Dependencies, Dependency Groups, Local Dependencies, and editable dependencies. And, making your Poetry-based pyproject.toml compatible with uv.
+categories: [python, tutorials, poetry, uv, dependency management]
+excerpt: Making our Poetry-based pyproject.toml compatible with uv, and gaining a deeper understanding of pyproject.toml files.
 ---
 
 Managing dependencies in Python projects can be challenging, especially when working across different tools and build systems. Poetry, a popular dependency management and packaging tool, simplifies many aspects of this process but introduces its own nuances. With the release of Poetry 2.x in January 2025, significant changes were made to align with Python Enhancement Proposals (PEPs), improving compatibility with other tools like uv.
