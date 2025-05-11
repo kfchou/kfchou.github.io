@@ -7,12 +7,10 @@ excerpt: Optional Dependencies, Dependency Groups, Local Dependencies, and edita
 
 Managing dependencies in Python projects can be challenging, especially when working across different tools and build systems. Poetry, a popular dependency management and packaging tool, simplifies many aspects of this process but introduces its own nuances. With the release of Poetry 2.x in January 2025, significant changes were made to align with Python Enhancement Proposals (PEPs), improving compatibility with other tools like uv.
 
-I've been managing projects built with Poetry 1.x. But as use cases evolve to become more complicated, I'm finding it necessary to transition to Poetry 2.x. Additionally, the [advantages of uv](./2025-1-16-ode-to-uv.md) is becoming harder to ignore, hence the desire for uv compatibility. This blog explores how to effectively manage dependencies in Python projects beyond the basics:
-1. Transitioning a `pyproject.toml` file from Poetry 1.x to 2.x
-2. Maximizing compatibility with other build systems, such as uv (100% compatibility is not possible as of May 2025). Alternatively, just [migrate fully to uv](https://github.com/mkniewallner/migrate-to-uv)
-3. Understanding and leveraging "optional dependencies" and "dependency groups"
-4. Handling local dependencies and editable installations in a cross-system environment
-5. Installing local dependencies in editable mode in both poetry and uv packaging systems
+I've been managing projects built with Poetry 1.x. But as use cases evolve to become more complicated, I'm finding it necessary to transition to Poetry 2.x. Additionally, the [advantages of uv](./2025-1-16-ode-to-uv.md) is becoming harder to ignore, hence the desire for uv compatibility. This blog explores how to effectively manage dependencies in Python projects beyond the basics. Some key takeaways are:
+1. The `[project]` table in `pyproject.toml` are standard metadata defined by Python Enhancement Proposals. The data included in this table should be readable by all build systems (although Poetry is not compatible with the latest PEPs). Additionally, the data here is intended for users of the package, not developers.
+2. Developer oriented options defined in `[tool.poetry]` must be redundantly defined in `[tool.uv]`
+3. Developers must distinguish "Optional Depdendencies" from "Dependency Groups" and the context in which they're used.
 
 By the end of this post, you'll have a clear understanding of how to structure your `pyproject.toml` file for maximum compatibility and flexibility, whether you're building a package or managing dependencies in a monorepo.
 
@@ -98,7 +96,7 @@ Because dependency groups are primarily used for developers, you can specify tha
 Compatibility note: Dependency groups _were_ a Poetry-specific concept. In October 2024, Python adopted [PEP 735](https://peps.python.org/pep-0735/) to define how dependency groups are specified. However, Poetry is not yet compatible with PEP 735 (see the [open issue](https://github.com/python-poetry/poetry/issues/9751)). So for now, we need to keep using Poetry's tool-specific dependency groups, defined in the `tool.poetry` section. However, uv does support the standard `[dependency-groups]` table.
 
 # Local Dependencies and Editable Installations
-The `project.dependencies` standard does not support developer-oriented information like like editable installations and relative paths. Poetry and uv handles these using tool specific tables.
+The `project.dependencies` standard does not support developer-oriented information like like editable installations and relative paths. Poetry and uv handles these using tool-specific tables.
 
 Note that you can combine the examples below to use both Poetry and uv in the same project.
 ## Poetry
