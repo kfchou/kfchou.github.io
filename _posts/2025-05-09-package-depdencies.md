@@ -25,6 +25,16 @@ In this post:
   - [uv](#uv)
 - [A point of Incompatibility: Non-package projects](#a-point-of-incompatibility-non-package-projects)
 
+# A note about toml files
+For a lot of this post to make sense, you need to first have a high level understanding of `pyproject.toml` files:
+* It contains your project metadata, and replaces `setup.py`.
+* Sections called "tables", and are marked by `[]` 
+* The metadata provided under the `[project]` table is parsed by the Python Packaging Index (PyPI).
+* Tool-specific tables are marked with `[tool.xyz]`
+
+ref:
+* PyOpenSci's [packaging guide](https://www.pyopensci.org/python-package-guide/package-structure-code/intro.html)
+
 # Making Poetry compatible with uv
 If you wish to use Poetry alongside uv, the best way to do this is to move as much information as possible out of tool-specific tables (`[tool.poetry]` and `[tool.uv]`), and instead, place those information in "standard" `[project]` tables accepted by different build tools. For this reason, we must migrate Poetry from 1.x to 2.x, which moves essentiam metadata from the `[tool.poetry]` table to the `[project]` table.
 
