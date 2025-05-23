@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  My 2024 Tech Stack
+title:  My 2025 Tech Stack
 categories: [Python, Tech Stack]
 ---
 
@@ -8,6 +8,7 @@ Other than the obvious Pandas, Numpy, Scipy, Matplotlib, etc...
 
 ### Orchestration
 * GNU Makefile
+* Nox - just like Make, but written in Python
 
 ### CLI
 * [click](https://github.com/pallets/click/) - simple and fast, low learning curve.
@@ -23,6 +24,9 @@ Other than the obvious Pandas, Numpy, Scipy, Matplotlib, etc...
 ### Testing
 * Pytest
 * Nox - like GNU Make, but for Python. Use in conjunction with Pytest.
+
+### Static Type Checking
+* Pyrefly - Written in Rust by Meta Open Source.
 
 ### Profilers
 * Scalene - CPU, GPU, and memory profiling all at once. A quick note on interpreting the outputs from Scalene. The goal of optimization would be to:
