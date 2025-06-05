@@ -49,15 +49,17 @@ Of course, there are other ways to achieve this, and the code snippet below is j
 `pip install -r requirements.txt --prefix vendor`
 
 2. Include this code snippet in your program's main module
-```py
-# This code adds the vendor directory to Python's path so it can find the modules
-import os
-import sys
 
-parent_dir = os.path.abspath(os.path.dirname(__file__))
-vendor_dir = os.path.join(parent_dir, 'vendor/lib/python3.5/site-packages')
-sys.path.append(vendor_dir)
-```
+    ```py
+    # This code adds the vendor directory to Python's path so it can find the modules
+    import os
+    import sys
+
+    parent_dir = os.path.abspath(os.path.dirname(__file__))
+    vendor_dir = os.path.join(parent_dir, 'vendor/lib/python3.5/site-packages')
+    sys.path.append(vendor_dir)
+    ```
+
 source: https://gist.github.com/SeanHood/7901d38772f4eb87151329a26bc07c1b
 
 # Further reading
