@@ -1,18 +1,19 @@
 ---
 layout: post
 title:  Vendoring in Python Packaging
-categories: [python, tutorials, poetry, uv, dependency management]
-excerpt: Making our Poetry-based pyproject.toml compatible with uv, and gaining a deeper understanding of pyproject.toml files.
+categories: [python, packaging, tutorials, dependency management]
+excerpt: Have local, private dependencies? Vendor them into your package.
 ---
 
 # What is vendoring?
-> Vendoring, in the programming sense, means “copying the source code of another project into your project.” It's in contrast to the practice of using dependencies
- 
-Instead of relying on a package manager to download and install dependencies, vendoring involves manually copying the required libraries into a dedicated directory within your project, typically named vendor.
+> Vendoring, in the programming sense, means “copying the source code of another project into your project.” It's in contrast to the practice of using dependencies.
+
+Instead of relying on a package manager to download and install dependencies, vendoring involves manually copying the required libraries into a dedicated directory within your project, typically named `vendor`.
 
 The project's code then imports modules from this local vendor directory.
 
 # When Vendoring is Appropriate:
+* Your package relies on local dependencies and other private packages.
 * Delivering software to an air-gapped system (lack of access to the package registry). 
 * Sometime you don't want install anything but basic interpreter on a computer.
 * A dependency is no longer maintained, because there’s better alternatives now and it blocks you from upgrading Python. The obvious long term solution is to rewrite to remove the package, but that’s a major time-conuming task. 
@@ -35,7 +36,7 @@ The project's code then imports modules from this local vendor directory.
 1. Install deps into a directory called vendor
 `pip install -r requirements.txt --prefix vendor`
 
-2.   
+2. Include this code snipped in your program's main module
 ```py
 # This code adds the vendor directory to Python's path so it can find the modules
 import os
