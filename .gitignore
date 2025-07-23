@@ -12,6 +12,7 @@ package.json
 .jekyll-cache
 vendor
 .env
+*.pyc
 
 mini_projects/boston_map/*/*.png
 mini_projects/boston_map/*/*.jpg
