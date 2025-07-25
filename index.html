@@ -2,6 +2,24 @@
 layout: default
 ---
 
+<div class="pinned-posts">
+  <h2>Pinned Posts</h2>
+  <div class="pinned-grid">
+    {% assign pinned_posts = site.posts | where: "pinned", true | slice: 0, 8 %}
+    {% for post in pinned_posts %}
+      <div class="pinned-post">
+        <a href="{{ site.baseurl }}{{ post.url }}">
+          <h3>{{ post.title }}</h3>
+          <p class="post_date">{{ post.date | date: "%B %e, %Y" }}</p>
+          <div class="pinned-excerpt">
+            {{ post.excerpt }}
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
 <div class="posts">
   {% for post in paginator.posts %}
     <article class="post">
@@ -47,3 +65,45 @@ layout: default
   </div>
   {% endif %}
 </div>
+
+<style>
+/* Styles for pinned posts */
+.pinned-posts {
+  margin-bottom: 2rem;
+}
+
+.pinned-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.pinned-post {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pinned-post:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pinned-post h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.pinned-post .post_date {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.pinned-post .pinned-excerpt {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+</style>

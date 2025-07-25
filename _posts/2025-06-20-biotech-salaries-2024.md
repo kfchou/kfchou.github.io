@@ -2,6 +2,7 @@
 layout: post
 title:  r/biotech Salary Survey 2024
 categories: [salaries, visualization]
+pinned: true
 ---
 
 What are the normal salary ranges in biotech? How does this change for different experience levels? How much do bonuses and equities contribute to income? In this post, we explore these questions and more using survey data from r/biotech.
