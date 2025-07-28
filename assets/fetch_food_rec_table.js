@@ -110,6 +110,8 @@ function buildTable(data) {
         "lengthMenu": [[10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "All"]],
         }
     );
+    // Replace "search" text with "filter"
+    document.querySelector("#rec_table_filter label").childNodes[0].textContent = "Filter: ";
 }
 // Initialize Google API client
 window.initClient = () => {
