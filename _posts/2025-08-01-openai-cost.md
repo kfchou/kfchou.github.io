@@ -6,6 +6,32 @@ excerpt: Because the way OpenAI name their models are confusing af
 pinned: true
 ---
 
+<style>
+#cost-comparison + table {
+  width: 100%;
+  table-layout: fixed;
+}
+#cost-comparison + th:nth-child(1),
+#cost-comparison + td:nth-child(1) {
+  width: auto;
+  white-space: nowrap;
+}
+#cost-comparison + th:nth-child(2),
+#cost-comparison + td:nth-child(2) {
+  width: auto;
+  white-space: nowrap;
+}
+#cost-comparison + th:nth-child(3),
+#cost-comparison + td:nth-child(3) {
+  width: auto;
+  white-space: nowrap;
+}
+#cost-comparison + th:nth-child(4),
+#cost-comparison + td:nth-child(4) {
+  width: 100%;
+}
+</style>
+
 Notes for myself
 
 # o‑series reasoning models
@@ -23,18 +49,20 @@ Notes for myself
 * chatgpt-4o-latest-20250326 ranks just below  o3-2025-04-16 on LM Arena
 
 # Cost Comparison
-| Model             | Input (\$/M tokens) | Output (\$/M tokens) | Notes                                                                  |
-| ----------------- | ------------------- | -------------------- | ---------------------------------------------------------------------- |
-| GPT‑4o            | \~\$2.50            | \~\$10.00            |                                                                        |
-| GPT‑4o‑mini       | \$0.15              | \$0.60               | ([Reuters][1])                                                         |
-| GPT‑4.1           | \$2.00              | \$8.00               | ([Zapier][2], [OpenAI Community][3])                                   |
-| GPT‑4.1‑mini      | \$0.40              | \$1.60               | ([Zapier][2])                                                          |
-| GPT‑4.1‑nano      | \$0.10              | \$0.40               | ([Zapier][2])                                                          |
-| **o3‑mini**       | \$1.10              | \$4.40               | ([Inc.com][4], [API.chat][5])                                          |
-| **o3‑mini‑high**  | \$1.10              | \$4.40               | High‑effort variant, same pricing tiers ([Wikipedia][6], [Inc.com][4]) |
-| **o3 (standard)** | \$2.00              | \$8.00               | Matches GPT‑4.1 pricing now ([Zapier][2], [OpenAI Community][7])       |
-| **o3‑pro**        | \$20.00             | \$80.00              | Pro reasoning tier ([Zapier][2], [OpenAI Community][7])                |
-| **o4-mini**       | \$1.10              | \$4.40               | ([OpenAI Platform Compare][8])                                         |
+
+| Model             | Input ($/M tokens) | Output ($/M tokens) | Notes                                                                  |
+| ----------------- | ------------------ | ------------------- | ---------------------------------------------------------------------- |
+| GPT-4o            | ~$2.50             | ~$10.00             |                                                                        |
+| GPT-4o-mini       | $0.15              | $0.60               | ([Reuters][1])                                                         |
+| GPT-4.1           | $2.00              | $8.00               | ([Zapier][2], [OpenAI Community][3])                                   |
+| GPT-4.1-mini      | $0.40              | $1.60               | ([Zapier][2])                                                          |
+| GPT-4.1-nano      | $0.10              | $0.40               | ([Zapier][2])                                                          |
+| **o3-mini**       | $1.10              | $4.40               | ([Inc.com][4], [API.chat][5])                                          |
+| **o3-mini-high**  | $1.10              | $4.40               | High-effort variant, same pricing tiers ([Wikipedia][6], [Inc.com][4]) |
+| **o3 (standard)** | $2.00              | $8.00               | Matches GPT-4.1 pricing now ([Zapier][2], [OpenAI Community][7])       |
+| **o3-pro**        | $20.00             | $80.00              | Pro reasoning tier ([Zapier][2], [OpenAI Community][7])                |
+| **o4-mini**       | $1.10              | $4.40               | ([OpenAI Platform Compare][8])                                         |
+
 
 [1]: https://www.reuters.com/technology/artificial-intelligence/openai-unveils-cheaper-small-ai-model-gpt-4o-mini-2024-07-18/?utm_source=chatgpt.com "OpenAI unveils cheaper small AI model GPT-4o mini"
 [2]: https://zapier.com/blog/openai-o1/?utm_source=chatgpt.com "What are OpenAI o3 and o4? - Zapier"
@@ -44,4 +72,3 @@ Notes for myself
 [6]: https://en.wikipedia.org/wiki/OpenAI_o3?utm_source=chatgpt.com "OpenAI o3"
 [7]: https://community.openai.com/t/o3-is-80-cheaper-and-introducing-o3-pro/1284925?utm_source=chatgpt.com "O3 is 80% cheaper and introducing o3-pro - Announcements"
 [8]: https://platform.openai.com/docs/models/compare
-
