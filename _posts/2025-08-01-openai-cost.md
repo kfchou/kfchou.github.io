@@ -9,26 +9,25 @@ pinned: true
 <style>
 #cost-comparison + table {
   width: 100%;
-  table-layout: fixed;
 }
-#cost-comparison + th:nth-child(1),
-#cost-comparison + td:nth-child(1) {
-  width: auto;
-  white-space: nowrap;
+#cost-comparison + table th:nth-child(1),
+#cost-comparison + table td:nth-child(1) {
+  width: 20%;
+
 }
-#cost-comparison + th:nth-child(2),
-#cost-comparison + td:nth-child(2) {
-  width: auto;
-  white-space: nowrap;
+#cost-comparison + table th:nth-child(2),
+#cost-comparison + table td:nth-child(2) {
+  width: 12%;
+
 }
-#cost-comparison + th:nth-child(3),
-#cost-comparison + td:nth-child(3) {
-  width: auto;
-  white-space: nowrap;
+#cost-comparison + table th:nth-child(3),
+#cost-comparison + table td:nth-child(3) {
+  width: 12%;
+
 }
-#cost-comparison + th:nth-child(4),
-#cost-comparison + td:nth-child(4) {
-  width: 100%;
+#cost-comparison + table th:nth-child(4),
+#cost-comparison + table td:nth-child(4) {
+  width: 56%;
 }
 </style>
 
