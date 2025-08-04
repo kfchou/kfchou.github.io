@@ -8,7 +8,7 @@ In the world of modern software development, few libraries have had as transform
 
 This is the story of how [Pydantic](https://docs.pydantic.dev/latest/) became the cornerstone of modern Python development, and how three major frameworks—[FastAPI](https://fastapi.tiangolo.com/), [Instructor](https://python.useinstructor.com/), and [PydanticAI](https://ai.pydantic.dev/)—built upon its foundation to create the tools that define how we build applications today.
 
-## The Foundation: Pydantic (2017)
+## Pydantic: The Type Validation Problem (2017)
 
 ### Data Validation Reimagined
 
@@ -65,12 +65,12 @@ Pydantic eventually became so widely used by large enterprises that Samuel Colvi
 - **Enhanced type support**: Better handling of complex nested structures and generics
 - **Streaming support**: Critical for modern applications dealing with large datasets
 
-This performance boost came at exactly the time when AI applications began demanding massive throughput and real-time validation of complex outputs. Pydantic v2 provided the foundation needed to handle these new challenges.
+This performance boost came at exactly the time when AI applications began demanding massive throughput and real-time validation of complex outputs. Pydantic v2 provided the foundation needed to handle these new challenges. Pydantic is now "the validation layer of the OpenAI SDK, the Anthropic SDK, LangChain, LlamaIndex, AutoGPT, Transformers, CrewAI, Instructor and many more".
 
 [1]: https://techcrunch.com/2023/02/16/sequoia-backs-open-source-data-validation-framework-pydantic-to-commercialize-with-cloud-services/?utm_source=chatgpt.com
 [2]: ttps://docs.pydantic.dev/2.0/blog/pydantic-v2/
 
-## Building on the Foundation: FastAPI (2018)
+## FastAPI: High-Performance Web Framework (2018)
 
 ### When Pydantic Met Web Development
 
@@ -113,11 +113,13 @@ async def create_user(user: CreateUserRequest):
 
 FastAPI's success proved that Pydantic wasn't just a validation library—it was a new way of thinking about data contracts in applications. This pattern would influence how developers approached everything from microservices to machine learning pipelines.
 
-## The LLM Revolution: Instructor (2023)
+## [Instructor](https://python.useinstructor.com/): Data Validation for LLMs (2023)
 
 ### Bringing Structure to AI
 
-The explosion of Large Language Models in 2023 created a new challenge: how do you reliably extract structured data from AI models that output unpredictable text? Jason Liu, recognizing this gap, created Instructor to bridge the worlds of AI and structured data validation.
+The explosion of Large Language Models in 2023 created a new challenge: how do you reliably extract structured data from AI models that output unpredictable text? Instructor was born to help developers extract structured data from LLMs.
+
+> Built on top of Pydantic, Instructor provides type-safe data extraction with automatic validation, retries, and streaming support. Whether you're using OpenAI's GPT models, Anthropic's Claude, Google's Gemini, open source models with Ollama, DeepSeek, or any of 15+ supported providers, Instructor ensures your LLM outputs are always structured and validated.
 
 Instructor's genius was recognizing that Pydantic models were the perfect contract for AI outputs. Instead of fighting with JSON parsing and hoping for consistent formats, developers could define their expected structure and let Instructor handle the complexity of AI integration.
 
@@ -157,11 +159,15 @@ print(f"Code quality: {analysis.score}/10")
 
 Instructor proved that Pydantic's validation capabilities were exactly what AI applications needed, establishing patterns that would define the industry.
 
-## The Official Evolution: PydanticAI (2024)
+In an in-depth [review of Instructor](https://www.felixvemmer.com/en/blog/instructor-llm-framework-reviewed), Felix Vemmer notes the simplicity of Instructor for creating structured responses over using other frameworks like LangChain.
+
+## PydanticAI: Type-Safe Agentic Framework (2024)
 
 ### Pydantic's AI Future
 
 In 2024, the Pydantic team officially entered the AI space with PydanticAI. This wasn't just another AI library—it was the natural evolution of Pydantic into the AI-first era, bringing enterprise-grade AI capabilities while maintaining the elegance that made Pydantic successful.
+
+> We built Pydantic AI with one simple aim: to bring that FastAPI feeling [of ergonomic design] to GenAI app development.
 
 PydanticAI represents the maturation of the Pydantic ecosystem, designed specifically for the complex requirements of production AI applications.
 
@@ -198,16 +204,22 @@ result = await analyst.run(
 - **Ecosystem integration**: Seamless compatibility with existing Pydantic/FastAPI infrastructure
 
 
-## Instructor vs Pydantic-AI vs other agentic frameworks
-LangChain, Marvin, and CrewAI are all popular agentic frameworks arguarbly more well-known than Instructor and Pydantic AI.
+## Pydantic-AI vs other agentic frameworks
+LangChain and CrewAI are popular agentic frameworks more established than and Pydantic AI.
 
 ![Agentic Frameworks](/assets/2025-08-03/star-history-202583.png)
 
-While Instructor and Pydantic-AI are behind CrewAI and LangChain in popularity, Instructor has been seeing steady growth and  Pydantic-AI, a relative latecomer, is quickly rising in popularity among developers.
+While Pydantic-AI is new to the scene, it is quickly gaining popularity among developers.
 
-So how do Instructor and Pydantic-AI compare to these other frameworks in practice?
+LangChain is the most established library for building agentic applications, and has a large establish ecosystem of tools, components, and integrations. However, devs complain about its highly complex abstractions and a high learning curve.
 
-In an in-depth [review of Instructor](https://www.felixvemmer.com/en/blog/instructor-llm-framework-reviewed), Felix Vemmer notes that implementing agents in these other frameworks feel more verbose, and these frameworks don't have data validation built-in, making it difficult to steer and structure agent outputs.
+CrewAI's framework focuses on role-based collaboration among multiple agents. Imagine giving each agent a distinct skillset or personality, then letting them cooperate (or even debate) to solve a problem. It is designed for orchestrating multiple agents. It has a lower learning curve than LangChain.
+
+Pydantic-AI is deisgned for simplicity and type-safety. It has the lowest learning curve out of all the frameworks mentioned here, so if you're just starting to build, Pydantic-AI is a great place to start.
+
+Side note: OpenAI Agents SDK is a framework worth looking into as well. Its learning curve is lower than LangChain, and when used with Instructor, you should be able to force structured outputs.
+
+See comparison against other frameworks [here](https://langwatch.ai/blog/best-ai-agent-frameworks-in-2025-comparing-langgraph-dspy-crewai-agno-and-more).
 
 ## The Pydantic Ecosystem in Practice
 
