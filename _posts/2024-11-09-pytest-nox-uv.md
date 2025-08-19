@@ -32,11 +32,15 @@ When you run Nox, a new virtual environment is created in each "session", and th
 If your system does not already have the right python versions available, the tests will obviously fail. Let's use `uv` to install them.
 
 First, set up `uv`. Keep in mind `uv` **must be installed globally**
+
 ```sh
+# Standalone installer (preferred)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# or use pipx
 pipx install uv
-```
-or
-```sh
+
+# or pip
 pip install uv
 ```
 
@@ -66,6 +70,16 @@ The `-vvv` flag prints out debugging messages. There's an [issue](https://github
 # Install nox and (optional) nox-poetry
 Nox will use the specified backend to install your packages, defaulting to `pip`. Currently, other supported back ends are `uv`, `conda`, `mamba`, and `micromamba`. If you want to use Poetry for installation, you must install the `nox-poetry` package.
 
+## Usng uv (preferred)
+```sh
+uv tool install nox
+```
+check installation with
+```sh
+nox --version
+```
+
+## using `pipx`
 Install Nox globally. If using `pipx`:
 ```sh
 pipx install nox
@@ -76,6 +90,7 @@ Otherwise,
 pip install nox
 pip install nox-poetry # optional
 ```
+
 # Set up Noxfile.py
 ## Set uv as the backend
 edit 2024-11-09: You can now set the default backend of Nox to use `uv`. There are seveeral ways to do this:
@@ -136,9 +151,15 @@ nox -s tests
 
 et voila.
 
-Note: `uv` tries really hard to cache, and you may want to force force-reinstall your package during development testing:
+### Troubleshooting
+`uv` tries really hard to cache, and you may want to force force-reinstall your package during development testing:
 ```py
 session.run_always("uv", "pip", "install", ".", "--reinstall-package","my_package",external=True)
+```
+
+If nox cannot find `uv`, then use `uv` to install nox.
+```sh
+ValueError: No backends present, looked for ('uv',).
 ```
 
 ## Poetry installation (no longer preferred)
