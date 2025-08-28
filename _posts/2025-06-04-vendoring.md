@@ -62,6 +62,33 @@ Of course, there are other ways to achieve this, and the code snippet below is j
 
 source: https://gist.github.com/SeanHood/7901d38772f4eb87151329a26bc07c1b
 
+# Case study: Numpy
+Numpy [vendors](https://numpy.org/doc/stable/building/understanding_meson.html) a custom version of Meson into their builds:
+> As of Dec’23, NumPy vendors a custom version of Meson, which is needed for SIMD and BLAS/LAPACK features that are not yet available in upstream Meson. Hence, using the meson executable directly is not possible. Instead, wherever instructions say meson xxx, use python vendored-meson/meson/meson.py xxx instead.
+
+Numpy manages this vendored package as a Git submodule. Meaning if you `git clone numpy`, the vendored package won't be pulled. Instead, a separate command (`git submodule update --init --recursive`) is required to fetch the submodule's content.
+
+## Git Submodules
+
+You would see this on github as a folder with an arrow in it
+
+![A submodule icon](/assets/submodule.png)
+
+To create a submodule like numpy, you'd do something like this:
+
+```bash
+# from inside your main repo
+git submodule add https://github.com/mesonbuild/meson.git meson
+
+# commit the .gitmodules file and the submodule reference
+git add .gitmodules meson
+git commit -m "Add meson as submodule"
+
+# initialize and fetch submodule contents
+git submodule update --init --recursive
+```
+That creates a folder meson/ in your repo, linked to the external repo, and pinned to a specific commit
+
 # Further reading
 * [How do you feel about vendored packages?](https://www.reddit.com/r/Python/comments/132jk6l/how_do_you_feel_about_vendored_packages/)
 * [What is vendoring?](https://stackoverflow.com/questions/11378921/what-does-the-term-vendoring-or-to-vendor-mean-for-ruby-on-rails)
