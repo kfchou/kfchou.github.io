@@ -3,7 +3,6 @@ layout: post
 title:  OpenAI model comparison
 categories: [LLM, OpenAI]
 excerpt: Because the way OpenAI name their models are confusing af
-pinned: true
 ---
 
 <style>
