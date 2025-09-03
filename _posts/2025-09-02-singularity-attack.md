@@ -6,7 +6,7 @@ categories: [LLMs, Security, Nx]
 
 I don't usually write about security, but as a frequent user of Claude Code, I felt the recent news of the s1ngularity attack warrants special attention. Just as we all started to rely on AI CLI tools like Claude and Gemini to enhance our work, hackers just exploited them in a real supply-chain attack. It's the first time we've seen this in the wild.
 
-# What happened?
+## What happened?
 
 On August 26–27, 2025, attackers briefly took over popular Nx npm packages and shipped a post-install stealer that harvested developer secrets (GitHub and npm tokens, SSH keys, `.env` API keys, and even crypto wallets). Stolen data was pushed to *public repos created in the victim's own GitHub account* named `s1ngularity-repository` (containing `results.b64`). Nx has since removed the bad versions, but a second wave of attack used leaked tokens to flip victims' private repos to public [[1][1]][[2][2]].
 
