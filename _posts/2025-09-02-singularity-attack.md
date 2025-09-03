@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Nx hack exploited AI CLI tools
+title:  s1ngularity - AI-assisted supply-chain attack
 categories: [LLMs, Security, Nx]
 ---
 
