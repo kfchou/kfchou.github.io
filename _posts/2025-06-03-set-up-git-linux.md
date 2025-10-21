@@ -20,6 +20,15 @@ Do the following:
     ```
 Done! Try cloning a repository to make sure everything worked with `git clone ...`
 
+Windows and Mac users -- Check whether your git credential manager has been set to `gh`:
+```sh
+git config --global credential.helper
+```
+If not, manually adjust the credential manager:
+```sh
+git config --global credential.helper '!gh auth git-credential'
+```
+
 # Motivation
 The first time you log into GitHub on Windows PowerShell, a browser pops up and you're instructed to log into GitHub via the web UI. The Windows Git Credential Manager then saves your credentials behind the scenes, and you never have to worry about entering your password again.
 
