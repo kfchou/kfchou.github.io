@@ -4,53 +4,27 @@ title:  Agentic Code Development with Claude Code
 categories: [AI Coding, LLMs, LLM Toolchain]
 ---
 
-Any expeienced dev who tried coding tools like Cursor, Windsurf, or Claude Code knows: vibe coding is great for one-off scripts. As projects become large, vibe-coding creates complex slop. The code works, but is generally problematic, not maintainable, potentially vulnerable and generally unsuitable for production environments. The good news for devs is in order to overcome this, agentic AI systems must have humans in the loop - particularly experienced humans who are able to guide the agent in the right direction, acting as PM and architect. This blog is a guide for that experienced human to write quality, production level code using Claude Code.
+Early users treated LLMs as one-shot text generators. Users focused on clever wording, examples, and formatting of their prompts to achieve their goals. This became known as "prompt engineering". Prompt Engineering worked for simple tasks, but broke down as soon as people needed memory, tools, retrieval, or multi-step reasoning.
 
+As systems became stateful, tool-using, and long-running, it became clear that model behavior was driven less by phrasing and more by what information was present, structured, ordered, and refreshed over time. The problem shifted from “How do I word this prompt?” to “What context should the model see at this moment, and why?”
 
-## Under the hood: The Agentic Loop
-The primary breakthrough for Claude Code came when its dev team realized they needed to "get out of the way" - remove complex prompts and scaffolds, and optimize the LLM for tool-use instead [0]. Tools can create deterministic outputs, solving the hallucination issue. Under the hood, Claude is a ReAct agent [1]:
+That shift—managing instructions, state, memory, retrieved knowledge, and tool outputs across interactions—is what became known as context engineering.
 
-![Anthropic Agent SDK event loop](image-2.png)
-
-Let's look at this loop in more detail [2,3]:
-
-```
-Session Start:
-  1. Load CLAUDE.md from all levels (enterprise, project, user)
-  2. Load .claude/rules/ files (with glob pattern matching)
-  3. Run SessionStart hook (if configured)
-  4. Assemble system prompt with all context
-
-Per User Input:
-  1. User submits → UserPromptSubmit hook fires
-  2. Claude decides what to do (may use multiple tools)
-    - Each tool: PreToolUse → Tool runs → PostToolUse
-  3. Claude responds
-  4. Stop hook decides whether to continue
-```
-
-Given the detail above, let's consider:
-* What should we put in CLAUDE.md?
-* What tools are available to us?
-
-## CLAUDE.md
-To state the obvious, controlling context is the most important thing we need to do as we work with Claude Code. We need to keep each task focused, and avoid introducing unnecessary instructions.
-
-Six month ago, the convention is to keep adding details to `CLAUDE.md`. Need Claude to always test your code? Add the instruction to `CLAUDE.md`. Want Claude to write commit messages in a certain way? Add it to `Claude.md`. As the file grows, the context gets cluttered. This way of working is the opposite of good context management; if we're researching the codebase about a particular feature, we don't need Claude to know how to write commit messages and write tests.
-
-We should instead keep `CLAUDE.md` as lean as we can. Some tips:
-* Do not `@` files. Instead, mention file paths and when those files should be read.
-* If you say "Never do xyz", you must also say "Instead, do abc"
-* Do not write a manual for specific tasks - delegate these to subagents (see below).
-
-For complex tasks, you might say
-```
-For <complex usage> or <error> see path/to/<tool>_docs.md
-```
-... even better, let us delegate this task to a spcific subagent!
+Claude Code runs an agentic loop: you submit a prompt → Claude chooses tools → executes them → responds. Within this loop, Claude can invoke two context context management tools: **subagents** (isolated AI instances with specialized instructions) or **skills** (prompt templates that enhance the current conversation). Understanding when to use each is the key to production-quality agentic development. This post goes into the main principles of these tools, and parctical tips on getting started with them.
 
 ## Subagents
-Subagents are agentic tools Claude Code can call within the agentic loop. They are simply markdown files that live in `.claude/agents/`. Like general AI agents, they have access to specific instructions and tools. For example, the plan mode uses a Plan subagent.
+Subagents are specialized, short-lived agents that each receive a tightly scoped slice of context to perform a specific task (e.g., search, refactor, test, or analyze) independently. Their outputs are then merged back into the main agent’s context, allowing complex coding workflows to scale without overwhelming a single prompt or context window.
+
+Claude Code parses the user's prompt to infer intent, then calls the appropriate subagent as it would other tools. Each time a subagent is triggered, it:
+1. Starts with a blank context window
+2. Loads the project's `CLAUDE.md` file
+3. Loads its own set of focused instructions
+4. Receives specific context from the main agent
+
+Based on this workflow, a cluttered `CLAUDE.md` risks degrading the performance of your subagents. For this reason, `CLAUD.md` should be kept lean. With subagents, you can split up a large, cluttered `CLAUDE.md` into specific instructions for specific agents - planning, reviewing, styling, committing, etc. You could build your own agents, but I recommend starting with pre-built ones that have already been battle tested. Claude Code already comes with pre-defined agents -- for example, the `plan` mode uses a Plan subagent.
+
+### Under the Hood
+Subagents are defined as markdown files that live in `.claude/agents/`. Like general AI agents, they have access to specific instructions and tools.
 
 A simple subagent could look like:
 ```md
@@ -72,7 +46,7 @@ the subagent should follow.
 ```
 (from the docs: https://code.claude.com/docs/en/sub-agents)
 
-Claude will scan for available subagents at session start. During evaluation, **Claude Code proactively delegates tasks to subagents** based on:
+During session start, Claude Code scans for available subagents. Then, during evaluation, Claude Code proactively delegates tasks to subagents based on:
 * The task description in your request
 * The description field in subagent configurations
 * Current context and available tools
@@ -83,29 +57,106 @@ You can also explicitly invoke an agent by mentioning it in your command:
 > ask the debugger subagent to investigate this error
 ```
 
-### Under the Hood
-Each time a subagent is triggered, it:
-1. Loads the project's `CLAUDE.md` file
-2. Loads its own set of focused instructions
-3. The main agent gives a set of prompts to the subagent
+## Where to Find Pre-Built Subagents
 
-If you clutter your `CLAUDE.md`, you risk degrading the performance of your subagents as well -- another reason to keep this file lean. With subagents, you can split up your giant `CLAUDE.md` into specific instructions for specific agents - planning, reviewing, styling, committing, etc. You could build your own agents, but I recommend starting with pre-built ones that have already been battle tested (see PLACEHOLDER).
+### Claude Code Plugin Marketplace (Recommended)
 
-### Pre-Configured agents
-There are github [repositories](https://github.com/VoltAgent/awesome-claude-code-subagents) keeping track of a large collection of pre-configured agents. Agents can also be [installed as plugins](https://github.com/wshobson/agents). To explore plugins, type `/plugins` in the Claude Code CLI.
+The easiest way to install pre-built subagents is through Claude Code's plugin system:
+
+```bash
+/plugins  # In Claude Code CLI - browse and install plugins
+```
+
+### Popular Community Collections
+
+#### wshobson/agents ([GitHub](https://github.com/wshobson/agents))
+
+A comprehensive production-ready system combining 99 specialized AI agents, 15 multi-agent workflow orchestrators, and 107 agent skills organized into 67 focused plugins. The repository is consistently cited in community resources as one of the top subagent collections.
+
+**What the community says:**
+- "Production-ready subagents for domains like RESTful API design and GraphQL schemas"
+- Regularly recommended as the go-to "28-agent bundle" in developer guides
+- Features 50 specialized subagents with each being an expert in a specific domain
+
+**Notable agents:**
+- `code-reviewer` - Security analysis with SonarQube, CodeQL, Semgrep integration
+- `debugger` - Systematic error investigation with read-only permissions
+- `architect-review` - Architectural design review and recommendations
+- `test-runner` - Test execution with coverage reporting
+- `doc-generator` - Automated documentation generation
+- `commit-writer` - Semantic commit messages
+
+**Installing via plugin:**
+```bash
+/plugin marketplace add wshobson/agents-marketplace
+/plugin install agents@wshobson
+```
+
+#### VoltAgent/awesome-claude-code-subagents ([GitHub](https://github.com/VoltAgent/awesome-claude-code-subagents))
+
+The most comprehensive reference repository for Claude Code subagents, featuring 100+ specialized AI agents for full-stack development, DevOps, data science, and business operations. As of early 2025, it has ~6.8k stars and is actively maintained by the community.
+
+**What the community says:**
+- "The most powerful Claude agents feel like hiring a team of experts—but you get code reviews, migrations, and tests done in minutes" ([source](https://dev.to/voltagent/100-claude-code-subagent-collection-1eb0))
+- Featured on [awesomeclaude.ai](https://awesomeclaude.ai) as one of the key Claude resources
+- "Performs comprehensive code reviews with the thoroughness of a senior engineer" - developers report catching subtle race conditions that would have caused production failures ([source](https://dev.to/necatiozmen/10-claude-code-subagents-every-developer-needs-in-2025-2ho))
+
+**Most popular agents (by usage):**
+- `fullstack-developer` - End-to-end features with type-safe APIs
+- `code-reviewer` - Comprehensive code quality and security analysis
+- `rust-engineer` - Memory-safe Rust development
+- `platform-engineer` - Self-service infrastructure and GitOps
+- `penetration-tester` - Security testing and vulnerability assessment
+- `llm-architect` - RAG stacks and AI/ML pipeline design
+- `refactoring-specialist` - Transform legacy code into clean architecture
+
+**Organized by category:**
+- **Architecture**: fullstack-developer, backend-architect, frontend-architect
+- **DevOps**: platform-engineer, ci-cd-optimizer, incident-commander
+- **Quality & Security**: code-reviewer, security-auditor, penetration-tester
+- **Database**: db-optimizer, migration-generator, query-analyzer
+- **Data Science**: llm-architect, data-engineer, ml-ops-specialist
+
+Browse: https://github.com/VoltAgent/awesome-claude-code-subagents
+
+### Best Practices from the Community
+
+Based on [community recommendations](https://www.eesel.ai/blog/claude-code-subagents):
+- **Design focused subagents**: Single, clear responsibilities work better than trying to make one subagent do everything
+- **Create reproducible pipelines**: Use roles like Product Spec → Architect → Implementer/Tester for repeatable workflows
+- **Start simple**: Generate initial subagents with Claude, then iterate to customize for your specific needs
+
+### Manual Installation (Alternative)
+
+If an agent isn't available as a plugin:
+
+1. Download the `.md` file from the repository
+2. Copy to `.claude/agents/` in your project root
+3. Restart Claude Code to detect the new agent
+4. Test: `ask the [agent-name] to...`
 
 
-### The Handoff Issue
-The fact that new subagents spawn with a fresh context presents some drawbacks. If the main agents don't give subagents sufficient context, then the subagents will operate blindly and essentially "hallucinate". "This is a particular nightmare in existing, complex codebases ("brownfield" projects) and is a big reason why subagents seem to work best on brand-new projects or very self-contained tasks." [https://www.eesel.ai/blog/subagents-in-claude-code]. One way to overcome this issue is to come to an agreement of what the hand-off context will be, but it is cumbersome to do this every time. As of the time of this writing, there's no good solution to this issue.
+### Things to Consider: The Handoff Issue
 
-An alternative to specialist subagents is using Claude's build in Task(...) feature to spawn clones of the general agent, as described by Shrivu Shankar:
+When you invoke a subagent, the main agent passes only a summary of what it thinks the subagent needs—the subagent starts fresh with your `CLAUDE.md` file, its own instructions, and whatever context the main agent provides. This creates an information gap: nuanced decisions, discovered patterns, and architectural discussions from your conversation may get lost. If the main agents don't give subagents sufficient context, then the subagents will operate blindly and essentially "hallucinate".
 
-> I put all my key context in the CLAUDE.md. Then, I let the main agent decide when and how to delegate work to copies of itself. This gives me all the context-saving benefits of subagents without the drawbacks. The agent manages its own orchestration dynamically.
+This issue matters in scenarios like:
+* Complex brownfield projects with deep architectural context spread across many files [https://www.eesel.ai/blog/subagents-in-claude-code]
+* Large refactoring requiring understanding of intricate component relationships
+* Tasks heavily dependent on conversation history built with the main agent
+* When tasks are derived from nuanced design decisions that only exist in the conversation context
 
+But this issue doesn't matter in scenarios like:
+* Self-contained tasks: code review, testing, documentation—fresh eyes without implementation bias
+* Specialized analysis: security audits, performance profiling benefit from isolated evaluation
+* Greenfield projects with minimal accumulated context
+* Tasks with clear boundaries that provide sufficient context in the request itself
 
-### Decreased Speed, Increased Cost
-Everytime you call a subagent, it needs to build its understanding of the task from scratch, and that burns time and processing power. And becaue each subagent has its own context, running multiple agents can burn through tokens quickly. They may increase quality but it may end up being more costly; you get what you pay for.
-
+Mitigation strategies:
+1. **More detailed `CLAUDE.md`**: Put key architectural decisions, coding patterns, and constraints in this file since subagents load it
+2. **Explicit context passing**: "Use the debugger and first explain the authentication flow, Redis caching strategy, and token refresh mechanism"
+3. **Task(...) alternative**: Some developers prefer spawning general agent clones with `Task(...)`, which preserves more conversational context by cloning the general agent rather than spawning a specialized subagent. This trades specialization for context preservation.
+4. **Strategic selection**: Choose subagents when isolation helps, use skills (see below) when context preservation matters
 
 ## Agent Skills
 Rather than invoking subagents to carry out specific tasks, Anthropic introduced agent "skills" to conditionally inject additional context to the current conversation based on your instructions.
@@ -113,53 +164,126 @@ Rather than invoking subagents to carry out specific tasks, Anthropic introduced
 Skills are specialized prompt templates that inject domain-specific instructions into the conversation context. When a skill is invoked, it modifies both the conversation context (by injecting instruction prompts) and the execution context (by changing tool permissions and potentially switching the model). Instead of executing actions directly, skills expand into detailed prompts that prepare Claude to solve a specific type of problem. Each skill appears as a dynamic addition to the tool schema that Claude sees [https://leehanchung.github.io/blogs/2025/10/26/claude-skills-deep-dive/#:~:text=Claude%20Agent%20Skills%20Overview,on%20the%20skill%20descriptions%20provided.]
 
 ### Under the hood
-Agent skills are simply folders that contain templates for subagents. Within the folder, you can have:
-* Markdown files with specific instructions (similar to the agent markdown files)
-* Code templates
-* Scripts to run
+Agent skills are simply folders that contain templates for subagents:
+```
+my-skill/
+├── SKILL.md (required - overview and navigation)
+├── reference.md (detailed API docs - loaded when needed)
+├── examples.md (usage examples - loaded when needed)
+└── scripts/
+    └── helper.py (utility script - executed, not loaded)
+```
 
-What this means: with code template and scripts to run, we give agents more ways to access our environment - bash shell, our machine, .docx and .csv files, etc. We let agents write code on the fly to interact with these new file formats. This will increase the capabilities of what the agents are able to achieve.
+At the minimum, you need the `SKILL.md` file with something like:
+```md
+---
+name: your-skill-name
+description: Brief description of what this Skill does and when to use it
+---
 
-**Skills vs. subagents**: Skills can be shared across the team or enterprise. Skills add knowledge to the current conversation. Subagents run in a separate context with their own tools. Use Skills for guidance and standards; use subagents when you need isolation or different tool access.
+## Overview
 
-**Skills vs. MCP**: Skills tell Claude how to use tools; MCP provides the tools. For example, an MCP server connects Claude to your database, while a Skill teaches Claude your data model and query patterns.
+[Essential instructions here]
+
+## Additional resources
+
+- For complete API details, see [reference.md](reference.md)
+- For usage examples, see [examples.md](examples.md)
+
+## Utility scripts
+
+To validate input files, run the helper script. It checks for required fields and returns any validation errors:
+
+    python scripts/helper.py input.txt
+```
+
+What this means: with code template and scripts to run, we can give agents ways to access our environment - bash shell, our machine, ways to access .docx and .csv files, etc. We let agents write code on the fly to interact with these new file formats. This will increase the capabilities of what the agents are able to achieve.
+
+Skills are the next evolution from MCPs -- Skills tell Claude how to use tools; MCP provides the tools. For example, an MCP server connects Claude to your database, while a Skill teaches Claude your data model and query patterns.
 
 https://code.claude.com/docs/en/skills
 
+## Subagents vs Skills: When to Use Which?
 
-### Claude, a Senior Engineer?
-Now, this is where things gets interesting. [Jesse Vincent](https://en.wikipedia.org/wiki/Jesse_Vincent) recently created a set of Skills that gives Claude Superpowers (or so he [claims](https://blog.fsck.com/2025/10/09/superpowers/) - though I'm tempted to believe him based on his credentials). Essentually, the skills enforce the following ways of working:
+The key distinction: **Subagents run in isolation with their own context; Skills enhance the current conversation**.
 
-Stage	Skill	Trigger
-1	brainstorming	Before writing any code
-2	using-git-worktrees	After design approval
-3	writing-plans	With approved design
-4	subagent-driven-development	With plan ready
-5	test-driven-development	During implementation
-6	requesting-code-review	Between tasks
-7	finishing-a-development-branch	When tasks complete
+**Use Subagents when you need:**
+- **Isolated context** - Code review shouldn't see your work-in-progress from the main conversation
+- **Different tool access** - A debugging agent with read-only permissions while main agent can write
+- **Specialized execution** - Complex, self-contained tasks that benefit from focused instructions
+- **Examples**: code reviewer, test suite runner, documentation generator, commit message writer
 
-This makes software development systematic and enforces best practices.
+**Use Skills when you need:**
+- **Domain knowledge in current context** - Teaching Claude your coding standards as you work
+- **Workflow guidance** - TDD discipline, git workflows, architectural patterns
+- **Shared standards** - Company-wide conventions that every task should follow, distributed across team or enterprise
+- **Examples**: test-driven-development, API design patterns, error handling conventions
 
-You can install them via [Claude's plugin system](https://docs.claude.com/en/docs/claude-code/plugins). 
+**Rule of thumb**: If the task needs to "forget" what you've been doing, use a subagent. If it needs to "remember and apply new rules", use a skill.
 
-You'll need Claude Code 2.0.13 or newer: 
-```
+## Agents and Skills in Practice: Superpowers Plugin
+
+A powerful real-world example is [Jesse Vincent](https://en.wikipedia.org/wiki/Jesse_Vincent)'s [Superpowers](https://blog.fsck.com/2025/10/09/superpowers/) plugin - a collection of skills and agents that enforce software engineering best practices. Rather than only relying on separate subagents for each phase of development, Superpowers uses skills to guide Claude through a disciplined workflow:
+
+| Stage | Workflow Component | Type | Description |
+|-------|-------------------|------|-------------|
+| 1 | brainstorming | Skill | Refines rough ideas through questions, explores alternatives, presents design in sections for validation |
+| 2 | using-git-worktrees | Skill | Creates isolated workspace on new branch, runs project setup, verifies clean test baseline |
+| 3 | writing-plans | Skill | Breaks work into bite-sized tasks (2-5 minutes each) with exact file paths, complete code, verification steps |
+| 4 | subagent-driven-development | Agent | Dispatches fresh subagent per task with two-stage review (spec compliance, then code quality) |
+| 5 | test-driven-development | Skill | Enforces RED-GREEN-REFACTOR cycle: write failing test, watch it fail, write minimal code, watch it pass, commit |
+| 6 | requesting-code-review | Agent | Reviews work against plan, reports issues by severity; critical issues block progress |
+| 7 | finishing-a-development-branch | Skill | Verifies tests, presents options (merge/PR/keep/discard), cleans up worktree |
+
+At the time of writing, the only agent in the repository is a code-review agent.
+
+The Superpower plugin demonstrates how skills and agents are utilized together.
+
+
+### Installing Superpowers
+
+You can install via [Claude's plugin system](https://docs.claude.com/en/docs/claude-code/plugins). You'll need Claude Code 2.0.13 or newer:
+
+```bash
 /plugin marketplace add obra/superpowers-marketplace
-/plugin install superpowers@superpowers-marketplace 
+/plugin install superpowers@superpowers-marketplace
 ```
 
-After installation, restart Claude Code to make them active. If you hate it, you can remove it with
+After installation, restart Claude Code to make them active. If you want to remove it:
+
+```bash
+/plugin remove superpowers@superpowers-marketplace
 ```
-/plugin remove superpowers@superpowers-marketplace 
-```
 
-Superpower designed to be a community-driven effort. I'm excited to see how it will grow!
+Superpowers is designed to be a community-driven effort. I'm excited to see how it will grow!
 
-### What happened with Spec-Driven Development (SDD)?
-For a while around mid-2025, SDD emerged as the solution against the slop generated by vibe-coding. The idea is simple - spend a lot of effort up front writing the specs, break tasks down into small, digestable pieces, and have the coding agent follow it closely. But just like in actual software development, specs often get bloated, become difficult to review, and a lot of time can get wasted on getting the spec right. On the other hand, it's often more efficient if engineers can identify a generally correct direction, start building, and iterate. With SDD, spec creation, review, iteration, and governance introduces extra cycles early in the project, and often hinders more than helps. This is my personal experience.
+## Practical Decision-Making: Real Scenarios
 
-Although these issues exist, as of December 2025, it seems like there is still a generally positive sentiment on reddit [https://www.reddit.com/r/ChatGPTCoding/comments/1otf3xc/does_anyone_use_specdriven_development/] aroud SDD and tools like spec-kit. Whether to use SDD seems entirely context dependent.
+The Claude Code community has created hundreds of production-ready subagents. Here are real-world scenarios using subagents from popular repositories like [wshobson/agents](https://github.com/wshobson/agents) (22.8k stars) and [VoltAgent/awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents).
+
+**Scenario 1: You need to review code quality and security**
+- **Use**: Subagent (`code-reviewer` from wshobson/agents)
+- **Why**: Code review should evaluate your work in isolation, without being influenced by your implementation context. The reviewer integrates with tools like SonarQube, CodeQL, and Semgrep for comprehensive analysis.
+
+**Scenario 2: You want to enforce test-driven development**
+- **Use**: Skill (like Superpowers' `test-driven-development`)
+- **Why**: TDD discipline needs to stay within your current context so tests inform the code you're actively writing. The skill guides your workflow step-by-step.
+
+**Scenario 3: You're debugging an unexpected error**
+- **Use**: Subagent (`debugger` from wshobson/agents)
+- **Why**: Debugging benefits from isolated context focused solely on the error, systematic investigation, and potentially read-only permissions to prevent accidental changes during investigation.
+
+**Scenario 4: You need to optimize database performance**
+- **Use**: Subagent (`db-optimizer` from VoltAgent collection)
+- **Why**: Database optimization is a specialized, self-contained task requiring deep expertise in query analysis, indexing, and performance tuning—separate from your main development context.
+
+**Scenario 5: You want all API endpoints to follow OpenAPI 3.0 standards**
+- **Use**: Skill (`api-design-standards`)
+- **Why**: Design standards should guide you as you build, shared across the team, applied consistently to every endpoint you create.
+
+**Scenario 6: You need to respond to a production incident**
+- **Use**: Subagent (`incident-commander` or `devops-firefighter` from VoltAgent collection)
+- **Why**: Incident response requires isolated, focused context with emergency procedures and restricted permissions to prevent escalation during high-pressure situations.
 
 ## Further Reading
 Other excellent posts on how they use Claude Code: https://blog.sshh.io/p/how-i-use-every-claude-code-feature
@@ -171,76 +295,3 @@ Other excellent posts on how they use Claude Code: https://blog.sshh.io/p/how-i-
 [1]:[Buidling Agents with the Claude Agent SDK - Anthropic](https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk)
 [2]:[Official claude code docs](https://code.claude.com/docs/en/memory.md)
 [3]:[Claude Code Guide](https://github.com/Cranot/claude-code-guide)
-
-
-
-
-
-# Appendix
-## Other random tips
-### Context management within a session
-* Avoid compaction. By the time your coding agent have done enough work to require compaction, you likely already experience [context rot](https://research.trychroma.com/context-rot) - even though models like Opus can handle 1MM tokens, its performance likely have already degraded severely. Better to keep context tight to help keep Claude focused. Even after compaction, you risk introducing sementic shift.
-* After planning, if Claude proposes a large piece of work, tell Claude to "make the plan multi-phased"
-* Use Github issues to keep track of different phases of the plan. 
-* Claude code works well with the Github CLI tool to help you manage and track issues, PRs, and the like.
-* Ask Claude to review your context usage and suggest optimizations.
-* Claude has a built-in thinking budget based on these keywords:
-  * "think": 4,000 tokens
-  * "megathink": 10,000 tokens
-  * "ultrathink": maximum budget
-
-### Do meta-analysis on the codebase
-It's important to emphasize human development and maintainability in your specs.
-
-Claude may implement features that work, but not always in a way that makes sense. When it refactors code, it may unnecessarily create new variables and deprecate others. This is bad for many reasons:
-* Bloat &rarr; increased context &rarr; consuming unnecessary tokens &rarr; increased cost
-* Confusing for human readers &rarr; decreased maintainability &rarr; time wasted
-
-Ask Claude to do meta-analysis on the code base to find possible bloat and oppotunities to simplify the code logic, increase performance, and harmonize duplicated functionalities. Do this every now and then to ensure bloat is kept to a minimum.
-
-Sometimes it's easier to visualize the codebase as a mermaid diagram. Ask Claude to give you code to a mermaid diagram describing the codebase as you plan or review.
-
-Memory files?
-If working on multiple projects, you can keep "memory" files in your machine's home directory `~/.claude/CLAUDE.md`. You can jump to these with the `/memory` command
-
-Claude may hard-code a lot of values. This is bad practice for obvious reasons. In your specs, Tell Claude what to use as a source of truth. **Key terms like "dynamic" and "configurability"** will help avoid hard-coded values and increase maintainability.
-
-### The most important commands to know
-* `/compact` -- summarize your chat history
-* `/clear` -- clears your chat history
-* `/resume` -- resume a previous conversation.
-* `/install-git-app`
-* `/context` <-------------- available as of version 1.0.86. Helps keep track of context window. It's important to keep track of your context periodically. [Ref](https://claudelog.com/mechanics/context-inspection/).
-
-### Custom commands (accesss with `/`)
-Create a markdown file: `.claude/commands/<command-name>.md`
-
-The file would look something like this
-
-```
-<description of the command>
-
-$ARGUMENTS (only use this line if you want users to pass arguments to the command)
-
-<detailed instructions for claude>
-```
-
-### Actually useful MCP servers
-
-Have a browser UI? Use Playwright:
-```
-    claude mcp add playwright npx @playwright/mcp@latest
-```
-
-### Multiple Claudes
-Use `git worktree` to open multiple Claude instances and have them all work in parallel
-1. Make a folder `.trees`
-2. Make worktrees with `git worktree add`:
-   * `git worktree add .trees/feature_1`
-   * `git worktree add .trees/feature_2`
-   * `git worktree add .trees/feature_3`
-3. Open up a terminal for each worktree directory. Right click on the directory and select "Open in integrated terminal".
-4. Open Claude in each terminal and let them cook.
-5. After all the parallel work is finished, tell Claude to merge in all of the worktrees in the `.trees` folder and fix any conflicits if there are any.
-
-Anecdotally, doing parallel work like this only makes sense if each piece of work is self-contained and limited in scope.
