@@ -201,7 +201,7 @@ Superpowers [[10]] uses skills to guide Claude through a disciplined development
 - **Enforce test-driven development**: Use the `test-driven-development` skill to keep TDD discipline within your current context so tests inform the code you're actively writing
 - **Follow API design standards**: Skills like `api-design-standards` guide you as you build, applied consistently to every endpoint you create
 
-Superpowers is designed to be a community-driven effort. Exciting to see how it will grow!
+Superpowers is designed to be a community-driven marketplace of Agents and Skills. Exciting to see how it will grow!
 
 #### wshobson/agents ([GitHub](https://github.com/wshobson/agents))
 
