@@ -39,6 +39,8 @@ For <complex usage> or <error> see path/to/<tool>_docs.md
   * "ultrathink": maximum budget
 * If working on multiple projects, you can keep "memory" files in your machine's home directory `~/.claude/CLAUDE.md`. You can jump to these with the `/memory` command
 
+Update 2026-01-07: The thinking budget is now set to maximum by default in Claude Code, so triggering ultrathink is no longer necessary ([source](https://www.reddit.com/r/ClaudeCode/comments/1qe989p/thinking_modes_are_not_available_anymore_on/)).
+
 ## Do meta-analysis on the codebase
 Claude may implement features that work, but not always in a way that makes sense. When it refactors code, it may unnecessarily create new variables and deprecate others. This is bad for many reasons:
 * Bloat &rarr; increased context &rarr; consuming unnecessary tokens &rarr; increased cost
