@@ -1,12 +1,12 @@
-## Building Python Monorepos in 2026: The Power of uv Workspaces
+## Building Python Monorepos: uv Workspaces
 
 Managing a complex Python repository with a shared core, various plugins, and multiple applications used to be a headache involving brittle path dependencies or complex scripts. In 2026, the uv workspace has emerged as the definitive solution for these "monorepo" architectures.
 
 ## What is a Workspace?
 UV's Workspace concept is heavily inspired by Rust's Cargo -- a high performance tool for managing large codebases with multiple related packages.
-* A workspace consists of many **Workspace Members**. Members are the individual local packages (applications or libraries) that make up the workspace. Each member has its own pyproject.toml to define its specific dependencies and configuration.
+* A workspace consists of many **workspace members**. Members are the individual local packages (applications or libraries) that make up the workspace. Each member has its own pyproject.toml to define its specific dependencies and configuration.
 * The entire workspace shares a **single uv.lock file** located at the workspace root. This ensures that all members use consistent versions of shared dependencies, preventing version conflicts between different parts of your project.
-* Workspace Root: Every workspace must have a root directory that contains a pyproject.toml file with a [tool.uv.workspace] table. This root is also considered a workspace member.
+* Workspace Root: Every workspace must have a root directory that contains a pyproject.toml file with a `[tool.uv.workspace]` table. This root is also considered a workspace member.
 * Unified Environment: By default, uv creates a single virtual environment (.venv) for the entire workspace, which includes all members and their dependencies. Members are installed into this environment as editable packages, meaning changes to one member are immediately reflected when used by another.
 
 Workspace members are treated as local editable packages. They can reference each other without being published. The workspace root serves as a wrapper, or a "dev" environment, for its members. It is an orchestration layer to define shared context across the workspace members.
@@ -47,7 +47,8 @@ uv-monorepo-python/
 ## How to configure pyproject.toml?
 Here is how to configure a repo with a shared core library and an application.
 
-1. The Workspace Root (/pyproject.toml)
+### 1. The Workspace Root (/pyproject.toml)
+
 The root file defines the boundaries of your workspace and hosts shared dev tools.
 
 ```toml
@@ -81,9 +82,12 @@ Workspace members will appears in your `uv.lock`'s `[manifest]` table:
 [manifest]
 members = [
     "core-lib",
+    ...
+]
 ```
 
-2. The Core Package (/packages/core-lib/pyproject.toml)
+### 2. The Core Package (/packages/core-lib/pyproject.toml)
+
 For a library, ensure it is marked as a "package" so others can import it. uv will build the package when you run the `sync` command.
 
 ```toml
@@ -96,7 +100,9 @@ dependencies = ["requests>=2.31"]
 package = true # This makes core-lib importable by other members
 ```
 
-3. The Application (/apps/main-app/pyproject.toml)
+### 3. The Application (/apps/main-app/pyproject.toml)
+
+
 The application links to other workspace members (e.g. the core library) by using the `[tool.uv.sources]` table and setting `workspace = true`. 
 
 ```toml
@@ -134,20 +140,20 @@ Once your structure is set, use these commands keep your monorepo healthy:
 * `uv lock` from the root: generates manifest for your entire workspace.
 * `uv sync` from the root: creates a virtual environment, install dependencies, build and install workspace packages.
 
-Note: You can run `uv sync --all-packages` from a workspace member directory to achieve the same affect as running `uv sync` from the workspace root.
+  Note: You can run `uv sync --all-packages` from a workspace member directory to achieve the same affect as running `uv sync` from the workspace root.
 
 * Isolated Testing: To run tests for just one plugin without other workspace noise:
-```bash
-uv sync --package my-plugin
-uv run pytest packages/my-plugin/tests
-```
+  ```bash
+  uv sync --package my-plugin
+  uv run pytest packages/my-plugin/tests
+  ```
 
-Note: make sure pytest is installed when you run `uv run pytest`. If pytest is not installed as a direct dependency of the package you are in, uv falls back to a system-wide pytest or one from a different environment that doesn't "know" about your local workspace members (details below)[uv appears to...]
+  Note: make sure pytest is installed when you run `uv run pytest`. If pytest is not installed as a direct dependency of the package you are in, uv falls back to a system-wide pytest or one from a different environment that doesn't "know" about your local workspace members (details below)[uv appears to...]
 
 * Add a new dependency from root: e.g., to add httpx to only the core library:
-```bash
-uv add --package core-lib httpx
-```
+  ```bash
+  uv add --package core-lib httpx
+  ```
 
 
 ## Limitations
