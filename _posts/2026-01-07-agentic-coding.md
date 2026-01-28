@@ -27,7 +27,7 @@ Claude Code parses the user's prompt to infer intent, then calls the appropriate
 3. Loads its own set of focused instructions
 4. Receives specific context from the main agent
 
-Based on this workflow, a cluttered `CLAUDE.md` risks degrading the performance of your subagents. For this reason, `CLAUDE.md` should be kept lean. With subagents, you can split up a large, cluttered `CLAUDE.md` into specific instructions for specific agents - planning, reviewing, styling, committing, etc. You could build your own agents, but I recommend starting with pre-built ones that have already been battle tested [[4]]. Claude Code already comes with pre-defined agents -- for example, the `plan` mode uses a Plan subagent.
+Based on this workflow, a cluttered `CLAUDE.md` risks degrading the performance of your subagents. For this reason, `CLAUDE.md` should be kept lean (there are [other reasons](https://x.com/Arindam_1729/status/2013273760619794778) to keep `CLAUDE.md` lean too. e.g, Claude may not follow your instructions or invoke skills because your `CLAUDE.md` file is too verbose). With subagents, you can split up a large, cluttered `CLAUDE.md` into specific instructions for specific agents - planning, reviewing, styling, committing, etc. You could build your own agents, but I recommend starting with pre-built ones that have already been battle tested [[4]]. Claude Code already comes with pre-defined agents -- for example, the `plan` mode uses a Plan subagent.
 
 ### Under the Hood
 Subagents are defined as markdown files that live in `.claude/agents/`. Like general AI agents, they have access to specific instructions and tools.
@@ -296,6 +296,7 @@ The shift from prompt engineering to context engineering means thinking strategi
 
 ## Further Reading
 
+- [Best Practices for Agentic Coding - Anthropic](https://code.claude.com/docs/en/best-practices)
 - [Effective Context Engineering for AI Agents - Anthropic](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 - [Context Engineering Guide - Prompting Guide](https://www.promptingguide.ai/guides/context-engineering-guide)
 - [Context Engineering - DataCamp](https://www.datacamp.com/blog/context-engineering)
