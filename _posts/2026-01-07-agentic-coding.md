@@ -137,6 +137,28 @@ Because Skills usually involve prompt injection with instructions for complex op
 
 **Key takeaway**: Skills add domain knowledge to your current context—use them for workflows, standards, and patterns that should guide your work continuously rather than being evaluated in isolation.
 
+### Things to Consider: Triggering skills
+Obviously, if skills are not triggered, then it is useless. To make sure the right skills are triggered, you can add in your `CLAUDE.md`: "To do X, invoke skill Y".
+
+#### Instruction Wording matters
+
+| Instruction | Behavior | Outcome |
+|-------------|----------|---------|
+| "You MUST invoke the skill" | Reads docs first, anchors on doc patterns | Misses project context |
+| "Explore project first, then invoke skill" | Builds mental model first, uses docs as reference | Better results |
+
+A vercel blog found that skill execution and behavior can be brittle ([source](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)). This is concerning, as we need our agents to retain context and execute the desired skill at the appropriate time. 
+
+### Things to Consider: To Skill, or not to Skill?
+The solution the Vercel team found for their NextJS project was to embed an index pointing to specific documentation references directly within their `CLAUDE.md` file:
+
+```
+IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning for any Next.js tasks.
+```
+This tells the agent to consult the docs rather than rely on potentially outdated training data.
+
+Which leads to a good point: **not everything should be made a skill**. We need to be intelligent about what should be in the general instructions (`CLAUDE.md`) vs be made a Skill vs a Subagent.
+
 ## Subagents vs Skills: When to Use Which?
 
 The key distinction: **Subagents run in isolation with their own context; Skills enhance the current conversation**.
@@ -263,6 +285,7 @@ To master agentic development with Claude Code:
 4. **Make your workflow repeatable**: Codify new patterns and standards as skills
 5. **Follow single responsibility**: Each agent/skill should have one clear purpose
 6. **Expect Skills to dominate**: Most workflows require continuous context—subagents are specialists, not generalists
+7. **Sometimes, use neither Skills nor Subagents**: In certain projects, having access to the right documentation is what matters most. Rather than making this a skill, use an index in your `CLAUDE.md` file to tell Claude where to find the appropriate documenation or reference. To save on tokens, you can compress the index ([source](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)).
 
 The shift from prompt engineering to context engineering means thinking strategically about what information your agents need, when they need it, and whether that knowledge should persist or start fresh. Master this, and you'll build more reliable, maintainable agentic workflows.
 
