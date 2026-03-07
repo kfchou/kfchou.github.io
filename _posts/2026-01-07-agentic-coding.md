@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Agentic Code Development with Claude Code
-categories: [AI Coding, LLMs, Claude Code]
+categories: [AI Coding, LLMs, Claude Code, Context Management]
 ---
 
 Early users treated LLMs as one-shot text generators. Users focused on clever wording, examples, and formatting of their prompts to achieve their goals. This became known as "prompt engineering". Prompt Engineering worked for simple tasks, but broke down as soon as people needed memory, tools, retrieval, or multi-step reasoning.
@@ -147,7 +147,7 @@ Obviously, if skills are not triggered, then it is useless. To make sure the rig
 | "You MUST invoke the skill" | Reads docs first, anchors on doc patterns | Misses project context |
 | "Explore project first, then invoke skill" | Builds mental model first, uses docs as reference | Better results |
 
-A vercel blog found that skill execution and behavior can be brittle ([source](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)). This is concerning, as we need our agents to retain context and execute the desired skill at the appropriate time. 
+A Vercel blog found that skill execution and behavior can be brittle ([source](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)). This is concerning, as we need our agents to retain context and execute the desired skill at the appropriate time. 
 
 ### Things to Consider: To Skill, or not to Skill?
 The solution the Vercel team found for their NextJS project was to embed an index pointing to specific documentation references directly within their `CLAUDE.md` file:
