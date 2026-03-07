@@ -225,6 +225,15 @@ Superpowers [[10]] uses skills to guide Claude through a disciplined development
 
 Superpowers is designed to be a community-driven marketplace of Agents and Skills. Exciting to see how it will grow!
 
+#### solatic/claude-config ([Github](https://github.com/solatis/claude-config))
+The repository contains skills and agents the enforces a way of working designed around 4 principles:
+* Context Hygiene
+* Planning before execution
+* Review Cycles
+* Cost-Effective Delegation -- allocate tasks to different models based on complexity
+
+There are definitely overlaps with the `superpowers` repository above. But I like the principle here on lean memory management, which can be used effectively with the `superpowers` workflow.
+
 #### wshobson/agents ([GitHub](https://github.com/wshobson/agents))
 
 A comprehensive production-ready system combining 99 specialized AI agents, 15 multi-agent workflow orchestrators, and 107 agent skills organized into 67 focused plugins. The repository is consistently cited in community resources as one of the top subagent collections.
