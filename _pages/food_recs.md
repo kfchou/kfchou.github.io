@@ -4,6 +4,8 @@ title: Kenny's Food Recs
 permalink: /food-recs/
 ---
 
+Edit: 2026-03 -- I started using Beli, so this list is no longer maintained. Find me at @kchoueats
+
 To contribute, please submit your reviews [here](https://docs.google.com/forms/d/e/1FAIpQLSc3rrsBrqAP7WhvTzkQ3CdWUecWeeHMEV7RmaX6Oj8K_jEf5w/viewform?usp=sf_link). The content of this list is updated automatically based on the raw data on [Google Sheets](https://docs.google.com/spreadsheets/d/1442-rzE9VLjcUoT80eWfmoxuxG2ZJrOAK4UG_LzO4dA/edit#gid=0), which is pulled from the survey responses. You can also get more food inspirations on my ig [@kchou.eats](https://www.instagram.com/kchou.eats/).
 
 |**Rating System**:|
