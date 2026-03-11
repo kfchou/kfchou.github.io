@@ -1,7 +1,8 @@
 ---
 layout: post
-title:  Agentic Code Development with Claude Code
+title:  "Agentic Code Development with Claude Code"
 categories: [AI Coding, LLMs, Claude Code, Context Management]
+excerpt: "Managing Context: Use Subagents and Skills toegether to enhance your workflow"
 ---
 
 Early users treated LLMs as one-shot text generators. Users focused on clever wording, examples, and formatting of their prompts to achieve their goals. This became known as "prompt engineering". Prompt Engineering worked for simple tasks, but broke down as soon as people needed memory, tools, retrieval, or multi-step reasoning.
@@ -27,7 +28,7 @@ Claude Code parses the user's prompt to infer intent, then calls the appropriate
 3. Loads its own set of focused instructions
 4. Receives specific context from the main agent
 
-Based on this workflow, a cluttered `CLAUDE.md` risks degrading the performance of your subagents. For this reason, `CLAUDE.md` should be kept lean (there are [other reasons](https://x.com/Arindam_1729/status/2013273760619794778) to keep `CLAUDE.md` lean too. e.g, Claude may not follow your instructions or invoke skills because your `CLAUDE.md` file is too verbose). With subagents, you can split up a large, cluttered `CLAUDE.md` into specific instructions for specific agents - planning, reviewing, styling, committing, etc. You could build your own agents, but I recommend starting with pre-built ones that have already been battle tested [[4]]. Claude Code already comes with pre-defined agents -- for example, the `plan` mode uses a Plan subagent.
+Based on this workflow, **a cluttered `CLAUDE.md` risks degrading the performance of your subagents**. For this reason, `CLAUDE.md` should be kept lean (there are [other reasons](https://x.com/Arindam_1729/status/2013273760619794778) to keep `CLAUDE.md` lean too. e.g, Claude may not follow your instructions or invoke skills because your `CLAUDE.md` file is too verbose). With subagents, you can split up a large, cluttered `CLAUDE.md` into specific instructions for specific agents - planning, reviewing, styling, committing, etc. You could build your own agents, but I recommend starting with pre-built ones that have already been battle tested [[4]]. Claude Code already comes with pre-defined agents -- for example, the `plan` mode uses a Plan subagent.
 
 ### Under the Hood
 Subagents are defined as markdown files that live in `.claude/agents/`. Like general AI agents, they have access to specific instructions and tools.
