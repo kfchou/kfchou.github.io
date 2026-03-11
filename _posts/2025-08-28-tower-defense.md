@@ -9,6 +9,15 @@ I used to spend my time before classes playing the original Desktop Tower Defens
 
 It still took me about 30-40 hours to arrive at a playable, relatively bug-free state. Along the way, I picked up a lot of best practices for coding with Claude, which will be documented [here]({% post_url 2025-08-13-tower-defense-learnings %}). BUT the end result is a highly configurable, extendable, fast, browser-based tower defense game.
 
+Tip: If you're on a PC or Mac, use keyboard shortcuts (also see Menu -> Keyboard Shortcuts):
+* Numbers `1`-`5` chooses different towers
+* `F` changes the game speed
+* `N` spawns the next wave of enemies
+* `M` toggles the menu
+* `spacebar` pauses the game
+* `U` upgrades the selected tower
+* `S` sells the selected tower
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <style>
