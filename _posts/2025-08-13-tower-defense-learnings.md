@@ -4,7 +4,7 @@ title:  Initial Learnings for Effective Use of Claude Code
 categories: [AI Coding]
 pinned: false
 ---
-I spent more than 40 hours to build a javascript-based game (which you can play [here]({% post_url 2025-08-28-tower-defense %})). I use Python day to day, and operating in a new language and framework in a new AI tool presented a steep learning curve. In this post, I share some learnings.
+I spent more than 40 hours building a JavaScript-based game (which you can play [here]({% post_url 2025-08-28-tower-defense %})). I use Python day to day, and operating in a new language and framework with a new AI tool presented a steep learning curve. In this post, I share some learnings.
 
 
 ## CLAUDE.md
