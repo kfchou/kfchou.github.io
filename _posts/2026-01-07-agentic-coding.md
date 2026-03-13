@@ -19,6 +19,26 @@ Claude Code runs an agentic loop [[1]][[2]]: you submit a prompt → Claude choo
 - Codify new patterns, standards, or workflows as a new Subagent or Skill for repeatability
 - Appropriate use of Skills and Subagents helps with context engineering, enhancing your workflow, making sure Claude Code will always follow your prompts and your processes.
 
+
+## Table of Contents <!-- omit from toc -->
+- [Subagents](#subagents)
+  - [Under the Hood](#under-the-hood)
+  - [Things to Consider: The Handoff Issue](#things-to-consider-the-handoff-issue)
+- [Agent Skills](#agent-skills)
+  - [Under the hood](#under-the-hood-1)
+  - [Things to Consider: Triggering skills](#things-to-consider-triggering-skills)
+  - [Things to Consider: To Skill, or not to Skill?](#things-to-consider-to-skill-or-not-to-skill)
+- [Subagents vs Skills: When to Use Which?](#subagents-vs-skills-when-to-use-which)
+- [Geting started: Agent and Skill repositories](#geting-started-agent-and-skill-repositories)
+  - [Claude Code Plugin Marketplace (Recommended)](#claude-code-plugin-marketplace-recommended)
+  - [Popular Community Collections](#popular-community-collections)
+  - [Manual Installation (Alternative)](#manual-installation-alternative)
+- [Building Your Own Agents or Skills](#building-your-own-agents-or-skills)
+- [Key Takeaways](#key-takeaways)
+- [References](#references)
+- [Further Reading](#further-reading)
+
+
 ## Subagents
 Subagents receive a tightly scoped slice of context to perform a specific task (e.g., search, refactor, test, or analyze) independent from the main conversation context. Their outputs are then merged back into the main agent’s context, allowing complex coding workflows to scale without overwhelming a single prompt or context window.
 
@@ -194,8 +214,10 @@ To remove a plugin, do
 ```
 
 ### Popular Community Collections
+Updated March 2026
+{: .post-subheading }
 
-#### obra/superpowers ([Github](https://github.com/obra/superpowers))
+#### obra/superpowers (80k stars on [Github](https://github.com/obra/superpowers))
 A collection of Skills that have been thoroughly battle tested by Jesse Vincent [[9]]. Great for ensuring good software engineering workflows.
 
 ```bash
@@ -235,7 +257,20 @@ The repository contains skills and agents the enforces a way of working designed
 
 There are definitely overlaps with the `superpowers` repository above. But I like the principle here on lean memory management, which can be used effectively with the `superpowers` workflow.
 
-#### wshobson/agents ([GitHub](https://github.com/wshobson/agents))
+#### The Agency (35.1k stars on [Github](https://github.com/msitarzewski/agency-agents))
+
+A collection of agents designed for not just software, but also marketing, design, media, sales, product, project management, gaming, and other specialized roles.
+
+Quickstart:
+```
+# Copy agents to your Claude Code directory
+cp -r agency-agents/* ~/.claude/agents/
+
+# Now activate any agent in your Claude Code sessions:
+# "Hey Claude, activate Frontend Developer mode and help me build a React component"
+```
+
+#### wshobson/agents (31k stars on [GitHub](https://github.com/wshobson/agents))
 
 A comprehensive production-ready system combining 99 specialized AI agents, 15 multi-agent workflow orchestrators, and 107 agent skills organized into 67 focused plugins. The repository is consistently cited in community resources as one of the top subagent collections.
 
@@ -249,7 +284,7 @@ A comprehensive production-ready system combining 99 specialized AI agents, 15 m
 - **Code review**: Use the `code-reviewer` subagent to evaluate your work in isolation, without being influenced by your implementation context. The reviewer integrates with tools like SonarQube, CodeQL, and Semgrep for comprehensive analysis.
 - **Debugging**: Use the `debugger` subagent for isolated context focused solely on the error, with systematic investigation and potentially read-only permissions to prevent accidental changes during investigation.
 
-#### VoltAgent/awesome-claude-code-subagents ([GitHub](https://github.com/VoltAgent/awesome-claude-code-subagents))
+#### VoltAgent/awesome-claude-code-subagents (13.6k on [GitHub](https://github.com/VoltAgent/awesome-claude-code-subagents))
 
 The most comprehensive reference repository for Claude Code subagents, featuring 100+ specialized AI agents for full-stack development, DevOps, data science, and business operations. "The most powerful Claude agents feel like hiring a team of experts—but you get code reviews, migrations, and tests done in minutes" [[11]]; "Performs comprehensive code reviews with the thoroughness of a senior engineer" - developers report catching subtle race conditions that would have caused production failures [[12]].
 
