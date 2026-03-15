@@ -34,6 +34,7 @@ Claude Code runs an agentic loop [[1]][[2]]: you submit a prompt → Claude choo
   - [Popular Community Collections](#popular-community-collections)
   - [Manual Installation (Alternative)](#manual-installation-alternative)
 - [Building Your Own Agents or Skills](#building-your-own-agents-or-skills)
+  - [Helpful tools](#helpful-tools)
 - [Key Takeaways](#key-takeaways)
 - [References](#references)
 - [Further Reading](#further-reading)
@@ -319,6 +320,11 @@ If you do create you own skills, I encourage you to read more about skills in [C
 * Template-based generation
 * Iterative refindment
 * Context aggregation - combining information from ultiple sources
+
+### Helpful tools
+Update 2026-03: Skills won't be perfect on the first try, but there are tools to help you evaluate and iterate on this new skill:
+* the `skill-creator` plugin from [Anthropic](https://github.com/anthropics/skills/tree/main/skills/skill-creator)
+* Treat the Skill like an ML problem, and use Andrej Kaparthy's [autoresearch](https://github.com/karpathy/autoresearch) to do self-improvement. See an [example by Nick Saraev](https://youtu.be/qKU-e0x2EmE?si=k3SejCVVY2E42YyC&t=533).
 
 ## Key Takeaways
 
