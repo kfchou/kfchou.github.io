@@ -2,7 +2,7 @@
 layout: post
 title:  "A Review on Agentic Memory"
 categories: [AI Coding, LLMs, Claude Code]
-excerpt: Managing context for long running agents, across sessions, or swarms of agents, remains an active area of research and development. This is a survey of the current landscaspe in the world of Agentic memory.
+excerpt: Managing context for long-running agents, across sessions, or swarms of agents, remains an active area of research and development. This is a survey of the current landscaspe in the world of Agentic memory.
 ---
 
 TL;DR
@@ -19,7 +19,7 @@ The solution you choose depends on your use case. One consideration is human rea
 
 In the very early days, devs stuffed their primary memory file (CLAUDE.md or AGENTS.md) with everything to "make an agent smarter", and quickly learned that this pattern is poor practice. By 2026 it is commonly known that **CLAUDE.md files need to be kept lean** to avoid cluttering your context window. In "[Agentic Code Development with Claude Code](https://kfchou.github.io/agentic-coding/)", I wrote about how the use of subagents is another reason why a lean memory file is important. This begs the question, _how_ should we manage the repo history and memory for long-running tasks? What if the task required multiple sub-agents agents and handoffs? This review is a survey of the current solution landscsape to agentic memory.
 
-- [Long Running Single Session Memory](#long-running-single-session-memory)
+- [Long-running Single Session Memory](#long-running-single-session-memory)
   - [Memtree (closed source)](#memtree-closed-source)
   - [Letta (21,582 ★)](#letta-21582-)
 - [Memory Across Sessions (Memory Persistence)](#memory-across-sessions-memory-persistence)
@@ -37,14 +37,14 @@ In the very early days, devs stuffed their primary memory file (CLAUDE.md or AGE
 - [Further Reading](#further-reading)
 
 
-## Long Running Single Session Memory
-[OpenClaw](https://github.com/openclaw/openclaw) has been making waves in the past two months. Under the hood, its essentially a long running Claude agent that is always on. It has an orchestrator for model routing and integrations with everyday communication apps. There's currently a [shortage of Mac Minis](https://www.scmp.com/tech/tech-trends/article/3346538/apples-mac-mini-selling-out-across-china-openclaw-fever-rages) in China from its popularity. A long-running agent like OpenClaw needs some kind of memory system to overcome [context rot](https://research.trychroma.com/context-rot). So projects like [Memtree](https://memtree.dev/) have popped up to support long running agents.
+## Long-running Single Session Memory
+[OpenClaw](https://github.com/openclaw/openclaw) has been making waves in the past two months. Under the hood, its essentially a long-running Claude agent that is always on. It has an orchestrator for model routing and integrations with everyday communication apps. There's currently a [shortage of Mac Minis](https://www.scmp.com/tech/tech-trends/article/3346538/apples-mac-mini-selling-out-across-china-openclaw-fever-rages) in China due to its popularity. A long-running agent like OpenClaw needs some kind of memory system to overcome [context rot](https://research.trychroma.com/context-rot). So projects like [Memtree](https://memtree.dev/) have popped up to support long-running agents.
 
 ### [Memtree](https://memtree.dev/) (closed source)
 
 In Memtree, context Memory is structured as a B-tree where the top of the tree contains a high level summary of the current message history and the bottom of the tree contains verbatim excerpts from that history that are relevant to recent messages. In between are summaries that get more detailed as you go towards the leaves. Rather than simply return matching chunks of text without context, as is typical with RAG, they retrieve relevant details contextualized within a tree of summaries. It's a specialized form of GraphRAG where relationships between nodes are encoded in the tree structure. This tree structure allows us to efficiently expand and collapse nodes based on relevance at query-time. ([how it works](https://api.polychat.co/context-memory#how-it-works))
 
-Memtree is the backend of [Claude Code Infinite](https://github.com/crizCraig/claude-code-infinite), where your current sessions context would actually decrease as your session continues. This is achieved by **compressing your current context using memtree** in the backend. If you often require long running sessions, then Claude Code Infinite would appear to be a nice solution.
+Memtree is the backend of [Claude Code Infinite](https://github.com/crizCraig/claude-code-infinite), where your current sessions context would actually decrease as your session continues. This is achieved by **compressing your current context using memtree** in the backend. If you often require long-running sessions, then Claude Code Infinite would appear to be a nice solution.
 
 ### [Letta](https://github.com/letta-ai/letta) (21,582 ★)
 
