@@ -12,7 +12,7 @@ Coca Cola famousely re-mineralizes distilled water in their plants across the wo
 Its same for coffee. The chemistry behind water is complex, and still not fully understood. Colonna-Dashwood & Hendon's [Water for Coffee](https://www.amazon.ca/Water-Coffee-Science-Story-Manual/dp/1782806083) (2015) takes a deep dive into this topic. To make this more approachable, [Third Wave Water](https://thirdwavewater.com/) has built a whole business to help you achieve a desired mineral composition specifically for various types of coffee -- simply add their mineral packs to distilled water.
 
 Various recipes will talk about adjusting the total hardness (ppm $$CaCO_3$$) and alkalinity (ppm $$CaCO_3$$) by focusing on the content of calcium and magnesium. The [Coffee ad Astra Blog](https://coffeeadastra.com/2018/12/16/water-for-coffee-extraction/) summarized this well into a beautiful figure:
-![alt text](../assets/2026-03-22/water-chemistry.png)
+![alt text](/assets/2026-03-22/water-chemistry.png)
 
 Figure 1: Total Hardness vs Alkalinity: Target values, by Coffee ad Astra. Grey boxes describe the coffee brewed with water hardness and alkalinity in that region. See "Chemistry Overview" for an explanation of "Total Hardness" and "Alkalinity".
 {: .post-subheading }
