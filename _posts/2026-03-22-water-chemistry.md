@@ -126,5 +126,17 @@ This calculator provides a single concentrate, as opposed to a two-concentrate s
 
 Disclaimer: I haven't tried this calculator.
 
+
+## My Current Recipe
+
+For now, I'm using the following as a starting point for Boston tap water (post-filter):
+
+* **60g** Hardness Solution per 906g water
+* **34g** Buffer Solution per 906g water
+
+This targets ~80 ppm GH and ~50 ppm KH — enough magnesium to pull out bright acids, and enough alkalinity to survive the milk in a flat white.
+
+The proof is in the cup. I'll update this post as I dial it in further with a drop test kit and side-by-side comparisons. If you're in Boston and experimenting with the same, I'd love to know what works for you.
+
 ## Further Readings
 [Understanding Water Quality for Brewing Championship Coffee](https://water.viomi.com/blogs/hydration-lab/water-quality-for-coffee-brewing-guide#:~:text=For%20espresso%2C%20many%20aim%20somewhat%20higher%2C%20often,Calcium%20and%20Magnesium%20For%20Body%20And%20Sweetness.) - Viomi
