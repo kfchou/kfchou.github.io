@@ -1,0 +1,169 @@
+/* ── Page setup ──────────────────────────────────────────────── */
+@page {
+  size: letter;
+  margin: 0.65in 0.7in;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Liberation Sans", Arial, sans-serif;
+  font-size: 9.5pt;
+  line-height: 1.35;
+  color: #111;
+}
+
+/* ── Browser preview: letter-size page with margins ─────────── */
+@media screen {
+  html {
+    background: #e0e0e0;
+    padding: 32px;
+  }
+
+  body {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0 auto;
+    padding: 0.65in 0.7in;
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  }
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.header-name {
+  font-size: 26pt;
+  font-weight: normal;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.header-contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 16px;
+  font-size: 8.5pt;
+  align-items: center;
+  text-align: left;
+}
+
+.header-contact span {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.icon {
+  width: 14pt;
+  height: 14pt;
+  vertical-align: middle;
+  object-fit: contain;
+}
+
+/* ── Section headings (## in markdown) ───────────────────────── */
+h2 {
+  font-size: 11pt;
+  font-weight: bold;
+  text-transform: none;
+  border-bottom: 1px solid #111;
+  padding-bottom: 1px;
+  margin-top: 8px;
+}
+
+/* ── Experience entries (### in markdown) ────────────────────── */
+h3 {
+  font-size: 9.5pt;
+  font-weight: normal;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+/* Date sits in a <code> span inline after the company name */
+h3 code {
+  font-family: inherit;
+  font-size: 8.5pt;
+  font-weight: normal;
+  background: none;
+  color: #111;
+  white-space: nowrap;
+  margin-left: 8px;
+}
+
+/* Job title (italic paragraph immediately after h3) */
+h3 + p em {
+  font-style: italic;
+  font-size: 8.7pt;
+  display: block;
+  margin-bottom: 2px;
+  color:#3a3a3a;
+}
+
+/* ── Bullet lists ────────────────────────────────────────────── */
+ul {
+  margin: 3px 0 4px 14px;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 1.5px;
+}
+
+/* ── Technical Skills (ul directly under h2) ─────────────────── */
+h2 + ul {
+  list-style: none;
+  margin-left: 0;
+}
+
+h2 + ul li::before {
+  content: "• ";
+}
+
+/* ── Education table ─────────────────────────────────────────── */
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-top: 4px;
+  font-size: 9pt;
+}
+
+thead {
+  display: none; /* hide the auto-generated header row */
+}
+
+td {
+  padding: 1px 6px 1px 0;
+  vertical-align: top;
+}
+
+td:first-child {
+  width: auto;
+}
+
+td:nth-child(2) {
+  width: 95%;
+}
+
+/* ── Page break control ──────────────────────────────────────── */
+h2 {
+  page-break-after: avoid;
+}
+
+h3 {
+  page-break-after: avoid;
+}

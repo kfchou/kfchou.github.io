@@ -45,8 +45,8 @@ start: ## Launch the container. Alternatively, you can call your docker-compose 
 	$(IMAGE_NAME)"
 
 logs: ## Tail the container logs
-    @echo "Tailing Docker container logs..."
-    docker logs -f $(CONTAINER_NAME)
+	@echo "Tailing Docker container logs..."
+	docker logs -f $(CONTAINER_NAME)
 
 shell: ## Enter the container shell
 	@echo "Entering Docker container shell..."
@@ -77,5 +77,30 @@ clean: rm ## Clean up all Docker artifacts (include image)
 
 redeploy: clean build run ## Rebuild and run the container
 
+resume: ## Build resume PDF from resume/resume.md
+	@echo "Building resume..."
+	@cd resume && \
+	pandoc resume.md \
+	  --template resume-template.html \
+	  --metadata title="Resume" \
+	  --standalone \
+	  -o resume.html && \
+	uv run weasyprint resume.html resume.pdf && \
+	rm resume.html
+	@echo "Done: resume/resume.pdf"
+
+resume-html: ## Build resume as HTML only (for browser preview and CSS tweaking)
+	@cd resume && \
+	pandoc resume.md \
+	  --template resume-template.html \
+	  --metadata title="Resume" \
+	  --standalone \
+	  -o resume-preview.html
+	@echo "Done: resume/resume-preview.html"
+
+resume-watch: ## Watch resume.md and rebuild PDF on save (requires entr)
+	@echo "Watching resume/resume.md for changes... (Ctrl+C to stop)"
+	@ls resume/resume.md | entr make resume
+
 # Phony targets
-.PHONY: help build logs start shell test stop rm clean redeploy
+.PHONY: help build logs start shell test stop rm clean redeploy resume resume-html resume-watch
