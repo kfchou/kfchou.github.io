@@ -9,21 +9,21 @@ web: "kfchou.github.io"
 
 ## Technical Skills
 
+- **Software** — Python (5+ years; Numpy, Pandas, Pytest, SKlearn, Matplotlib, Plotly, FastAPI), Bash, Matlab (10+ years).
 - **Time-Series analysis** — Physiology waveforms (PPG, ECG), audio & speech, digital signal processing.
 - **Data** — statistical modeling, feature engineering, machine learning, time-frequency analysis, visualizations.
-- **Coding** — Python (5+ years; Numpy, Pandas, Pytest, SKlearn, Matplotlib, Plotly), Bash, Matlab (10+ years).
-- **Others** — AWS, Redshift, SQL, DataBricks, Version Control (Git), test-driven development, CI/CD, Docker.
+- **Others** — AWS, Redshift, SQL, DataBricks, Version Control (Git), test-driven, CI/CD, Docker, full stack.
 
 ## Relevant Experience
 
 ### Koninklijke Philips N.V., Cambridge, MA `01/2024–present`
 *Data Scientist/ML Engineer*
 
-- Maintained and optimized data processing pipelines for large scale physiological dataset.
-- Wrote tests and optimized ML algorithms for scaling and production, increasing maintainability and reproducibility.
-- Lead code review and best practice discussions for software and ML.
-- Reviewed experiments and statistical analyses to ensure data completeness and validate model performance.
-- Increased efficiency and collaboration across research teams by incorporating DevOps and Agile practices.
+* Hardened research-grade ML pipelines for production, adding testing, CI, security reviews, etc.
+* Develop and deploy ML pipelines for respiratory illness prediction based on COTS wearable devices.
+* Lead code review and best practice discussions for software and AL/ML.
+* Reviewed experiments and statistical analyses to ensure data completeness and validate model performance.
+* Increased efficiency and collaboration across research and dev teams by inplementing DevOps and Agile practices to the research setting.
 
 ### Global Health Labs, Bellevue, WA `02/2021–09/2021, 04/2023–01/2024`
 *Clinical Data Scientist*
@@ -53,7 +53,7 @@ web: "kfchou.github.io"
 
 | | |
 |---|---|
-| **Boston University** | |
+| **Boston University** | Thesis topic: Biological Neural Networks for Background Speech Suppression |
 | Ph.D., Biomedical Engineering, 2020 | Distinguished Biomedical Engineering Fellow (2013) |
 | M.S., Biomedical Engineering, 2017 | Google Scholar: <https://bit.ly/3gazuB2> |
 | **University of Washington** | |
