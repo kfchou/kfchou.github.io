@@ -49,25 +49,25 @@ But adoption and usefulness are not the same thing.
 
 The criticism has come from some of the most credible voices in the industry.
 
-A post titled ["MCP is dead. Long live the CLI"][2] hit #1 on Hacker News on February 28, 2026 with ~300 comments [[15]]. The contributor, Eric Holmes, argued that LLMs are already expert at tools like `git`, `docker`, and `kubectl` — so why build a new abstraction on top of them? "I've lost count of the times I've restarted Claude Code because an MCP server didn't come up." CLI tools are just binaries. They're there when you need them and invisible when you don't.
+A post titled ["MCP is dead. Long live the CLI"][2] hit #1 on Hacker News on February 28, 2026 with ~300 comments [[3]]. The contributor, Eric Holmes, argued that LLMs are already expert at tools like `git`, `docker`, and `kubectl` — so why build a new abstraction on top of them? "I've lost count of the times I've restarted Claude Code because an MCP server didn't come up." CLI tools are just binaries. They're there when you need them and invisible when you don't.
 
 **Peter Steinberger**, creater of OpenClaw, echoed this sentiment back in January:
 
 {% include tweet.html url="https://twitter.com/steipete/status/2007876353463660757" %}
 
-**Denis Yarats**, CTO and co-founder of Perplexity, announced at Ask 2026 (March 11, 2026) that Perplexity is moving away from MCP internally in favor of APIs and CLIs.His stated reason: MCP was consuming up to 72% of available context windows before an agent processed a single user message. Perplexity subsequently launched their Agent API — a single REST endpoint with built-in tools — as their preferred interface [[3]].
+**Denis Yarats**, CTO and co-founder of Perplexity, announced at Ask 2026 (March 11, 2026) that Perplexity is moving away from MCP internally in favor of APIs and CLIs.His stated reason: MCP was consuming up to 72% of available context windows before an agent processed a single user message. Perplexity subsequently launched their Agent API — a single REST endpoint with built-in tools — as their preferred interface [[4]].
 
 {% include tweet.html url="https://twitter.com/morganlinton/status/2031795683897077965" %}
 
-Prominant industry voices echoed in concurrance. **Garry Tan**, President and CEO of Y Combinator, [put it bluntly on X][4] — and the frustration led directly to building gstack's browser CLI.
+Prominant industry voices echoed in concurrance. **Garry Tan**, President and CEO of Y Combinator, [put it bluntly on X][5] — and the frustration led directly to building gstack's browser CLI.
 
 > "I got sick of Claude in Chrome via MCP and vibe coded a CLI wrapper for Playwright tonight in 30 minutes only for my team to tell me Vercel already did it lmao
 >
 > But it worked 100x better and was like 100LOC as a CLI"
 
-**Paweł Huryn**, author of The Product Compass (the #3 product management newsletter on Substack with 106K+ subscribers), offered a more measured but equally pointed [take][17]: "His reasons are real: tool schemas eat context tokens, auth is clunky, and most MCP features go unused anyway."
+**Paweł Huryn**, author of The Product Compass (the #3 product management newsletter on Substack with 106K+ subscribers), offered a more measured but equally pointed [take][6]: "His reasons are real: tool schemas eat context tokens, auth is clunky, and most MCP features go unused anyway."
 
-**Thoughtworks** weighed in institutionally. The global software consultancy publishes a biannual [Technology Radar](https://www.thoughtworks.com/radar) — a report where their senior engineers document patterns and techniques observed across hundreds of client engagements. It's one of the more credible signals in the industry because it reflects real production experience rather than vendor marketing. Their Vol. 33 (November 2025) placed *"naive API-to-MCP conversion"* in the **Hold** ring — their designation for techniques teams should avoid [[6]]. "There has been a rush to convert APIs to MCP servers, which raises serious issues from both a security and efficiency perspective."
+**Thoughtworks** weighed in institutionally. The global software consultancy publishes a biannual [Technology Radar](https://www.thoughtworks.com/radar) — a report where their senior engineers document patterns and techniques observed across hundreds of client engagements. It's one of the more credible signals in the industry because it reflects real production experience rather than vendor marketing. Their Vol. 33 (November 2025) placed *"naive API-to-MCP conversion"* in the **Hold** ring — their designation for techniques teams should avoid [[7]]. "There has been a rush to convert APIs to MCP servers, which raises serious issues from both a security and efficiency perspective."
 
 **Key takeaway**: This isn't just hobbyist frustration. The criticism is coming from YC's president, a major AI company's CTO, and a top engineering consultancy — all pointing to the same underlying problems.
 
@@ -85,16 +85,16 @@ Real-world measurements are stark:
 | ---- | ---------- | ---------- |
 | Check repo language (`gh` vs GitHub MCP) | 1,365 [[8]] | 44,026 [[8]] |
 | Browser automation (Playwright) | ~27,000 [[9]] | ~114,000 [[9]] |
-| Session start* — GitHub MCP alone | — | ~55,000 (93 tool defs) [[7]] |
-| Session start* — 3 servers (GitHub + Slack + Sentry) | — | 143,000 of 200,000 (72%) [[3]] |
+| Session start* — GitHub MCP alone | — | ~55,000 (93 tool defs) [[10]] |
+| Session start* — 3 servers (GitHub + Slack + Sentry) | — | 143,000 of 200,000 (72%) [[4]] |
 
 *Session start = tokens consumed by tool schema definitions loaded before the user sends a single message.
 
-> **Try it yourself**: Start a fresh Claude Code session and run `/context`. The "MCP tools" line shows exactly how many tokens your servers are consuming before you've said a word. Scott Spence measured his setup at 66,000 tokens consumed at conversation start — GitHub MCP alone accounting for 55,000 [[7]] [[14]].
+> **Try it yourself**: Start a fresh Claude Code session and run `/context`. The "MCP tools" line shows exactly how many tokens your servers are consuming before you've said a word. Scott Spence measured his setup at 66,000 tokens consumed at conversation start — GitHub MCP alone accounting for 55,000 [[10]] [[11]].
 
 This isn't a configuration problem — it's structural. MCP requires the schema to be transmitted at every session, regardless of how many tools the agent will actually use.
 
-Cloudflare ran into this head-on. Their API has 2,500 endpoints — a native MCP implementation would consume ~244,000 tokens, exceeding most models' entire context window. Their solution, which they called "Code Mode" [[18]], keeps MCP for discovery but replaces tool-calling with code generation: the model writes code against a typed SDK and executes it directly. The result: 2,500 endpoints covered by 2 tools and ~1,000 tokens.
+Cloudflare ran into this head-on. Their API has 2,500 endpoints — a native MCP implementation would consume ~244,000 tokens, exceeding most models' entire context window. Their solution, which they called "Code Mode" [[12]], keeps MCP for discovery but replaces tool-calling with code generation: the model writes code against a typed SDK and executes it directly. The result: 2,500 endpoints covered by 2 tools and ~1,000 tokens.
 
 ### 2. Auth Friction
 
@@ -104,9 +104,9 @@ Holmes put it directly: "MCP is unnecessarily opinionated about auth. Why does a
 
 ### 3. Reliability and Quality
 
-MCP servers are background processes. They can fail to start, hang, produce no output, or drop connections mid-session. The MCP registry has what one developer described as "the same quality problem as the npm registry circa 2016 — quantity does not imply reliability." [[10]]
+MCP servers are background processes. They can fail to start, hang, produce no output, or drop connections mid-session. The MCP registry has what one developer described as "the same quality problem as the npm registry circa 2016 — quantity does not imply reliability." [[13]]
 
-Security researchers have found thousands of misconfigured MCP servers publicly accessible on the internet, with vulnerabilities including tool shadowing (one MCP server hijacking another's behavior) and prompt injection through tool output [[11]].
+Security researchers have found thousands of misconfigured MCP servers publicly accessible on the internet, with vulnerabilities including tool shadowing (one MCP server hijacking another's behavior) and prompt injection through tool output [[14]].
 
 **Key takeaway**: MCP's token overhead is structural, not configurable. A three-server setup can consume 72% of your context window before you type a word.
 
@@ -130,7 +130,7 @@ The movement has produced concrete alternatives.
 
 ### gstack (★ 10,000+ in 48 hours)
 
-Garry Tan's `gstack` [[5]] is a set of specialized workflows and skills that roleplays a team of opinionated YC advisors. `gstack` surpassed 10,000 GitHub stars in its first 48 hours after open-source release.
+Garry Tan's `gstack` [[15]] is a set of specialized workflows and skills that roleplays a team of opinionated YC advisors. `gstack` surpassed 10,000 GitHub stars in its first 48 hours after open-source release.
 
 An often overlooked aspect of this repository is its browser CLI — a compiled Bun binary that talks to a persistent local Chromium daemon over HTTP. You get a real browser with real clicks and real screenshots at ~100ms per command, invoked like any other shell tool. No MCP server, no JSON schema, no background process to babysit — the daemon manages itself and shuts down after 30 minutes of idle time.
 
@@ -144,15 +144,15 @@ The result: 4× token reduction. A typical browser automation session costs ~27,
 
 ### GitHub CLI (`gh`)
 
-The `gh` CLI already does everything the GitHub MCP server does — and agents already know how to use it. Community consensus has converged: "prefer using `gh` over this MCP," as one developer forum put it [[12]]. A comparison of the same task shows MCP using 32× more tokens than `gh` for identical results.
+The `gh` CLI already does everything the GitHub MCP server does — and agents already know how to use it. Community consensus has converged: "prefer using `gh` over this MCP," as one developer forum put it [[16]]. A comparison of the same task shows MCP using 32× more tokens than `gh` for identical results.
 
 ### Perplexity Agent API
 
-Perplexity replaced their MCP-based tooling with a single REST endpoint that routes to models from OpenAI, Anthropic, Google, xAI, and NVIDIA with built-in tools like web search. One API key, OpenAI-compatible syntax, no schema overhead [[3]].
+Perplexity replaced their MCP-based tooling with a single REST endpoint that routes to models from OpenAI, Anthropic, Google, xAI, and NVIDIA with built-in tools like web search. One API key, OpenAI-compatible syntax, no schema overhead [[4]].
 
 ### The Existing CLIs You Already Have
 
-For the major cloud and DevOps tools, MCP servers have been built — but they mostly reimplement what the official CLI already does. The agents already know how to use these tools natively. One real-world comparison found a 35× token reduction when switching from MCP to CLI for identical tasks [[13]]:
+For the major cloud and DevOps tools, MCP servers have been built — but they mostly reimplement what the official CLI already does. The agents already know how to use these tools natively. One real-world comparison found a 35× token reduction when switching from MCP to CLI for identical tasks [[17]]:
 
 | Tool | MCP server exists? | Better approach |
 | ---- | ------------------ | --------------- |
@@ -177,8 +177,8 @@ This isn't an argument to abandon MCP entirely. There are cases where it remains
 
 What I'm cautioning against is treating it as the *default* answer for every AI integration, which the industry did in 2025. As Thoughtworks put it: the antipattern is *naive API-to-MCP conversion*, not MCP itself.
 
-### [clihub][19] — compile any MCP server into a CLI binary
-If you must use an MCP, consider adopting [`clihub`][19]. It compiles an MCP server into a standalone CLI binary. Every tool the server exposes becomes a subcommand with flags derived from its JSON Schema. Auth is handled automatically. The generated binary has no runtime dependencies — no config files, no clihub needed at runtime.
+### [clihub][18] — compile any MCP server into a CLI binary
+If you must use an MCP, consider adopting [`clihub`][18]. It compiles an MCP server into a standalone CLI binary. Every tool the server exposes becomes a subcommand with flags derived from its JSON Schema. Auth is handled automatically. The generated binary has no runtime dependencies — no config files, no clihub needed at runtime.
 
 This matters for the "SaaS without a CLI" problem. If you're stuck with an MCP server you can't replace, clihub gives you the token efficiency of a CLI without rewriting anything.
 
@@ -194,43 +194,41 @@ The pattern emerging from `gstack`, Playwright CLI, and the broader developer co
 
 [1]: https://workos.com/blog/2026-mcp-roadmap-enterprise-readiness "MCP's 2026 Roadmap Makes Enterprise Readiness a Top Priority — WorkOS"
 [2]: https://ejholmes.github.io/2026/02/28/mcp-is-dead-long-live-the-cli.html "MCP is dead. Long live the CLI — Eric Holmes"
-[3]: https://awesomeagents.ai/news/perplexity-agent-api-mcp-shift/ "Perplexity CTO Moves Away from MCP Toward APIs and CLIs — Awesome Agents"
-[4]: https://x.com/garrytan/status/2031910564344262988 "Garry Tan on MCP — X"
-[5]: https://github.com/garrytan/gstack "gstack — GitHub"
-[6]: https://www.thoughtworks.com/content/dam/thoughtworks/documents/radar/2025/11/tr_technology_radar_vol_33_en.pdf "Technology Radar Vol. 33 — Thoughtworks"
-[7]: https://scottspence.com/posts/optimising-mcp-server-context-usage-in-claude-code "Optimising MCP Server Context Usage in Claude Code — Scott Spence"
+[3]: https://news.ycombinator.com/item?id=47380270 "MCP is dead; long live MCP — Hacker News"
+[4]: https://awesomeagents.ai/news/perplexity-agent-api-mcp-shift/ "Perplexity CTO Moves Away from MCP Toward APIs and CLIs — Awesome Agents"
+[5]: https://x.com/garrytan/status/2031910564344262988 "Garry Tan on MCP — X"
+[6]: https://x.com/PawelHuryn/status/2032360024589164929 "Paweł Huryn on Perplexity's MCP move — X"
+[7]: https://www.thoughtworks.com/content/dam/thoughtworks/documents/radar/2025/11/tr_technology_radar_vol_33_en.pdf "Technology Radar Vol. 33 — Thoughtworks"
 [8]: https://mariozechner.at/posts/2025-08-15-mcp-vs-cli/ "MCP vs CLI: Benchmarking Tools for Coding Agents — Mario Zechner"
 [9]: https://scrolltest.medium.com/playwright-mcp-burns-114k-tokens-per-test-the-new-cli-uses-27k-heres-when-to-use-each-65dabeaac7a0 "Playwright MCP Burns 114K Tokens Per Test. The New CLI Uses 27K. — ScrollTest"
-[10]: https://dev.to/neopotato/the-mcp-server-crisis-how-open-standard-created-a-wild-west-of-broken-implementations-115n "The MCP Server Crisis: How 'Open Standard' Created a Wild West of Broken Implementations — DEV Community"
-[11]: https://repello.ai/blog/mcp-vs-cli "MCP vs CLI: What Perplexity's Move Actually Means for AI Security Teams — Repello AI"
-[12]: https://smartscope.blog/en/Tips/GitHub/github-gh-mcp-comparison-guide/ "GitHub Operations in the AI Coding Era: gh vs MCP — SmartScope"
-[13]: https://www.scalekit.com/blog/mcp-vs-cli-use "MCP vs CLI: Benchmarking AI Agent Cost & Reliability — Scalekit"
-[14]: https://www.jdhodges.com/blog/claude-code-context-slash-command-token-usage/ "Claude Code /context Command: See Where Your Tokens Go — JD Hodges"
-[15]: https://news.ycombinator.com/item?id=47380270 "MCP is dead; long live MCP — Hacker News"
-[16]: https://x.com/levelsio/status/2031943074151104634 "Pieter Levels on MCP — X"
-[17]: https://x.com/PawelHuryn/status/2032360024589164929 "Paweł Huryn on Perplexity's MCP move — X"
-[18]: https://blog.cloudflare.com/code-mode-mcp/ "Code Mode: give agents an entire API in 1,000 tokens — Cloudflare"
-[19]: https://github.com/thellimist/clihub "clihub — Turn any MCP server into a CLI binary — GitHub"
+[10]: https://scottspence.com/posts/optimising-mcp-server-context-usage-in-claude-code "Optimising MCP Server Context Usage in Claude Code — Scott Spence"
+[11]: https://www.jdhodges.com/blog/claude-code-context-slash-command-token-usage/ "Claude Code /context Command: See Where Your Tokens Go — JD Hodges"
+[12]: https://blog.cloudflare.com/code-mode-mcp/ "Code Mode: give agents an entire API in 1,000 tokens — Cloudflare"
+[13]: https://dev.to/neopotato/the-mcp-server-crisis-how-open-standard-created-a-wild-west-of-broken-implementations-115n "The MCP Server Crisis: How 'Open Standard' Created a Wild West of Broken Implementations — DEV Community"
+[14]: https://repello.ai/blog/mcp-vs-cli "MCP vs CLI: What Perplexity's Move Actually Means for AI Security Teams — Repello AI"
+[15]: https://github.com/garrytan/gstack "gstack — GitHub"
+[16]: https://smartscope.blog/en/Tips/GitHub/github-gh-mcp-comparison-guide/ "GitHub Operations in the AI Coding Era: gh vs MCP — SmartScope"
+[17]: https://www.scalekit.com/blog/mcp-vs-cli-use "MCP vs CLI: Benchmarking AI Agent Cost & Reliability — Scalekit"
+[18]: https://github.com/thellimist/clihub "clihub — Turn any MCP server into a CLI binary — GitHub"
 
 1. [MCP's 2026 Roadmap — WorkOS](https://workos.com/blog/2026-mcp-roadmap-enterprise-readiness)
 2. [MCP is dead. Long live the CLI — Eric Holmes](https://ejholmes.github.io/2026/02/28/mcp-is-dead-long-live-the-cli.html)
-3. [Perplexity CTO Moves Away from MCP — Awesome Agents](https://awesomeagents.ai/news/perplexity-agent-api-mcp-shift/)
-4. [Garry Tan on MCP — X](https://x.com/garrytan/status/2031910564344262988)
-5. [gstack — GitHub](https://github.com/garrytan/gstack)
-6. [Technology Radar Vol. 33 — Thoughtworks](https://www.thoughtworks.com/content/dam/thoughtworks/documents/radar/2025/11/tr_technology_radar_vol_33_en.pdf)
-7. [Optimising MCP Server Context Usage — Scott Spence](https://scottspence.com/posts/optimising-mcp-server-context-usage-in-claude-code)
+3. [MCP is dead; long live MCP — Hacker News](https://news.ycombinator.com/item?id=47380270)
+4. [Perplexity CTO Moves Away from MCP — Awesome Agents](https://awesomeagents.ai/news/perplexity-agent-api-mcp-shift/)
+5. [Garry Tan on MCP — X](https://x.com/garrytan/status/2031910564344262988)
+6. [Paweł Huryn on Perplexity's MCP move — X](https://x.com/PawelHuryn/status/2032360024589164929)
+7. [Technology Radar Vol. 33 — Thoughtworks](https://www.thoughtworks.com/content/dam/thoughtworks/documents/radar/2025/11/tr_technology_radar_vol_33_en.pdf)
 8. [MCP vs CLI: Benchmarking — Mario Zechner](https://mariozechner.at/posts/2025-08-15-mcp-vs-cli/)
 9. [Playwright MCP Burns 114K Tokens — ScrollTest](https://scrolltest.medium.com/playwright-mcp-burns-114k-tokens-per-test-the-new-cli-uses-27k-heres-when-to-use-each-65dabeaac7a0)
-10. [The MCP Server Crisis — DEV Community](https://dev.to/neopotato/the-mcp-server-crisis-how-open-standard-created-a-wild-west-of-broken-implementations-115n)
-11. [MCP vs CLI: What Perplexity's Move Means — Repello AI](https://repello.ai/blog/mcp-vs-cli)
-12. [gh vs MCP Comparison — SmartScope](https://smartscope.blog/en/Tips/GitHub/github-gh-mcp-comparison-guide/)
-13. [MCP vs CLI: Benchmarking AI Agent Cost & Reliability — Scalekit](https://www.scalekit.com/blog/mcp-vs-cli-use)
-14. [Claude Code /context Command: See Where Your Tokens Go — JD Hodges](https://www.jdhodges.com/blog/claude-code-context-slash-command-token-usage/)
-15. [MCP is dead; long live MCP — Hacker News](https://news.ycombinator.com/item?id=47380270)
-16. [Pieter Levels on MCP — X](https://x.com/levelsio/status/2031943074151104634)
-17. [Paweł Huryn on Perplexity's MCP move — X](https://x.com/PawelHuryn/status/2032360024589164929)
-18. [Code Mode: give agents an entire API in 1,000 tokens — Cloudflare](https://blog.cloudflare.com/code-mode-mcp/)
-19. [clihub — Turn any MCP server into a CLI binary — GitHub](https://github.com/thellimist/clihub)
+10. [Optimising MCP Server Context Usage — Scott Spence](https://scottspence.com/posts/optimising-mcp-server-context-usage-in-claude-code)
+11. [Claude Code /context Command: See Where Your Tokens Go — JD Hodges](https://www.jdhodges.com/blog/claude-code-context-slash-command-token-usage/)
+12. [Code Mode: give agents an entire API in 1,000 tokens — Cloudflare](https://blog.cloudflare.com/code-mode-mcp/)
+13. [The MCP Server Crisis — DEV Community](https://dev.to/neopotato/the-mcp-server-crisis-how-open-standard-created-a-wild-west-of-broken-implementations-115n)
+14. [MCP vs CLI: What Perplexity's Move Means — Repello AI](https://repello.ai/blog/mcp-vs-cli)
+15. [gstack — GitHub](https://github.com/garrytan/gstack)
+16. [gh vs MCP Comparison — SmartScope](https://smartscope.blog/en/Tips/GitHub/github-gh-mcp-comparison-guide/)
+17. [MCP vs CLI: Benchmarking AI Agent Cost & Reliability — Scalekit](https://www.scalekit.com/blog/mcp-vs-cli-use)
+18. [clihub — Turn any MCP server into a CLI binary — GitHub](https://github.com/thellimist/clihub)
 
 ## Further Reading
 
