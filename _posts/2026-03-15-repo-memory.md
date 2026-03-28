@@ -5,8 +5,7 @@ categories: [AI Coding, LLMs, Claude Code]
 excerpt: Managing context for long-running agents, across sessions, or swarms of agents, remains an active area of research and development. This is a survey of the current landscaspe in the world of Agentic memory.
 ---
 
-TL;DR
-Memory management for LLMs is an active research area. There are many memory solutions, each with different approach, philosophy, and amount of supporting infrastructure required.
+TL;DR: Memory management for LLMs is an active research area. There are many memory solutions, each with different approach, philosophy, and amount of supporting infrastructure required.
 
 * Enabling a single, infinite session - e.g., [Memtree](https://memtree.dev/) (B-tree context compression), [Letta](https://www.letta.com/blog/letta-code) (sleep-time reflection + skill improvement)
 * Memory across sessions - Critical for agent swarms and multi-agent workflows. e.g. [Claude-mem](https://github.com/thedotmack/claude-mem) (compaction + database), [A-MEM](https://github.com/DiaaAj/A-MEM-mcp/tree/main) (self-evolving knowledge graph), [Graphiti](https://github.com/getzep/graphiti) (temporal context graphs), [Cognee](https://github.com/topoteretes/cognee) (ontology-enforced graph), [Engram](https://github.com/Harshitk-cp/engram) (confidence-weighted memory)
