@@ -2,7 +2,12 @@
 layout: post
 title:  Tower Defense
 categories: [AI Coding]
+excerpt: A Javascript version of the original Flash-based Tower Defense, circa 2008
 pinned: true
+---
+
+On mobile? Open the full version of the game [here](https://towerdefense-296e.onrender.com/)
+
 ---
 
 I used to spend my time before classes playing the original Desktop Tower Defense. It had a long loading screen, it lagged when there are too many units, and it was written in Flash. I wanted to make a modern JavaScript version that's smoother and more optimized, but I wasn't a web developer... until LLMs came along.
