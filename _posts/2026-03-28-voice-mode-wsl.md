@@ -9,18 +9,18 @@ Claude Code now ships with a native `/voice` command, which performs speech to t
 
 To fix this, we bridge ALSA → PulseAudio:
 
+1. Install the required utils:
 ```bash
 sudo apt install libasound2-plugins pulseaudio-util alsa-utils
 ```
 
-Then create/edit `~/.soundrc`:
-
+2. Create or edit `~/.soundrc`:
 ```bash
-touch ~/.soundrc
-nano ~/.soundrc
+touch ~/.soundrc # create
+nano ~/.soundrc # edit
 ```
 
-Then paste:
+3. Then paste:
 ```bash
 pcm.default pulse
 ctl.default pulse
@@ -29,8 +29,7 @@ ctl.!default pulse
 ```
 Note: if you followed the `nano ~/.soundrc` command blindly, save and exit the editor with `ctrl+s` then `crtl+x`.
 
-Verify it works:
-
+4. Verify it works:
 ```bash
 arecord -L        # should list devices via PulseAudio
 aplay -L          # same for playback
