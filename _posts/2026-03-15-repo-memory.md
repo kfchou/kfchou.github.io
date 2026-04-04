@@ -14,6 +14,8 @@ TL;DR: Memory management for LLMs is an active research area. There are many mem
 
 Which solution should you choose? If you're choosing a solution for a personal assistant, packages like Memtree and A-MEM may suffice. As a developer, I started thinking about this problem because Architectural Decision Records ([ADRs](https://kfchou.github.io/ADR-skill/)) serve as a type of repo memory. These ADRs need to be human readable, auditable, and easily accessed. But many solutions that require databases makes it difficult for a human to quickly retrieve and review them (Yes I believe humans are still needed in software). Relying on a vector DB for semantics + another SQL database for storage feels like unnecessary overhead and memory bloat. After all, there's [a reason](https://jxnl.co/writing/2025/09/11/why-grep-beat-embeddings-in-our-swe-bench-agent-lessons-from-augment/) why LLMs moved away from using vector embeddings, and just `grep`s your codebase instead. An ideal memory system for me would keep documents like ADRs in human readable form (e.g., markdown files). So I personally gravitate towards a solution that only uses local context.
 
+Edit April 2026: Added [Local Indices](#local-indices) section
+
 ---
 
 In the very early days, devs stuffed their primary memory file (CLAUDE.md or AGENTS.md) with everything to "make an agent smarter", and quickly learned that this pattern is poor practice. By 2026 it is commonly known that **CLAUDE.md files need to be kept lean** to avoid cluttering your context window. In "[Agentic Code Development with Claude Code](https://kfchou.github.io/agentic-coding/)", I wrote about how the use of subagents is another reason why a lean memory file is important. This begs the question, _how_ should we manage the repo history and memory for long-running tasks? What if the task required multiple sub-agents agents and handoffs? This review is a survey of the current solution landscsape to agentic memory.
@@ -28,11 +30,13 @@ In the very early days, devs stuffed their primary memory file (CLAUDE.md or AGE
   - [Cognee (13,843 ★)](#cognee-13843-)
   - [Engram (15 ★)](#engram-15-)
 - [Local context](#local-context)
-  - [Native Implementation (CLAUDE.md files)](#native-implementation-claudemd-files)
+  - [Strategically placed CLAUDE.md files](#strategically-placed-claudemd-files)
+  - [Local Indices](#local-indices)
   - [RepoAgent (920 ★)](#repoagent-920-)
   - [OpenViking (12,105 ★)](#openviking-12105-)
 - [Learning and Memory](#learning-and-memory)
   - [Active Learning as a Skill Pattern](#active-learning-as-a-skill-pattern)
+- [Honorable mentions](#honorable-mentions)
 - [Further Reading](#further-reading)
 
 
@@ -132,7 +136,7 @@ By "Local Context", I mean the context loaded by an Agent from local files durin
 
 Vector databases, used by the solutions mentioned above, face several challenges during memory retrieval, primarily stemming from their core design for semantic similarity rather than structured, stateful, or temporal information. They are retrieval systems, not true memory systems, which leads to issues like "embedding drift," difficulty with precise facts, and high operational overhead ([Redis Engineering Blog](https://redis.io/blog/common-challenges-working-with-vector-databases/)). Graph databases partially solves some of these issues, but they nonetheless remain.
 
-### Native Implementation (CLAUDE.md files)
+### Strategically placed CLAUDE.md files
 The most primitive way to store memory is to expand the local `AGENT.md` or `CLAUDE.md` files. However, as mentioned before, these files need to be kept lean. One strategy one can take is to break up repo instructions into directory-specific files
 
 > CLAUDE.md files can live in several locations, each with a different scope. More specific locations take precedence over broader ones... CLAUDE.md files in [project] subdirectories load on demand when Claude reads files in those directories.
@@ -144,6 +148,29 @@ The most primitive way to store memory is to expand the local `AGENT.md` or `CLA
 What this means: Claude loads CLAUDE.md automatically when entering a directory. Because they load whether needed or not, their content must be minimal: a tabular index with short descriptions and triggers for when to open each file. Index may point to specific architectural details or histories and is loaded by the Agent only when needed.
 
 By designing index files carefully, indices can act as a map of how documentations evolve -- thus mimicking knowledge graphs of graph databases.
+
+### Local Indices
+
+#### Claude Code
+The source code of Claude Code was leaked at the end of March 2026. Examining the codebase, we see that it also prefers to use indexes to store memory ([AlphaSignal](https://alphasignal.ai/email/2f539f055e63c358)).
+
+Claude Code loads a tiny index (MEMORY.md) into every prompt, where each line points to external files. When you ask something, the system fetches only the relevant file instead of dumping everything into the model. This avoids unnecessary token usage.
+
+Another mechanism rewrites the memory as it "learns". A background process merges duplicates, removes contradictions, and deletes outdated facts. The system treats stale memory as incorrect and fixes it continuously.
+
+Explore the python version of Claude Code [here (167k ★)](https://github.com/ultraworkers/claw-code?utm_source=alphasignal&utm_campaign=2026-04-01&lid=1q4s8wFRY84lryjvT).
+
+#### Andrej Karpathy's personal knowledge base
+Andrej Karpathy describes how he built a personal knowledge base by
+1. Indexing all source documents into a `raw/` directory
+2. Using an LLM to build a wiki -- a collection of markdown files
+3. Asks LLM questions about his personalized wiki
+
+{% include tweet.html url="https://twitter.com/karpathy/status/2039805659525644595" %}
+
+He tweets about this workflow, done by using a collection of scripts, but the idea received thousands of positive responses.
+
+To build your own knowledge base, first look at Andrej's detailed description of the idea [in more detail](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f), and feed that into your own coding agent.
 
 ### [RepoAgent](https://github.com/OpenBMB/RepoAgent) (920 ★)
 
@@ -179,6 +206,8 @@ Looking across the solutions covered in this post, "learning" means very differe
 | **Cognee** | Structured graph growth | New facts are added as nodes within a predefined ontology; the structure is enforced rather than emergent, which makes navigation predictable but limits free-form evolution |
 | **Engram** | Confidence-weighted reinforcement | Each interaction reinforces or weakens a memory's confidence score; memories that go unreinforced gradually fade to archive, closely mimicking biological forgetting and consolidation |
 | **Native CLAUDE.md** | None (manual only) | Static files with no automated update mechanism; "learning" requires a human or agent to explicitly edit the files |
+| **Claude Code (index-based)** | Active background rewriting | A background process merges duplicates, removes contradictions, and deletes outdated facts; the index is continuously kept correct rather than append-only |
+| **Karpathy's wiki** | Manual LLM synthesis | Source documents are indexed into a `raw/` directory; an LLM generates a wiki from them on demand — learning happens at synthesis time, not incrementally |
 | **RepoAgent** | Passive doc sync | Hooks into pre-commit to regenerate documentation from code changes; it tracks code drift, not agent knowledge |
 | **OpenViking** | Layered progressive disclosure | Stores memories in L0/L1/L2 layers (abstract → full detail); learning is implicit in the act of writing new memory files, but there is no cross-memory evolution |
 
@@ -193,6 +222,9 @@ Other repos exploring this pattern:
 * [Athena](https://github.com/winstonkoh87/Athena-Public) — a memory system that structures learnings around goals and tasks, letting the agent reflect on outcomes
 * [ai-maestro](https://github.com/23blocks-OS/ai-maestro) — an orchestration framework that includes a learning loop for updating agent behavior based on feedback
 * [context-hub-plugin](https://github.com/ScottRBK/context-hub-plugin), which runs [forgetful](https://github.com/ScottRBK/forgetful) under the hood — inspired by Andrew Ng's [Context Hub](https://github.com/andrewyng/context-hub), it includes a learning pattern for progressively building up API documentation and task-specific knowledge across sessions
+
+## Honorable mentions
+[AtlastMemory](https://github.com/Bpolat0/atlasmemory) -- only 5 ★ at the time of writing (4/4). 
 
 ## Further Reading
 
