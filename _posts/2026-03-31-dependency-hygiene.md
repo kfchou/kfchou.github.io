@@ -10,6 +10,7 @@ TL;DR: A list of steps you can take to protect yourself from supply chain attack
 - [Consuming Packages](#consuming-packages)
   - [Pin dependencies with hashes](#pin-dependencies-with-hashes)
   - [Use `exclude-newer` to avoid zero-day windows](#use-exclude-newer-to-avoid-zero-day-windows)
+  - [Exclusion Window Conflict with CVEs: Override When Necessary](#exclusion-window-conflict-with-cves-override-when-necessary)
   - [Prevent build-time code execution](#prevent-build-time-code-execution)
   - [Run `uv audit` or `pip-audit` in CI](#run-uv-audit-or-pip-audit-in-ci)
   - [Scan GitHub Actions workflows with zizmor](#scan-github-actions-workflows-with-zizmor)
@@ -72,6 +73,14 @@ uv pip install -r requirements.txt --exclude-newer 2026-03-28
 ```
 
 This won't catch attacks on packages already in your lockfile, but it prevents pulling in newly-published malicious versions during fresh installs or CI runs.
+
+### Exclusion Window Conflict with CVEs: Override When Necessary
+When a security advisory is released, the fix is almost always the newest version. In this case, upgrading the affected dependency in a timely manner conflicts with the `exclude-newer` policy.
+
+To manage this conflict, you can selectively bypass it for specific packages in uv. Using `cryptography` as an example:
+```
+uv lock --upgrade-package=cryptography --exclude-newer-package=cryptography="0 days"
+```
 
 ### Prevent build-time code execution
 
