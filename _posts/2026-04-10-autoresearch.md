@@ -5,7 +5,7 @@ categories: [AI, LLMs, Research]
 excerpt: "Run optimization experiments while you sleep"
 ---
 
-TL;DR: With [Autoreserach][1], you are the research director rather than the scientist. Let AI agents run experiments while you sleep. The only requirement is having clear, unambiguous evals to optimize against and having enough tokens.
+TL;DR: With [Autoresearch][1], you are the research director rather than the scientist. Let AI agents run experiments while you sleep. The only requirement is having clear, unambiguous evals to optimize against.
 
 ## Table of Contents <!-- omit from toc -->
 
@@ -56,7 +56,7 @@ The agent runs this loop, forever, until you stop it:
 
 In the original repo, the performance metric is `val_bpb` — validation bits per byte. Lower is better, and it's architecture-independent, so a change that doubles model size is compared fairly against one that just tweaks the learning rate. Each run takes 5 minutes. At 12 experiments per hour, you wake up to ~100 data points.
 
-The thing being optimized is not a config file. It's the research artifact itself — the model architecture, optimizer choice, attention patterns, batch size schedule. This is beyond automated hyperparameter tuning: *"the LLM explores serially learning along the way, and can tool use and change code arbitrarily"* [[2]]. In round 2 of Karpathy's own runs, the agent implemented novel architecture changes — a smear gate and a backout skip connection — that actually helped. That's not hyperparameter tuning anymore, that's architectural update with new logic.
+The thing being optimized is not a config file. It's the research artifact itself — the model architecture, optimizer choice, attention patterns, batch size schedule. This is beyond automated hyperparameter tuning: *"the LLM explores serially learning along the way, and can tool use and change code arbitrarily"* [[2]]. In round 2 of Karpathy's own runs, the agent implemented novel architecture changes — a smear gate and a backout skip connection — that actually helped. That's not hyperparameter tuning; that's new architecture.
 
 ### Design Constraints
 
@@ -76,7 +76,7 @@ The original autoresearch focused on an ML problem. We can generalize the patter
 
 > Give an agent a **single artifact to modify**, a **program that evaluates it**, a **fixed evaluation budget**, and a **scalar metric**. Let it hill-climb autonomously.
 
-Instead of editing the artifact directly (the training code), you edit the instructions (`program.md`). You are now a research director -- programming the process, not the experiments. And instead of defining the search space, you're defining the *strategy* — what kinds of changes to prioritize, what constraints to respect, when to be conservative.
+Instead of editing the artifact directly (the training code), you edit the instructions (`program.md`). You are now a research director — programming the process, not the experiments. And instead of defining the search space, you're defining the *strategy* — what kinds of changes to prioritize, what constraints to respect, when to be conservative.
 
 The precondition that makes this work is that **the evaluation must be a script**. `uv run train.py > run.log && grep val_bpb run.log`. One command, one number. The agent closes the loop itself, with no human in the measurement path.
 
@@ -113,7 +113,7 @@ The loop can be applied to anything that can be measured with a metric and an AP
 | Pricing pages | Checkout conversion | Analytics API |
 | Product descriptions | Add-to-cart rate | E-commerce platform API |
 
-The type of optimizations above are usually done via A/B tests. Let your AI Agent handle them.
+These types of optimizations are usually done via A/B tests. Let your AI agent handle them.
 
 ## Setting Up Autoresearch
 
@@ -128,7 +128,17 @@ And you don't even need to do this yourself. Just tell your coding agent what yo
 
 ### Example 1: Reply rate optimization
 
-Tell your coding agent: "Use the concept in the autoresearch repo to help me create a similar idea. Instead of for validation loss and iterating on an ML model, do this for cold emails. I want to optimize reply rate. Use the Instantly API, I'll have the necessary credentials in my env file. Between each experiment, update the cold email copy. Lastly, put all of this on github actions to run once every 4 hours. Save learnings to a resource.md file to use as a reference. Give it everything it needs to run on autopilot. Build a simple dashboard to visualize the progress and results over time." [[15]]
+Tell your coding agent [[15]]:
+
+```text
+Use the concept in the autoresearch repo to help me create a similar idea. Instead of
+for validation loss and iterating on an ML model, do this for cold emails. I want to
+optimize reply rate. Use the Instantly API, I'll have the necessary credentials in my
+env file. Between each experiment, update the cold email copy. Lastly, put all of this
+on github actions to run once every 4 hours. Save learnings to a resource.md file to
+use as a reference. Give it everything it needs to run on autopilot. Build a simple
+dashboard to visualize the progress and results over time.
+```
 
 Your coding agent will set up everything you need.
 
@@ -138,21 +148,25 @@ Note: May be superseded by built-in evals within the Claude [Skill-Creator skill
 
 Tell your coding agent:
 
-"Goal: make diagrams
+```text
+Goal: make diagrams
 
 Evaluation/Constraints:
-
-1. All of the diagram legible and grammatically correct
-2. Fits my color pallete
+1. All diagrams legible and grammatically correct
+2. Fits my color palette
 3. Reads from left to right or top to bottom
 4. No numbers
 
 Measurement: Eval Test Suite -> get agent to create
 Lever: Skill instructions
 
-Use the autoresearch convention to build out a self-improving skill system for my diagram-generator skill. The eval suite is the 4 constraints above. Every 2 minutes, generate 10 diagrams for a specific function. Pass them thru this test suite. Rate how many of them passes the test. Then improve the prompt as necessary until the pass rate is 100%.
+Use the autoresearch convention to build out a self-improving skill system for my
+diagram-generator skill. The eval suite is the 4 constraints above. Every 2 minutes,
+generate 10 diagrams for a specific function. Pass them through this test suite. Rate
+how many pass. Then improve the prompt as necessary until the pass rate is 100%.
 
-The scoring mechanism: 10 images x 4 criteria = 40 points total. 100% pass rate is 40/40."
+Scoring: 10 images x 4 criteria = 40 points total. 100% pass rate is 40/40.
+```
 
 ## Applications in the Physical World?
 
@@ -161,8 +175,6 @@ Optimizations in the physical world wouldn't satisfy the previously mentioned cr
 Robotic systems that run wet lab experiments autonomously already exist in early form. [Emerald Cloud Lab][13] and [Strateos][14] let researchers submit protocols programmatically and receive structured results. The barrier is the availability of infrastructure. Once a synthesis run, a materials stress test, or a fermentation cycle can be initiated by an API call and returns a JSON payload, the autoresearch loop applies directly.
 
 The same logic extends further: a network of environmental sensors returning air quality readings, a robotics testbed where a policy runs and reports task completion rate, a precision agriculture deployment where irrigation schedules get evaluated against soil moisture telemetry. The evaluation oracle doesn't have to be a Python script — it has to be *something that returns a number without a human in the path*. Physical sensors, closed-loop labs, and simulation environments that mirror real hardware are all converging on that property.
-
-Don't be surprised if this framework is used in physical systems in the near future.
 
 ## References
 
