@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Beyond Plan & Build: Workflow Repos That Enforce Engineering Discipline"
-categories: [AI Coding, LLMs]
+categories: [AI Coding, LLMs, Agent Skill]
 excerpt: "The current most popular open-source repositories that prescribe and enforce end-to-end development workflows for AI coding assistants: Superpowers, gstack, and OpenSpec/Spec-Kit."
 ---
 

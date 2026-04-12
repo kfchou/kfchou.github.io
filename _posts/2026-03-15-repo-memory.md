@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "A Review on Agentic Memory"
-categories: [AI Coding, LLMs, Claude Code]
+categories: [AI Coding, LLMs, Claude Code, Agent Skill]
 excerpt: Managing context for long-running agents, across sessions, or swarms of agents, remains an active area of research and development. This is a survey of the current landscaspe in the world of Agentic memory.
 ---
 
