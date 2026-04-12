@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Autoresearch: Autonomous Hill-Climbing for Any Optimizable System"
-categories: [AI, LLMs, Research]
+categories: [AI, LLMs, Research, Agent Skill]
 excerpt: "Run optimization experiments while you sleep"
 ---
 
@@ -9,7 +9,7 @@ TL;DR: With [Autoresearch][1], you are the research director rather than the sci
 
 ## Table of Contents <!-- omit from toc -->
 
-- [Autoresearch](#autoresearch)
+- [Autoresearch (Github)](#autoresearch-github)
   - [How ML optimization traditionally works](#how-ml-optimization-traditionally-works)
   - [Karpathy's Agentic Approach](#karpathys-agentic-approach)
   - [Design Constraints](#design-constraints)
@@ -19,10 +19,11 @@ TL;DR: With [Autoresearch][1], you are the research director rather than the sci
 - [Setting Up Autoresearch](#setting-up-autoresearch)
   - [Example 1: Reply rate optimization](#example-1-reply-rate-optimization)
   - [Example 2: Improving a Skill](#example-2-improving-a-skill)
+  - [Autoresearch Agent Skill (Github)](#autoresearch-agent-skill-github)
 - [Applications in the Physical World?](#applications-in-the-physical-world)
 - [References](#references)
 
-## Autoresearch
+## Autoresearch ([Github](https://github.com/karpathy/autoresearch))
 
 ### How ML optimization traditionally works
 
@@ -167,6 +168,28 @@ how many pass. Then improve the prompt as necessary until the pass rate is 100%.
 
 Scoring: 10 images x 4 criteria = 40 points total. 100% pass rate is 40/40.
 ```
+
+### Autoresearch Agent Skill ([Github](https://github.com/uditgoenka/autoresearch))
+
+This repo generalizes autoresearch even further by creating a set of agent skills for optimization.
+
+Get started by installing the plugin:
+```
+/plugin marketplace add uditgoenka/autoresearch
+/plugin install autoresearch@autoresearch
+```
+
+Then run it with
+```
+/autoresearch
+Goal: Increase test coverage from 72% to 90%
+Scope: src/**/*.test.ts, src/**/*.ts
+Metric: coverage % (higher is better)
+Verify: npm test -- --coverage | grep "All files"
+```
+
+Disclaimed: I have not tested this skill myself
+
 
 ## Applications in the Physical World?
 
