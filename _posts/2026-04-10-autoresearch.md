@@ -3,6 +3,7 @@ layout: post
 title: "Autoresearch: Autonomous Hill-Climbing for Any Optimizable System"
 categories: [AI, LLMs, Research, Agent Skill]
 excerpt: "Run optimization experiments while you sleep"
+pinned: true
 ---
 
 TL;DR: With [Autoresearch][1], you are the research director rather than the scientist. Let AI agents run experiments while you sleep. The only requirement is having clear, unambiguous evals to optimize against.
