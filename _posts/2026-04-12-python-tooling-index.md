@@ -2,7 +2,7 @@
 layout: post
 title: "Python Tooling"
 categories: [Index]
-excerpt: "An index of relevant python tooling references in this blog"
+excerpt: "An index of relevant Python tooling references in this blog"
 pinned: true
 ---
 
