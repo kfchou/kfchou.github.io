@@ -2,6 +2,7 @@
 layout: post
 title:  "Coffee Water Composition"
 categories: [Coffee]
+pinned: true
 ---
 
 TL;DR: Boston's tap water is terrible for making high quality coffee (wrt aroma and taste). No need to start at zero with deionized water -- spike your water to get better results. In these notes, I aim to derive a recipe for optimizing my flat whites using Boston's (filtered) tap water.
