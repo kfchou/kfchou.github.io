@@ -23,6 +23,7 @@ TL;DR: With [Autoresearch][1], you are the research director rather than the sci
   - [Autoresearch Agent Skill (Github)](#autoresearch-agent-skill-github)
 - [Applications in the Physical World?](#applications-in-the-physical-world)
 - [References](#references)
+- [Further Reading](#further-reading)
 
 ## Autoresearch ([Github](https://github.com/karpathy/autoresearch))
 
@@ -189,7 +190,7 @@ Metric: coverage % (higher is better)
 Verify: npm test -- --coverage | grep "All files"
 ```
 
-Disclaimed: I have not tested this skill myself
+Disclaimer: I have not tested this skill myself
 
 
 ## Applications in the Physical World?
@@ -235,3 +236,6 @@ The same logic extends further: a network of environmental sensors returning air
 14. [Strateos](https://www.strateos.com/)
 15. [Autoresearch Applications — YouTube](https://www.youtube.com/watch?v=4Cb_l2LJAW8)
 16. [The Complete Guide to Building Skills for Claude — Anthropic](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf)
+
+## Further Reading
+* [Shortcomings in the autoresearch loop](https://sotaverified.org/blog/improving-autoresearch-dark-factory-harness) and tips to improve it - David Colmenares
