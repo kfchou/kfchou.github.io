@@ -9,10 +9,12 @@ TL;DR - Only concerned with building specific features? Use [superpowers](#tdd-e
 
 | Repo | Scope | Philosophy |
 |---|---|---|
-| [obra/superpowers][1] (115k ★) | Individual — feature discipline | Agents fail from process failures, not capability gaps |
-| [garrytan/gstack][2] (49k ★) | Team — sprint rigor and shipping | Completeness is now cheap — always do the complete thing |
-| [github/spec-kit][8] (82.7k ★) + [OpenSpec][9] (34.6k ★) | Cross-team — what to build | Specs become executable; implementation flows from them |
+| [obra/superpowers][1] (160k ★) | Individual — feature discipline | Agents fail from process failures, not capability gaps |
+| [EveryInc/compound-engineering-plugin][10] (14.8k ★) | Individual — feature discipline | Each unit of work should make the next one easier |
+| [garrytan/gstack][2] (77k ★) | Team — sprint rigor and shipping | Completeness is now cheap — always do the complete thing |
+| [github/spec-kit][8] (89k ★) + [OpenSpec][9] (41k ★) | Cross-team — what to build | Specs become executable; implementation flows from them |
 
+Updated 4/19/2026: Compound Engineering Plugin
 
 The thing that separates skilled AI developers from vibecoders isn't just better prompts -- it's having a process. Skilled engineers and teams consistently producing high-quality work by following good processes. When those processes and procedures are codified into something an AI can follow, it helps developers achieve high-quality results in a fraction of the time.
 
@@ -25,6 +27,7 @@ Here, I cover three different approaches, or workflows, that you should consider
 
 - [Process Discipline Inside a Feature](#process-discipline-inside-a-feature)
   - [TDD Enforcement](#tdd-enforcement)
+  - [Explicitly Document Learnings](#explicitly-document-learnings)
 - [Sprint Rigor and the Economics of Completeness](#sprint-rigor-and-the-economics-of-completeness)
   - [Enforcing the entire sprint process](#enforcing-the-entire-sprint-process)
 - [Spec-Driven Development: The Spec as the Source of Truth](#spec-driven-development-the-spec-as-the-source-of-truth)
@@ -69,9 +72,32 @@ It enforces the following stages across a feature:
 
 *"I can't recommend this post strongly enough. The way Jesse is using these tools is wildly more ambitious than most other people."* - Simon Willison (co-creator of Django, creator of Datasette) [[5]]
 
-**Key takeaway**: superpowers is most valuable when you're operating within a feature context — designing, implementing, writing tests. The workflow enforces planning before code, tests before implementation, and verification before declaring done.
+**Key takeaway**: superpowers is most valuable when you're operating within a feature context — designing, implementing, writing tests. The workflow enforces planning before code, tests before implementation, and verification before declaring done. This is what I use day to day.
 
 > **Try it yourself**: Install via `/plugin marketplace add obra/superpowers-marketplace`, then start a feature with `brainstorm` and follow where the workflow takes you.
+
+### Explicitly Document Learnings
+
+[Compound Engineering][10] is a product that emerged from [Every](https://www.youtube.com/watch?v=kjVNYUnM-_0)'s efforts in building its own AI assistant. Where superpowers enforces process gates *during* a feature, compound engineering adds a documentation phase at the end of each cycle — `/ce-compound` — that codifies learnings into reusable project context.
+
+It's workflow is very similar to that of superpowers:
+
+| Stage | Command | What it does |
+|---|---|---|
+| 0 | `/ce-ideate` | Surfaces high-impact improvements through adversarial filtering (optional) |
+| 1 | `/ce-brainstorm` | Refines ideas into requirements via interactive Q&A; auto-skips ceremony when not needed |
+| 2 | `/ce-plan` | Turns requirements into a technical implementation plan |
+| 3 | `/ce-work` | Executes the plan using worktrees and task tracking |
+| 4 | `/ce-code-review` | Multi-agent code review before merge |
+| 5 | `/ce-compound` | Documents learnings so future work is easier |
+
+Although it is unclear whether its engineering rigor is on par with Superpowers, the  `/ce-compound` feature makes this plugin worth mentioning. After each feature is done, it writes a structured markdown file to `docs/solutions/<category>/` in the project repo — YAML-frontmattered, tagged, and organized by problem type — so future agents (and humans) can search it. The first time you debug a problem takes research; document it, and the next occurrence is a grep away. That accumulated `docs/solutions/` directory is what separates it from being another workflow wrapper. This could make your workflow much more token efficient. If the planning phase searches previous issues, then the entire feature building process could become more efficient as well.
+
+**Key takeaway**: explicitly document bugs and errors to help with future design and debugging sesions. LLM agents do this nativey by adding comments in-line, but in-line documentation contains history that ultimately clutters the code files. By moving this kind of documentations, which belong in design docs, commit messages, and PR descriptions, into a formal "solutions" documentation directory, we make it easier for LLMs to search and access.
+
+> **Try it yourself**: `/plugin marketplace add EveryInc/compound-engineering-plugin`, then `/ce-setup` to bootstrap project config.
+
+See the detailed [documentation from Every.to](https://every.to/guides/compound-engineering).
 
 ## Sprint Rigor and the Economics of Completeness
 
@@ -152,7 +178,7 @@ In large teams, this compounds in value over time. Acceptance tests accumulate i
 
 Two repos independently arrived at a spec-driven approach in August 2025 and now represent distinct implementations — each mapping directly onto the ATDD workflow, with the spec as the artifact that persists through and after implementation.
 
-[github/spec-kit][8] (82.7k stars), from GitHub Next, takes a structured approach. The workflow is five sequential stages:
+[github/spec-kit][8] (89k stars), from GitHub Next, takes a structured approach. The workflow is five sequential stages:
 
 | Stage | Command | What it does |
 |---|---|---|
@@ -162,7 +188,7 @@ Two repos independently arrived at a spec-driven approach in August 2025 and now
 | 4 | `/speckit.tasks` | Breaks the plan into a concrete, ordered task list |
 | 5 | `/speckit.implement` | Executes all tasks against the spec |
 
-[OpenSpec][9] (34.6k stars) predates spec-kit by two weeks and takes a different stance: "fluid not rigid, iterative not waterfall." Its key differentiator is that specs are persistent files on disk — each feature generates a `openspec/changes/<feature>/` directory with `proposal.md`, `specs/`, `design.md`, and `tasks.md`. After implementation, `/opsx:archive` moves those files to a timestamped archive. Your project accumulates a history of *why* things were built, not just what was built. It's also explicitly designed for brownfield projects, not just greenfield.
+[OpenSpec][9] (41k stars) predates spec-kit by two weeks and takes a different stance: "fluid not rigid, iterative not waterfall." Its key differentiator is that specs are persistent files on disk — each feature generates a `openspec/changes/<feature>/` directory with `proposal.md`, `specs/`, `design.md`, and `tasks.md`. After implementation, `/opsx:archive` moves those files to a timestamped archive. Your project accumulates a history of *why* things were built, not just what was built. It's also explicitly designed for brownfield projects, not just greenfield.
 
 ```text
 You: /opsx:propose add-dark-mode
@@ -211,10 +237,12 @@ Once you have a workflow in place, there's a separate class of tooling worth kno
 [7]: https://github.blog/ai-and-ml/automate-repository-tasks-with-github-agentic-workflows/ "Automate repository tasks with GitHub Agentic Workflows"
 [8]: https://github.com/github/spec-kit "github/spec-kit — GitHub"
 [9]: https://github.com/Fission-AI/OpenSpec "Fission-AI/OpenSpec — GitHub"
+[10]: https://github.com/EveryInc/compound-engineering-plugin "EveryInc/compound-engineering-plugin — GitHub"
 
 1. [obra/superpowers — GitHub](https://github.com/obra/superpowers)
 2. [garrytan/gstack — GitHub](https://github.com/garrytan/gstack)
 3. [shinpr/claude-code-workflows — GitHub](https://github.com/shinpr/claude-code-workflows)
+10. [EveryInc/compound-engineering-plugin — GitHub](https://github.com/EveryInc/compound-engineering-plugin)
 4. [Superpowers: How I'm using coding agents in October 2025 — Jesse Vincent](https://blog.fsck.com/2025/10/09/superpowers/)
 5. [HN: Superpowers — 435 points, 231 comments](https://news.ycombinator.com/item?id=45547344)
 6. [gstack ETHOS.md](https://github.com/garrytan/gstack/blob/main/ETHOS.md)
