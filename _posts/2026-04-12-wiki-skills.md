@@ -54,7 +54,19 @@ Everything flows from `SCHEMA.md`, a configuration file at the wiki root that re
 
 > **Try it yourself**: Install wiki-skills from the [repo](https://github.com/kfchou/wiki-skills), then run `/wiki-init` in Claude Code. The init walk-through asks four questions and takes about two minutes. Then run `/wiki-ingest` on any document — a paper, a URL, or a local file.
 
-## Relation to Repo Memory
+## Getting Started
+
+If you're already using Claude Code:
+
+1. Install wiki-skills: follow the instructions at [github.com/kfchou/wiki-skills](https://github.com/kfchou/wiki-skills)
+2. Run `/wiki-init` — it asks four questions and bootstraps the structure
+3. Run `/wiki-ingest` on a few sources to seed the wiki
+4. Run `/wiki-query` to ask questions; save useful answers back as pages
+5. Adapt the skills: change the index taxonomy, adjust page formats, add `wiki-query` calls to your existing workflow skills
+
+The skills are a starting point, not a finished product. The goal is a wiki that reflects how your domain is actually structured — maintained by your agent, readable by you.
+
+## Wiki-Skills for Repo Context Management
 
 In a [previous post](https://kfchou.github.io/repo-memory/), I surveyed the landscape of agentic memory solutions: tools like Graphiti, A-MEM, Claude-mem, and Engram. Most default to databases — vector DBs, graph stores, SQLite — and my theory is that this is largely a historical accident. RAG got popular, vector DB infrastructure followed, and memory systems were built on top of what was already there.
 
@@ -72,14 +84,3 @@ Wiki-skills fits this use case well precisely because it's general-purpose — y
 
 Retrieval is a skill problem, not a database problem. The agent can read a 30-line index and decide which two pages are relevant to the current task.
 
-## Getting Started
-
-If you're already using Claude Code:
-
-1. Install wiki-skills: follow the instructions at [github.com/kfchou/wiki-skills](https://github.com/kfchou/wiki-skills)
-2. Run `/wiki-init` — it asks four questions and bootstraps the structure
-3. Run `/wiki-ingest` on a few sources to seed the wiki
-4. Run `/wiki-query` to ask questions; save useful answers back as pages
-5. Adapt the skills: change the index taxonomy, adjust page formats, add `wiki-query` calls to your existing workflow skills
-
-The skills are a starting point, not a finished product. The goal is a wiki that reflects how your domain is actually structured — maintained by your agent, readable by you.
