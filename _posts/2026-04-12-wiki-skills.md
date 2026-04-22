@@ -6,7 +6,7 @@ excerpt: Kaparthy shared a viral note about a building an LLM-managed 'personal 
 pinned: true
 ---
 
-TL;DR: Andrej Karpathy described an LLM-maintained personal wiki — I see this as a specific instance of the local markdown vault pattern. [wiki-skills](https://github.com/kfchou/wiki-skills) is a set of Claude Code skills that implements it.
+TL;DR: Andrej Karpathy described an LLM-maintained personal wiki — I see this as a specific instance of the local markdown vault pattern. Wiki-Skills ([Github](https://github.com/kfchou/wiki-skills)) is a set of Claude Code skills that implements it.
 
 - The vault pattern — a directory of interlinked markdown files you own and extend over time — is already familiar to Obsidian users; Karpathy showed how an LLM can maintain one on your behalf
 - wiki-skills packages this as five skills: init, ingest, query, lint, update — no MCPs, no databases, just the agent's existing tools and markdown files
@@ -27,7 +27,7 @@ Karpathy didn't frame this as a markdown vault. But that's how I read it: the co
 
 The result is a persistent, compounding artifact. Unlike RAG — where the LLM rediscovers knowledge from raw documents on every query — the wiki accumulates. Every ingest enriches it. Every question you ask can be filed back as a new page. The longer you use it, the more useful it gets.
 
-## Wiki-Skills
+## Wiki-Skills ([Repo](https://github.com/kfchou/wiki-skills))
 
 I created [wiki-skills](https://github.com/kfchou/wiki-skills) to package this pattern as a set of Claude Code skills — no MCP servers, no vector databases, no external services. The agent uses its existing tools (`Read`, `Write`, `Grep`, glob patterns) to build and maintain the wiki.
 
