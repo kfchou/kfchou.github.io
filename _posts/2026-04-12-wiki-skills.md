@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Introducting Wiki-Skills: Agent Skill for Managing Markdown Vaults"
-categories: [AI Coding, LLMs, Claude Code, Agent Skill]
+categories: [AI Coding, LLMs, Claude Code, Agent Skill, Wiki-Skills]
 excerpt: Kaparthy shared a viral note about a building an LLM-managed 'personal wiki' - which I interpret as a specific instance of a locally stored markdown vault. Here, I present Wiki Skills - a set of agentic Skills that captures the process of creating, querying, and updating this knowledge vault. 
 pinned: true
 ---
