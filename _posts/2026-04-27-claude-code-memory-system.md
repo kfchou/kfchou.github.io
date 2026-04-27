@@ -197,4 +197,4 @@ Claude is [trained on Claude Code sessions as RL signal](https://assets.anthropi
 
 That's not a coincidence to exploit — it's a reason the wiki system works as well as it does. When `/wiki-query` scans an index and loads only relevant pages, Claude recognizes that flow. When `/wiki-ingest` produces typed, frontmatter-structured memory files, Claude reads them fluently. The format matches what the model was trained to produce and consume.
 
-**The wiki system isn't just inspired by the Claude Code harness. It's inherently compatible with it at the model level.**
+**The wiki system isn't just inspired by the Claude Code harness; The wiki system is inherently compatible with Claude at the model level.**
