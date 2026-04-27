@@ -15,7 +15,7 @@ Massive media coverage followed:
 
 But those were all noise.
 
-I wanted to know -- what made the Claude Code harness best-in-class? In this first post of a Claude Code Harness deep-dive, we look into its memory management system. Turns out, Claude Code's memory management is [strikingly similar](#lessons-for-wiki-skills) to the [wiki-skills system](/2026/04/12/wiki-skills) I'd built separately -- they're convergent solutions to the same underlying problem: how does a context-limited agent maintain coherent state over time?
+I wanted to know -- what made the Claude Code harness best-in-class? In this first post of a Claude Code Harness deep-dive, we look into its memory management system. Turns out, Claude Code's memory management is [strikingly similar](#lessons-for-wiki-skills) to the [wiki-skills system](https://kfchou.github.io/wiki-skills/) I'd built separately -- they're convergent solutions to the same underlying problem: how does a context-limited agent maintain coherent state over time?
 
 ## Memory Management — Five Layers
 
