@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Deep Dive into CC Source Code - Chapter 1: Memory Management"
+title: "Deep Dive into Claude Code Harness - Chapter 1: Memory Management"
 categories: [AI Coding, LLMs, Claude Code, Wiki-Skills]
 excerpt: What makes the Claude Code harness best-in-class? Let's dive into its leaked source code to learn about the rigorous engineering within. Turns out, its memory management is remarkably similar to the wiki system described in my previous post.
 pinned: true
