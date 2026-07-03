@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Avoid Skill Hell -- Tips of good Agent Skills by Matt Pocock"
+title: "Tips to build good Agent Skills by Matt Pocock"
 categories: [AI Coding, LLMs, Claude Code, Agent Skill]
 ---
 
