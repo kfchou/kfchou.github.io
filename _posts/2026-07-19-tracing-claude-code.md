@@ -15,8 +15,7 @@ TL;DR - Claude Code is a black box until you point something at it. The tools th
 - [Family 3: Native OpenTelemetry](#family-3-native-opentelemetry)
 - [Family 4: Eval platforms](#family-4-eval-platforms)
 - [General-purpose LLM observability: proxies and OTEL SDKs](#general-purpose-llm-observability-proxies-and-otel-sdks)
-- [The comparison table](#the-comparison-table)
-- [How to choose](#how-to-choose)
+- [Summary Table](#summary-table)
 - [References](#references)
 
 ## Why the capture mechanism matters
@@ -93,7 +92,7 @@ Two general-purpose LLM observability tools also apply here, from opposite ends 
 
 These general-purpose tools work well beyond Claude Code. They're the right choice when you're running other LLM setups alongside it, e.g., a production app using OpenAI APIs or LangChain, and want to watch everything in one place.
 
-## The comparison table
+## Summary Table
 
 | Tool | Capture mechanism | Content depth | Scale | Hosting | Eval loop |
 |------|-------------------|---------------|-------|---------|-----------|
@@ -105,7 +104,7 @@ These general-purpose tools work well beyond Claude Code. They're the right choi
 | [Braintrust](https://www.braintrust.dev/blog/claude-code-braintrust-integration) | Lifecycle hooks + MCP | Transcript traces | Solo → team | SaaS | Yes (bidirectional) |
 | [Helicone](https://github.com/Helicone/helicone) | Proxy in front of API | Full request/response | Solo → team | Self-host or cloud | Partial |
 
-## How to choose
+How to choose?
 
 The families sort cleanly by what you're trying to do:
 
