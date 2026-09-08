@@ -2,10 +2,10 @@
 layout: post
 title: "Multi-Step Skills That Agents Actually Follow"
 categories: [AI Coding, LLMs, Agents, Skills]
-excerpt: "A multi-step skill usually fails not because the steps are wrong, but because the agent skips them, batches them, or declares itself done early. Here are eleven techniques for writing skills an agent can't easily short-circuit — and why each one works."
+excerpt: "A multi-step skill usually fails not because the steps are wrong, but because the agent skips them, batches them, or declares itself done early. Here are twelve techniques for writing skills an agent can't easily short-circuit — and why each one works."
 ---
 
-TL;DR - When a multi-step skill goes wrong, the steps are usually fine. The problem is that the agent skipped one, ran three at once, or announced it was finished before it actually was. Agents short-circuit for three reasons: they think they already know the flow from the *description*, nothing *forces* them to finish step N before starting N+1, and steps are *stated but not demanded* so a half-done step slips through. Every technique below attacks one of those three failure modes. Descriptions trigger, bodies instruct, checklists and todos track, gates enforce.
+TL;DR - When a multi-step skill goes wrong, the steps are usually fine. The problem is that the agent skipped one, ran three at once, or announced it was finished before it actually was. Agents short-circuit for three reasons: they think they already know the flow from the *description*, nothing *forces* them to finish step N before starting N+1, and steps are *stated but not demanded* so a half-done step slips through. Every technique below attacks one of those three failure modes. Descriptions trigger, bodies instruct, checklists and todos track, gates enforce. And underneath all of them is one deeper lever: an agent short-circuits toward a finish line it can see, so the strongest move is to keep the finish line out of view.
 
 ## Table of Contents <!-- omit from toc -->
 
@@ -21,6 +21,7 @@ TL;DR - When a multi-step skill goes wrong, the steps are usually fine. The prob
 - [9. For discipline-heavy sequences, close loopholes and list red flags](#9-for-discipline-heavy-sequences-close-loopholes-and-list-red-flags)
 - [10. Handle per-step failure explicitly](#10-handle-per-step-failure-explicitly)
 - [11. Test by watching an agent run it — with the weakest model you'll ship](#11-test-by-watching-an-agent-run-it--with-the-weakest-model-youll-ship)
+- [12. Hide the goal](#12-hide-the-goal)
 - [The through-line](#the-through-line)
 - [Sources / Further reading](#sources--further-reading)
 
@@ -76,9 +77,23 @@ The quietest way a multi-step skill produces a clean-looking wrong answer is a s
 
 You cannot tell whether a skill works by reading it. You find out by running it and watching. Dispatch it to a subagent, watch which steps it skips and — just as important — read what it *rationalized* while skipping them ("I'll consolidate steps 4 and 5 since they're related"). Each skip and each rationalization tells you exactly which counter to add: a gate here, a sharper criterion there, a loophole closed. Then re-run and see if the fix held. Crucially, test on the *weakest* model you intend to ship the skill on. A weaker model needs more explicit sequencing, harder gates, and tighter criteria than a stronger one — it has less slack to infer your intent. A skill that only holds together on the strongest model isn't robust; it's a skill that happens to work when the model is smart enough to paper over its gaps. Harden it against the weak model and it'll be bulletproof on the strong one.
 
+## 12. Hide the goal
+
+This is the deepest lever, and the one several of the techniques above are special cases of. A model emits the most likely next token given everything in its context. If the finish line is sitting in that context — the overall goal, the later steps, a tidy summary of the whole procedure — then the highest-probability continuation is to *reach for it*: batch the remaining steps, summarize instead of doing, declare the task done. You are not fighting laziness; you are fighting the token distribution. Take the finish line out of view and the shortcut stops being the likely move, because it's no longer in the context to complete toward.
+
+There are two forms, at two different altitudes.
+
+**Hide the workflow from the description.** This is technique 1 seen from the other side. A description is a *selector*, not a manual — its only job is to get the skill picked at the right moment. The instant it also explains the steps, the model reads those steps, concludes it already knows the procedure, and treats the body as skippable confirmation. Keep the recipe out of the description and the model has to descend into the body to learn what to do, which is the one place the steps actually get executed.
+
+**Hide the objective — and the later steps — from the agent executing the current one.** Here's the nuance that trips people up: you cannot truly hide the goal inside a static skill file. If all seven steps are written in the file, the model sees all seven the moment it reads it — no amount of "focus on step 3" prose un-sees steps 4 through 7. Genuine goal-hiding isn't a writing trick; it's an *orchestration* property. You get it by decomposing the work at the caller and handing the executing model one atomic unit whose scope does not contain the macro goal. Send an agent a single task plus the whole objective and it optimizes for the objective — it cuts corners on the task to get there. Send it a decomposed task graph, one node at a time, and it follows the graph, because from inside a node the finish line isn't visible to jump to. This is the same instinct behind the ReAct loop — act, *observe the real result*, and only then decide the next move, instead of planning the whole route up front and barreling down it — and behind Matt Pocock's "split by sequence": pull the post-completion steps out of view so the model does the legwork on the task in front of it instead of racing ahead to what comes after.
+
+The caveat matters, because this lever cuts both ways. Hiding the goal buys step-following by taking away the model's view of the whole — and that same view is what lets it make *global* decisions: notice that step 3 made step 5 unnecessary, or catch that the whole plan is wrong. Over-hide and you starve a step of the context it needs to do its job at all. This is a scalpel for loops that demonstrably race to the finish, not a default setting. Reach for it when you've watched an agent batch or short-circuit a sequence; leave the goal in view when the work needs judgment about the whole.
+
 ## The through-line
 
-Four verbs, four different jobs. **Descriptions trigger** — they get the skill discovered and invoked at the right moment, and nothing more. **Bodies instruct** — the actual recipe lives here, in the part that gets read and followed. **Checklists and todos track** — they externalize progress so no step falls out of working memory. **Gates enforce** — they block advancement until each step is genuinely done. A multi-step skill that keeps these separate — discoverable at the top, fully instructed in the body, tracked as it runs, and gated at every step where correctness matters — is one the agent can't easily skip, batch, or declare done early. Writing better steps matters less than writing steps the agent has no room to short-circuit.
+Four verbs, four different jobs. **Descriptions trigger** — they get the skill discovered and invoked at the right moment, and nothing more. **Bodies instruct** — the actual recipe lives here, in the part that gets read and followed. **Checklists and todos track** — they externalize progress so no step falls out of working memory. **Gates enforce** — they block advancement until each step is genuinely done. A multi-step skill that keeps these separate — discoverable at the top, fully instructed in the body, tracked as it runs, and gated at every step where correctness matters — is one the agent can't easily skip, batch, or declare done early.
+
+Step back one more level and the whole toolkit collapses into three levers, each denying a different shortcut. **Progressive disclosure** is context economy — surface what the current step needs and defer the rest, so the model's attention stays where the work is (techniques 2 and 7). **Scripts over prose** is determinism — take the must-happen actions out of the model's discretion and put them into gates, exact commands, and checklists it can't reinterpret (techniques 3, 5, 6, 9, 10). **Hiding the goal** is scope — deny the shortcut at its source by controlling what the model sees of the objective (techniques 1 and 12). They compose, and you pick by the failure in front of you: attention wandering, a step improvised, or the agent racing to the finish. Diagnose which shortcut the agent is taking, then pull the matching lever. Writing better steps matters less than writing steps the agent has no room to short-circuit.
 
 ## Sources / Further reading
 
@@ -86,3 +101,5 @@ Four verbs, four different jobs. **Descriptions trigger** — they get the skill
 - Anthropic — [Agent Skills overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 - Matt Pocock — [mattpocock/skills](https://github.com/mattpocock/skills)
 - [Tips to build good Agent Skills by Matt Pocock]({% post_url 2026-07-02-avoid-skill-hell %}) — the companion post on skill discovery, structure, and pruning
+- Trilogy AI — [How to fix your AI agents that keep cutting corners](https://trilogyai.substack.com/p/how-to-fix-your-ai-agents-keep-cutting) — task-graph decomposition: hand the model a graph, not the goal
+- Machine Learning Mastery — [Prompt Engineering for Agentic AI](https://machinelearningmastery.com/prompt-engineering-for-agentic-ai/) — the ReAct observe-before-proceed loop and agentic prompting patterns
