@@ -172,8 +172,7 @@ ownership + varied rhythm (Stripe) · plain unhedged key sentences (Pragmatic En
    subject and make it act. Keep passive only when the actor is genuinely irrelevant.
 3. **Concrete over vague.** "Studies show" → cite the study. "Several databases" → name
    them. Replace adjectives with facts.
-4. **Short sentences.** If a sentence needs a semicolon or runs past ~30 words, consider
-   splitting it. If it must be re-read to parse, rewrite it.
+4. **varied sentences lengths.** Allow both long and short sentences. If a sentence needs a semicolon or runs past ~30 words, consider splitting it. If it must be re-read to parse, rewrite it. Variety is key.
 5. **Positive form.** State what is, not what isn't. "not many" → "few"; "did not
    remember" → "forgot".
 6. **Kill throat-clearing.** If the first paragraph only restates the title, delete it.
