@@ -51,7 +51,9 @@ header {
 
 .header-contact {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.85in 1.15in;
+  width: 3.1in;
+  flex: none;
   gap: 2px 16px;
   font-size: 8.5pt;
   align-items: center;

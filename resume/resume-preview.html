@@ -18,46 +18,86 @@
     </div>
   </header>
   <main>
+    <!--
+    TAILORED FOR: Machine Learning Engineer — Layer Health (LLM chart review / clinical registry abstraction)
+    JD: https://job-boards.greenhouse.io/layerhealth/jobs/4915887008
+    Angle: production LLM systems on clinical data + the eval / observability / reliability layer
+    (JD: "detect drift/performance degradation", "observability tooling", "monitoring, logging, and error handling").
+    Backend/cloud depth is the JD's stated gap — carried by Philips AWS, Lab378, and Project Alligator bullets.
+    Title honesty: Philips title stays "Data Scientist" + descriptor (see wiki level-vs-salary-vs-domain-2026-10).
+    -->
+    <h2 id="summary">Summary</h2>
+    <p>ML engineer with a Ph.D. in biomedical engineering and 5+ years shipping production ML on clinical and wearable-health data, including EHR data and FDA-constrained algorithms. Builds LLM systems end to end, including evaluation, LLM-as-judge grading, and grounding agent output in cited evidence. Creator of wiki-skills (185+★), an open-source agent context and memory toolkit now deployed inside Philips.</p>
     <h2 id="technical-skills">Technical Skills</h2>
     <ul>
-    <li><strong>Software</strong> — Python (5+ years; Numpy, Pandas, Pytest, SKlearn, Matplotlib, Plotly, FastAPI), Bash, Matlab (10+ years).</li>
-    <li><strong>Time-Series analysis</strong> — Physiology waveforms (PPG, ECG), audio &amp; speech, digital signal processing.</li>
-    <li><strong>Data</strong> — statistical modeling, feature engineering, machine learning, time-frequency analysis, visualizations.</li>
-    <li><strong>Others</strong> — AWS, Redshift, SQL, DataBricks, Version Control (Git), test-driven, CI/CD, Docker, full stack.</li>
+    <li><strong>LLM systems &amp; evaluation</strong>: multi-agent systems, structured outputs (Pydantic), document ingestion and extraction, context &amp; memory engineering, LLM-as-judge, A/B evals, regression testing, agent observability; OpenAI / Anthropic APIs, PydanticAI.</li>
+    <li><strong>Backend &amp; cloud</strong>: Python, FastAPI, Django, event-driven ingestion (webhooks, task queues), multi-tenant platforms; AWS (CDK, CloudFormation, GovCloud, S3, Redshift), GCP (Cloud Run, Cloud Functions, Firestore); Docker, CI/CD, test-driven development.</li>
+    <li><strong>Clinical &amp; health data</strong>: EHR datasets, clinical-study data, physiological time series (PPG, ECG, capnography), FDA-constrained algorithm development, data quality and reproducibility.</li>
+    <li><strong>ML &amp; data</strong>: statistical modeling, feature engineering, regression/classification, LSTMs, forecasting, signal processing; SQL, Databricks, NumPy, Pandas, scikit-learn.</li>
     </ul>
-    <h2 id="relevant-experience">Relevant Experience</h2>
+    <h2 id="relevant-projects">Relevant Projects</h2>
+    <h3 id="project-alligator-llm-extraction-over-medical-records-2025">Project Alligator — LLM Extraction over Medical Records <code>2025</code></h3>
+    <p><em>Founding engineer · 4-person team · Python, FastAPI, OpenAI, Firebase, GCP</em></p>
+    <ul>
+    <li>Owned the full technical build of a multi-agent LLM system that ingests medical bills, EOBs, and medical records, removes PII, detects billing errors (upcoding, unbundling, CPT miscoding), and generates appeal letters and phone scripts.</li>
+    <li>Enforced LLM responses as structured-outputs (Pydantic), making them typed and machine-validatable.</li>
+    <li>Built the FastAPI backend (Firebase Auth / Firestore / Storage) with a PDF and image ingestion pipeline; deployed to Google Cloud Run through Dockerized CI/CD with a pytest suite.</li>
+    </ul>
+    <h3 id="ai-research-portfolio-agents-public-equity-due-diligence-2026present">AI Research &amp; Portfolio Agents — Public-Equity Due Diligence <code>2026–present</code></h3>
+    <p><em>Co-designer &amp; primary analyst · 4-person team · Python, Claude Code, React/TypeScript</em></p>
+    <ul>
+    <li>Co-designed a multi-step agentic reasoning system that gathers market and macro data, synthesizes cited research reports, and fact-checks every AI-generated analysis before use; built on the wiki-skills architecture.</li>
+    <li>Built data pipelines for SEC filings, earnings transcripts, macro series (FRED, CFTC positioning), and market indicators (prices, option chain, short interest), feeding 240+ processed sources.</li>
+    <li>Authored the agent skills for source ingestion, querying, updating, and fact-checking; produced 90+ company research reports.</li>
+    <li>Validated each skill change with A/B tests and LLM-as-judge grading.</li>
+    <li>Built a private portfolio agent that scores holdings against a recommendation rubric, driving go/no-go and sizing decisions for 30+ equities.</li>
+    </ul>
+    <h3 id="wiki-skills-context-memory-engineering-for-llm-agents-2026present">wiki-skills — Context &amp; Memory Engineering for LLM Agents <code>2026–present</code></h3>
+    <p><em>Open source · 187 stars · 29 forks · github.com/kfchou/wiki-skills</em></p>
+    <ul>
+    <li>Authored a toolkit that turns unstructured sources into a schema-enforced, cited knowledge base through multi-step agentic workflows, keeping agents grounded across long-running tasks without vector search.</li>
+    <li>Deployed in three settings: open source, the synthesis layer of the due-diligence system above, and internal tooling at Philips.</li>
+    </ul>
+    <h2 id="experience">Experience</h2>
     <h3 id="koninklijke-philips-n.v.-cambridge-ma-012024present">Koninklijke Philips N.V., Cambridge, MA <code>01/2024–present</code></h3>
-    <p><em>Data Scientist/ML Engineer</em></p>
+    <p><em>Data Scientist (ML Engineering &amp; Applied AI) — wearable devices</em></p>
     <ul>
-    <li>Hardened research-grade ML pipelines for production, adding testing, CI, security reviews, etc.</li>
-    <li>Develop and deploy ML pipelines for respiratory illness prediction based on COTS wearable devices.</li>
-    <li>Lead code review and best practice discussions for software and AL/ML.</li>
-    <li>Reviewed experiments and statistical analyses to ensure data completeness and validate model performance.</li>
-    <li>Increased efficiency and collaboration across research and dev teams by inplementing DevOps and Agile practices to the research setting.</li>
+    <li>Built and deployed an internal LLM context and documentation tool (based on wiki-skills) for 2 teams (~15 data scientists and engineers) working on a 5-year-old codebase deployed to multiple AWS systems; extended it to guide 3 external partners building plugins, with ADRs enforced in CI on feature branches.</li>
+    <li>Supplied coding agents with structured context for a sparsely documented codebase, reducing wrong edits and search overhead and making the team self-sufficient on code that previously required senior support.</li>
+    <li>Own customer-facing AWS infrastructure as code (CDK, CloudFormation) for live production services used by 5,000+ users, including a repeatable, documented process for per-tenant production stacks isolated from staging.</li>
+    <li>Partnered with the system architect to deploy cross-partition networking between commercial AWS and AWS GovCloud for CMMC 2.0 compliance: sensitive compute runs in GovCloud, reading from and writing back to commercial S3.</li>
+    <li>Hardened a research-grade ML pipeline for production with testing, CI, and security reviews.</li>
+    <li>Developed and deployed ML pipelines for respiratory-illness prediction from commercial wearables.</li>
+    <li>Lead code review and engineering standards for ML and software across research and development teams.</li>
     </ul>
-    <h3 id="global-health-labs-bellevue-wa-022021092021-042023012024">Global Health Labs, Bellevue, WA <code>02/2021–09/2021, 04/2023–01/2024</code></h3>
-    <p><em>Clinical Data Scientist</em></p>
+    <h3 id="lab378-remote-072025052026-contract-part-time">Lab378, Remote <code>07/2025–05/2026</code> <em>(contract, part-time)</em></h3>
+    <p><em>Member of Technical Staff — voice-AI sales agents for real estate</em></p>
     <ul>
-    <li>Designed and implemented models in Python for extracting digital biomarkers (respiratory rate, HR, HRV, etc.) from noisy, real-world time-series physiological data (e.g., PPG, capnography), using techniques including DSP, statistical learning, and feature engineering.</li>
-    <li>Consulted on experimental design for developing GHL’s proprietary wearable device. Collaborated with international team of engineers, healthcare providers, and clinical study coordinators to determine study design parameters (e.g., key milestones, study size, and study end points).</li>
-    <li>Built pipeline to process (e.g., clean, time align, filter) and analyze raw clinical data and experiment progress, for communicating results across multifunctional teams &amp; ensure data completeness.</li>
+    <li>Designed and shipped a production multi-tenant billing/ETL platform as sole author: FastAPI on Google Cloud Functions (Gen2) ingesting CRM (FollowUpBoss) and e-signature (BoldSign) webhooks into Firestore, with HMAC signature verification, task queues, and a Django invoicing dashboard.</li>
+    <li>Advised on voice-AI and applied-AI architecture for the company’s autonomous sales-agent product.</li>
     </ul>
     <h3 id="current-health-boston-ma-092021032023">Current Health, Boston, MA <code>09/2021–03/2023</code></h3>
     <p><em>Applied Data Scientist — Biomedical Engineering</em></p>
     <ul>
-    <li>Improved wearable device accuracy for biomarker estimation by over 35% while working within FDA constraints, while simultaneously improving algorithm performance and reducing of associated compute cost by over 50%.</li>
-    <li>Designed and built ELT pipeline with Software Team in Python and SQL to enable repeatable, semi-automated reporting of large EHR datasets, resulting in over 80% reduction in manual effort.</li>
-    <li>Collaborated cross-functionally with Product and Customer Success teams to deliver clinical and operational insights and visualizations for quarterly business reviews to extend and expand current contracts worth $3MM.</li>
-    <li>Implemented ML models (regression, classification, LSTMs, forecasting) on large-scale time-series clinical and sensor data to prototype smart alarms for early event detection.</li>
-    <li>Lead effort to resolve inconsistencies in data reported across multiple teams. Improved alignment and communication across teams and established processes to ensure data quality and reproducibility.</li>
+    <li>Improved wearable biomarker-estimation accuracy by over 35% within FDA constraints while cutting associated compute cost by over 50%.</li>
+    <li>Designed and built an ELT pipeline (Python, SQL) with the software team for repeatable, semi-automated reporting over large EHR datasets, reducing manual effort by over 80%.</li>
+    <li>Implemented ML models (regression, classification, LSTMs, forecasting) on large-scale clinical and sensor time series to prototype smart alarms for early event detection.</li>
+    <li>Led the effort to resolve data inconsistencies across teams, establishing processes for data quality and reproducibility.</li>
+    <li>Delivered clinical and operational insights for quarterly business reviews that helped extend and expand contracts worth $3MM.</li>
+    </ul>
+    <h3 id="global-health-labs-bellevue-wa-022021092021-042023012024">Global Health Labs, Bellevue, WA <code>02/2021–09/2021, 04/2023–01/2024</code></h3>
+    <p><em>Clinical Data Scientist</em></p>
+    <ul>
+    <li>Built Python models extracting digital biomarkers (respiratory rate, HR, HRV) from noisy, real-world physiological data (PPG, capnography) using DSP, statistical learning, and feature engineering.</li>
+    <li>Built the pipeline to clean, time-align, filter, and analyze raw clinical-study data.</li>
+    <li>Shaped study design and endpoints with an international team of engineers, clinicians, and study coordinators.</li>
     </ul>
     <h3 id="sen-lab-boston-university-052016052021">Sen Lab, Boston University <code>05/2016–05/2021</code></h3>
     <p><em>Graduate Research Fellow</em></p>
     <ul>
-    <li>Spearheaded research effort on the optimization of spiking neural networks through transfer learning from DNNs.</li>
-    <li>Designed and implemented novel speech segregation algorithm in MATLAB, benchmarked against ML and deep learning models. Published results in JARO.</li>
-    <li>Awarded US Patent No. 10,536,775. for a method of speech processing.</li>
-    <li>Led and supervised 3 junior research fellows in modeling project. Results contributed to winning NIH/R34 and NSF awards, totaling $1.7 million.</li>
+    <li>Designed a novel speech-segregation algorithm benchmarked against ML and deep-learning models (published in JARO; US Patent No. 10,536,775).</li>
+    <li>Researched optimizing spiking neural networks through transfer learning from DNNs.</li>
+    <li>Supervised 3 junior research fellows; results contributed to NIH R34 and NSF awards totaling $1.7M.</li>
     </ul>
     <h2 id="education">Education</h2>
     <table>
@@ -68,7 +108,7 @@
     <tbody>
     <tr class="odd">
     <td><strong>Boston University</strong></td>
-    <td>Thesis topic: Biological Neural Networks for Background Speech Suppression</td>
+    <td>Thesis: Biological Neural Networks for Background Speech Suppression</td>
     </tr>
     <tr class="even">
     <td>Ph.D., Biomedical Engineering, 2020</td>
