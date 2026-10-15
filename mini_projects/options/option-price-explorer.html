@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Option Price Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky control "ticket" on the left, four stacked figures on the right; one column on phones. */
+:root {
+  --bg: #F3F5F8; --surface: #FFFFFF; --fg: #16202A; --muted: #5A6774; --rule: #D5DCE3; --grid: #E7EBEF;
+  --call: #1C5EA6; --put: #AE3F2C; --up: #1F7A4D; --down: #AE3F2C;
+  --accent: var(--call);
+  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0E141A; --surface: #151D25; --fg: #E2E8EE; --muted: #93A1AE; --rule: #2A3642; --grid: #1E2832;
+  --call: #6EA7E6; --put: #E8836C; --up: #5BC48C; --down: #E8836C; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0E141A; --surface: #151D25; --fg: #E2E8EE; --muted: #93A1AE; --rule: #2A3642; --grid: #1E2832;
+  --call: #6EA7E6; --put: #E8836C; --up: #5BC48C; --down: #E8836C; color-scheme: dark }
+body.is-put { --accent: var(--put) }
+
+body { background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; }
+h1, h2 { font-family: var(--f-display); font-weight: 600; text-wrap: balance; margin: 0; letter-spacing: -0.005em; }
+h1 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); line-height: 1.15; }
+h2 { font-size: 1.25rem; line-height: 1.25; }
+p { margin: 0; }
+.lede { max-width: 68ch; color: var(--muted); margin-top: 8px; }
+.lede b { color: var(--fg); font-weight: 600; }
+header { display: grid; gap: 4px; margin-bottom: 24px; }
+.eyebrow { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+.layout { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 28px; align-items: start; }
+@media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+/* Control ticket */
+.ticket { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 18px; display: grid; gap: 16px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); }
+@media (max-width: 900px) { .ticket { position: static; } }
+.contract { font-family: var(--f-mono); font-size: 0.95rem; font-weight: 500; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
+.contract .side { color: var(--accent); }
+.seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label { text-align: center; padding: 7px 0; cursor: pointer; font-weight: 500; font-size: 0.9rem; color: var(--muted); }
+.seg input:checked + label { background: var(--accent); color: var(--surface); }
+.seg input:focus-visible + label { outline: 2px solid var(--fg); outline-offset: -3px; }
+.ctrl { display: grid; gap: 4px; }
+.ctrl .row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.ctrl label { font-size: 0.86rem; font-weight: 500; }
+.ctrl output { font-family: var(--f-mono); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.ctrl .hint { font-size: 0.76rem; color: var(--muted); }
+input[type=range] { width: 100%; accent-color: var(--accent); margin: 2px 0; }
+input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.quote { display: grid; gap: 2px; padding-top: 12px; border-top: 1px solid var(--rule); }
+.quote .big { font-family: var(--f-mono); font-size: 1.9rem; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.1; color: var(--accent); }
+.quote .sub { font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.split { display: flex; height: 8px; border-radius: 2px; overflow: hidden; background: var(--grid); margin-top: 8px; }
+.split .intr { background: var(--fg); opacity: 0.75; }
+.split .ext { background: var(--accent); opacity: 0.55; }
+.split-legend { display: flex; justify-content: space-between; gap: 8px; font-size: 0.76rem; color: var(--muted); font-variant-numeric: tabular-nums; margin-top: 4px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; font-variant-numeric: tabular-nums; }
+th { text-align: left; font-weight: 500; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0 0 4px; }
+td { padding: 4px 0; border-top: 1px solid var(--grid); }
+td.n { text-align: right; font-family: var(--f-mono); }
+td.n.pos { color: var(--up); } td.n.neg { color: var(--down); }
+.greeks td:first-child { width: 58%; }
+.greeks .gname { font-family: var(--f-mono); font-weight: 500; }
+.greeks .gdesc { color: var(--muted); }
+
+/* Figures */
+.figs { display: grid; gap: 22px; min-width: 0; }
+figure { margin: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 18px 18px 16px; display: grid; gap: 10px; min-width: 0; }
+.fighead { display: grid; gap: 4px; }
+.fignum { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.take { font-weight: 500; }
+svg.chart { width: 100%; display: block; overflow: visible; }
+figcaption { font-size: 0.9rem; color: var(--muted); max-width: 72ch; display: grid; gap: 6px; }
+figcaption b { color: var(--fg); font-weight: 600; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.8rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { display: inline-block; width: 18px; height: 0; border-top: 2px solid var(--muted); }
+.legend i.acc { border-top-color: var(--accent); border-top-width: 3px; }
+.legend i.dash { border-top-style: dashed; }
+.legend i.dot { border-top-style: dotted; }
+.legend i.faint { opacity: 0.55; }
+
+/* SVG text and lines take theme tokens */
+.chart .ax { stroke: var(--rule); stroke-width: 1; }
+.chart .gl { stroke: var(--grid); stroke-width: 1; }
+.chart .tk { fill: var(--muted); font: 11px var(--f-mono); }
+.chart .al { fill: var(--muted); font: 500 11.5px var(--f-body); }
+.chart .lb { font: 500 11.5px var(--f-body); }
+.chart .strike { stroke: var(--muted); stroke-dasharray: 2 4; stroke-width: 1; }
+
+.seller { display: grid; gap: 6px; padding-top: 12px; border-top: 1px solid var(--rule); }
+.seller td:first-child { color: var(--muted); }
+.playbook { display: grid; gap: 14px; }
+.playbook ol { margin: 0; padding-left: 1.3em; display: grid; gap: 12px; max-width: 74ch; }
+.playbook li::marker { font-family: var(--f-mono); color: var(--muted); }
+.playbook li b { font-weight: 600; }
+.playbook .ref { font-family: var(--f-mono); font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+.playbook .live { font-family: var(--f-mono); font-size: 0.85rem; color: var(--accent); }
+.playbook h3 { font-family: var(--f-display); font-weight: 600; font-size: 1.02rem; margin: 0; }
+.playbook ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; max-width: 74ch; }
+.rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 640px) { .rules { grid-template-columns: minmax(0, 1fr); } }
+.rulecol { display: grid; gap: 10px; align-content: start; padding: 14px; border: 1px solid var(--rule); border-radius: 4px; }
+.rulecol h3 { color: var(--up); }
+.rulecol.dont h3 { color: var(--down); }
+.rulecol ol, .rulecol ul { gap: 8px; font-size: 0.92rem; }
+.block { display: grid; gap: 10px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.viewtable { display: grid; gap: 10px; padding-top: 14px; border-top: 1px solid var(--rule); max-width: 74ch; }
+.viewtable h2 { font-size: 1.05rem; }
+.viewtable table { font-size: 0.9rem; }
+.viewtable th { padding-bottom: 6px; }
+.viewtable td { padding: 8px 12px 8px 0; vertical-align: top; }
+.viewtable td:first-child { width: 36%; font-weight: 500; }
+.verdict { display: inline-block; min-width: 2.6em; margin-right: 6px; padding: 1px 6px; border-radius: 3px; font: 500 0.72rem var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border: 1px solid currentColor; }
+.verdict.yes { color: var(--up); }
+.verdict.no { color: var(--down); }
+.verdict.maybe { color: var(--muted); }
+.notes { margin-top: 28px; font-size: 0.85rem; color: var(--muted); max-width: 80ch; display: grid; gap: 6px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Black–Scholes, live</span>
+    <h1>What moves an option's price</h1>
+    <p class="lede">An option's price depends on four inputs you can see: <b>where the stock is relative to the strike</b>, <b>how many days are left</b>, <b>implied volatility</b>, and (barely) <b>interest rates</b>. Drag the sliders and watch all four figures respond. The bold line and dot in each figure are your contract; the thin lines are reference contracts for comparison.</p>
+  </header>
+
+  <div class="layout">
+    <aside class="ticket" aria-label="Contract settings">
+      <div class="contract" id="contractLine">XYZ 105 C · 45d</div>
+
+      <div class="seg" role="radiogroup" aria-label="Option type">
+        <input type="radio" name="type" id="t-call" value="call" checked><label for="t-call">Call</label>
+        <input type="radio" name="type" id="t-put" value="put"><label for="t-put">Put</label>
+      </div>
+
+      <div class="ctrl">
+        <div class="row"><label for="S">Stock price</label><output id="S-o"></output></div>
+        <input type="range" id="S" min="50" max="150" step="0.5" value="100">
+      </div>
+      <div class="ctrl">
+        <div class="row"><label for="K">Strike price</label><output id="K-o"></output></div>
+        <input type="range" id="K" min="50" max="150" step="1" value="105">
+        <span class="hint" id="money"></span>
+      </div>
+      <div class="ctrl">
+        <div class="row"><label for="D">Days to expiration</label><output id="D-o"></output></div>
+        <input type="range" id="D" min="0" max="365" step="1" value="45">
+      </div>
+      <div class="ctrl">
+        <div class="row"><label for="V">Implied volatility</label><output id="V-o"></output></div>
+        <input type="range" id="V" min="5" max="150" step="1" value="30">
+        <span class="hint">Market's expected annual move. Index ETFs ~15%, large caps ~25–40%, meme stocks 80%+.</span>
+      </div>
+      <div class="ctrl">
+        <div class="row"><label for="R">Risk-free rate</label><output id="R-o"></output></div>
+        <input type="range" id="R" min="0" max="10" step="0.25" value="4.5">
+      </div>
+
+      <div class="quote">
+        <span class="eyebrow">Theoretical price</span>
+        <span class="big" id="price">$0.00</span>
+        <span class="sub" id="perContract"></span>
+        <div class="split" aria-hidden="true"><div class="intr" id="bar-i"></div><div class="ext" id="bar-e"></div></div>
+        <div class="split-legend"><span id="lg-i"></span><span id="lg-e"></span></div>
+      </div>
+
+      <div class="seller">
+        <span class="eyebrow" id="sellerTitle">If you sell this</span>
+        <table aria-label="Seller view"><tbody id="seller"></tbody></table>
+      </div>
+
+      <table class="greeks" aria-label="Greeks">
+        <thead><tr><th>Greek</th><th style="text-align:right">Value</th></tr></thead>
+        <tbody id="greeks"></tbody>
+      </table>
+
+      <table aria-label="What-if scenarios">
+        <thead><tr><th>If this happens</th><th style="text-align:right">Option</th><th style="text-align:right">Change</th></tr></thead>
+        <tbody id="whatif"></tbody>
+      </table>
+    </aside>
+
+    <main class="figs">
+      <figure>
+        <div class="fighead">
+          <span class="fignum">Fig. 1 · Stock price</span>
+          <h2>Value vs. stock price, at several dates</h2>
+          <p class="take" id="t1"></p>
+        </div>
+        <div class="legend" id="lg1"></div>
+        <svg class="chart" id="c1" role="img" aria-label="Option value versus stock price"></svg>
+        <figcaption>
+          <p>The dotted <b>hockey stick</b> is intrinsic value: what the option is worth at expiration, the amount it's in the money. Any price above that is <b>time value</b>, the market's payment for the chance the stock still moves your way.</p>
+          <p>Time value is largest right at the strike, where the outcome is least certain. As days run out, the curve sags down onto the hockey stick.</p>
+        </figcaption>
+      </figure>
+
+      <figure>
+        <div class="fighead">
+          <span class="fignum">Fig. 2 · Time</span>
+          <h2>Value vs. days remaining (theta decay)</h2>
+          <p class="take" id="t2"></p>
+        </div>
+        <div class="legend" id="lg2"></div>
+        <svg class="chart" id="c2" role="img" aria-label="Option value versus days remaining"></svg>
+        <figcaption>
+          <p>Time runs left to right toward expiration, with the stock price and IV held fixed. Decay is not linear: time value scales roughly with the <b>square root</b> of time left, so an at-the-money option loses as much in its last ~11 days as in the ~34 days before that.</p>
+          <p>Out-of-the-money options decay to $0. In-the-money options decay only down to their intrinsic value.</p>
+        </figcaption>
+      </figure>
+
+      <figure>
+        <div class="fighead">
+          <span class="fignum">Fig. 3 · Implied volatility</span>
+          <h2>Value vs. implied volatility (vega)</h2>
+          <p class="take" id="t3"></p>
+        </div>
+        <div class="legend" id="lg3"></div>
+        <svg class="chart" id="c3" role="img" aria-label="Option value versus implied volatility"></svg>
+        <figcaption>
+          <p>Higher IV means the market expects bigger swings, so every option (call or put) costs more. For at-the-money options the relationship is nearly a straight line.</p>
+          <p>This is where <b>IV crush</b> comes from: IV is high before earnings and drops right after, so an option can lose value the morning after even if the stock moved in your direction. Out-of-the-money options are nearly worthless at low IV and gain the most, in percentage terms, when IV rises.</p>
+        </figcaption>
+      </figure>
+
+      <figure>
+        <div class="fighead">
+          <span class="fignum">Fig. 4 · Sensitivity</span>
+          <h2>Delta vs. stock price: how fast the option moves</h2>
+          <p class="take" id="t4"></p>
+        </div>
+        <div class="legend" id="lg4"></div>
+        <svg class="chart" id="c4" role="img" aria-label="Delta versus stock price"></svg>
+        <figcaption>
+          <p>Delta is the slope of Fig. 1: dollars of option value per $1 of stock move. A delta of 0.50 means the option moves about half as much as the stock. Traders also read delta as a rough probability of finishing in the money.</p>
+          <p>Close to expiration, delta becomes a step at the strike. Small stock moves near the strike then swing the option hard. That steepness is <b>gamma</b>, and it's why short-dated options near the strike are so volatile.</p>
+        </figcaption>
+      </figure>
+
+      <figure>
+        <div class="fighead">
+          <span class="fignum">Fig. 5 · Seller's view</span>
+          <h2 id="h5">Annualized premium yield vs. days to expiration</h2>
+          <p class="take" id="t5"></p>
+        </div>
+        <div class="legend" id="lg5"></div>
+        <svg class="chart" id="c5" role="img" aria-label="Annualized premium yield versus days to expiration"></svg>
+        <figcaption>
+          <p>Premium collected divided by the capital tied up (the stock for a covered call, the strike × 100 in cash for a secured put), scaled to a year. Same stock price and IV, only the expiration changes.</p>
+          <p>Short expirations pay more per day because of the square-root decay in Fig. 2. They also put you on the steep part of Fig. 4, where a small stock move can flip the trade from comfortably out of the money to assigned.</p>
+        </figcaption>
+      </figure>
+
+      <figure class="playbook" id="playbook">
+        <div class="fighead">
+          <span class="fignum">Covered calls &amp; cash-secured puts</span>
+          <h2>When to sell, and when to close</h2>
+          <p class="take">Selling either one is selling insurance. Sell it when people are overpaying for it: right after a sharp move, with implied vol high for that stock, and at a strike where you'd actually be glad to buy or sell the shares.</p>
+        </div>
+        <div class="rules">
+          <div class="rulecol">
+            <h3 id="sw-title">Sell a covered call when</h3>
+            <ol id="sw-list"></ol>
+          </div>
+          <div class="rulecol dont">
+            <h3>Don't sell when</h3>
+            <ul id="ds-list"></ul>
+          </div>
+        </div>
+        <div class="block">
+          <h3>For both</h3>
+          <ul>
+            <li><b>30–60 days to expiry is the sweet spot for time decay.</b> Decay is still gentle and gamma is low. Weeklies pay more per day (Fig. 5) but turn every news item into an assignment risk. <span class="ref">Fig. 2, 4, 5</span></li>
+            <li><b>Buy back at 50–75% of the premium captured.</b> Don't hold for the last few cents: the premium left is small while gamma keeps growing. <span class="ref">Fig. 2</span><br><span class="live" id="pb-close"></span></li>
+            <li><b>Buy back calls after the stock drops, and buy back puts after it rallies</b>, then sell again on the next swing.</li>
+            <li><b>Collateral is always fully cash-secured</b>, never on margin.</li>
+            <li><b>Before you sell, check the whole book.</b> It should still fit its limits if every open position is assigned at once.</li>
+          </ul>
+        </div>
+        <div class="block">
+          <h3>Reading the numbers</h3>
+          <ul>
+            <li><b>"IV high for that stock"</b> means IV rank above about 50 (where today's IV sits in the stock's own 1-year range; brokers show it) and IV above the last 20 days of realized vol. Compare a stock with its own history, not with other stocks. Premium rises almost linearly with IV. <span class="ref">Fig. 3</span><br><span class="live" id="pb-iv"></span></li>
+            <li><b>Know why IV is high.</b> It runs up before earnings and similar events because a big gap is likely, then collapses afterward (see the "IV −10" row). Holding through the event only pays if the stock stays inside the expected move.</li>
+            <li><b>Delta tells you the odds.</b> Delta is roughly the chance the option finishes in the money; 0.15–0.30 is the common range for short options. <span class="ref">Fig. 4</span><br><span class="live" id="pb-strike"></span></li>
+            <li><b>Covered calls: watch the ex-dividend date.</b> An in-the-money call is likely to be exercised early the day before ex-dividend if its remaining time value is less than the dividend. You lose the shares and the dividend.</li>
+            <li><b>Buying instead of selling? Flip the rules.</b> Buy when IV is low relative to its history, buy more time than you think you need, and expect to need a move bigger than what IV already prices in.</li>
+          </ul>
+        </div>
+        <div class="viewtable">
+          <h2 id="vt-title">Should you sell a covered call? Start with your view on the stock</h2>
+          <table aria-label="Decision by market view">
+            <thead><tr><th>Your view</th><th id="vt-col">Covered call?</th></tr></thead>
+            <tbody id="vt-body"></tbody>
+          </table>
+        </div>
+        <figcaption><p>A covered call and a cash-secured put at the same strike and expiration have nearly the same payoff: you keep the premium, give up the upside above the strike, and keep the full downside below breakeven. Timing the entry well helps at the margin. The main driver of your result is still what the stock does.</p></figcaption>
+      </figure>
+    </main>
+  </div>
+
+  <div class="notes">
+    <p>Model: Black–Scholes with European exercise and no dividends. Listed US stock options are American-style, carry dividends, and trade with a volatility skew (each strike has its own IV), so real quotes will differ by some amount. The shapes in these figures still hold. Prices are per share; one contract covers 100 shares.</p>
+  </div>
+</div>
+
+<script>
+(() => {
+  // ---------- math ----------
+  function erf(x) {
+    const s = Math.sign(x); x = Math.abs(x);
+    const t = 1 / (1 + 0.3275911 * x);
+    const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
+    return s * y;
+  }
+  const N = x => 0.5 * (1 + erf(x / Math.SQRT2));
+  const pdf = x => Math.exp(-x * x / 2) / Math.sqrt(2 * Math.PI);
+
+  function bs(type, S, K, days, ivPct, ratePct) {
+    const T = days / 365, v = ivPct / 100, r = ratePct / 100;
+    if (T <= 1e-9 || v <= 0) {
+      const call = type === "call";
+      return { price: Math.max(call ? S - K : K - S, 0), delta: call ? (S > K ? 1 : 0) : (S < K ? -1 : 0), gamma: 0, theta: 0, vega: 0 };
+    }
+    const sq = Math.sqrt(T);
+    const d1 = (Math.log(S / K) + (r + v * v / 2) * T) / (v * sq), d2 = d1 - v * sq, disc = Math.exp(-r * T);
+    const decay = -S * pdf(d1) * v / (2 * sq);
+    const gamma = pdf(d1) / (S * v * sq), vega = S * pdf(d1) * sq / 100;
+    if (type === "call") return { price: S * N(d1) - K * disc * N(d2), delta: N(d1), gamma, vega, theta: (decay - r * K * disc * N(d2)) / 365 };
+    return { price: K * disc * N(-d2) - S * N(-d1), delta: N(d1) - 1, gamma, vega, theta: (decay + r * K * disc * N(-d2)) / 365 };
+  }
+  const intrinsic = (type, S, K) => Math.max(type === "call" ? S - K : K - S, 0);
+
+  // ---------- chart helper ----------
+  function niceTicks(lo, hi, n) {
+    const span = hi - lo || 1, raw = span / n, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    const step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(s => span / s <= n) || 10 * mag;
+    const out = []; for (let v = Math.ceil(lo / step) * step; v <= hi + step * 1e-6; v += step) out.push(+v.toFixed(10));
+    return out;
+  }
+  const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+
+  function drawChart(svg, o) {
+    const W = Math.max(300, svg.clientWidth || svg.parentNode.clientWidth || 640);
+    const narrow = W < 520;
+    const H = narrow ? 230 : 290;
+    const m = { l: 46, r: narrow ? 58 : 78, t: 14, b: 40 };
+    const pw = W - m.l - m.r, ph = H - m.t - m.b;
+    const sx = x => m.l + (o.reverseX ? (o.x1 - x) / (o.x1 - o.x0) : (x - o.x0) / (o.x1 - o.x0)) * pw;
+    const sy = y => m.t + ph - (y - o.y0) / (o.y1 - o.y0) * ph;
+    const clampY = y => Math.max(m.t - 2, Math.min(m.t + ph + 2, y));
+    let g = "";
+    for (const t of niceTicks(o.y0, o.y1, narrow ? 4 : 5)) {
+      g += `<line class="gl" x1="${m.l}" x2="${m.l + pw}" y1="${sy(t)}" y2="${sy(t)}"/>`;
+      g += `<text class="tk" x="${m.l - 6}" y="${sy(t) + 4}" text-anchor="end">${esc(o.yFmt(t))}</text>`;
+    }
+    for (const t of niceTicks(o.x0, o.x1, narrow ? 4 : 7)) {
+      g += `<line class="ax" x1="${sx(t)}" x2="${sx(t)}" y1="${m.t + ph}" y2="${m.t + ph + 4}"/>`;
+      g += `<text class="tk" x="${sx(t)}" y="${m.t + ph + 17}" text-anchor="middle">${esc(o.xFmt(t))}</text>`;
+    }
+    g += `<line class="ax" x1="${m.l}" x2="${m.l + pw}" y1="${m.t + ph}" y2="${m.t + ph}"/>`;
+    g += `<text class="al" x="${m.l + pw / 2}" y="${H - 4}" text-anchor="middle">${esc(o.xLabel)}</text>`;
+    for (const v of o.vlines || []) {
+      g += `<line class="strike" x1="${sx(v.x)}" x2="${sx(v.x)}" y1="${m.t}" y2="${m.t + ph}"/>`;
+      g += `<text class="tk" x="${sx(v.x) + 4}" y="${m.t + 10}">${esc(v.label)}</text>`;
+    }
+    const labels = [];
+    for (const s of o.series) {
+      const pts = s.points.map(([x, y]) => `${sx(x).toFixed(1)},${clampY(sy(y)).toFixed(1)}`).join(" ");
+      g += `<polyline points="${pts}" fill="none" stroke="${s.color}" stroke-width="${s.width || 1.5}" stroke-linejoin="round" stroke-linecap="round" ${s.dash ? `stroke-dasharray="${s.dash}"` : ""} opacity="${s.opacity ?? 1}"/>`;
+      if (s.label) {
+        const end = s.points.reduce((a, p) => (sx(p[0]) > sx(a[0]) ? p : a));
+        labels.push({ y: clampY(sy(end[1])), text: s.label, color: s.color, opacity: s.labelOpacity ?? 1 });
+      }
+    }
+    labels.sort((a, b) => a.y - b.y);
+    for (let i = 1; i < labels.length; i++) if (labels[i].y - labels[i - 1].y < 13) labels[i].y = labels[i - 1].y + 13;
+    const overflow = labels.length ? labels[labels.length - 1].y - (m.t + ph + 4) : 0;
+    if (overflow > 0) labels.forEach(l => (l.y -= overflow));
+    for (const l of labels) g += `<text class="lb" x="${m.l + pw + 6}" y="${l.y + 4}" fill="${l.color}" opacity="${l.opacity}">${esc(l.text)}</text>`;
+    for (const mk of o.markers || []) {
+      g += `<circle cx="${sx(mk.x)}" cy="${clampY(sy(mk.y))}" r="5" fill="${mk.color}" stroke="var(--surface)" stroke-width="2"/>`;
+    }
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svg.setAttribute("height", H);
+    svg.innerHTML = g;
+  }
+
+  // ---------- state ----------
+  const $ = id => document.getElementById(id);
+  const inputs = ["S", "K", "D", "V", "R"].map($);
+  const money = (x, d = 2) => (x < 0 ? "−$" : "$") + Math.abs(x).toFixed(d);
+  const signed = (x, d = 2) => (x >= 0 ? "+" : "−") + "$" + Math.abs(x).toFixed(d);
+  const pct = x => (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(0) + "%";
+  const range = (a, b, n) => Array.from({ length: n + 1 }, (_, i) => a + (b - a) * i / n);
+  const dayLabel = d => (d === 0 ? "expiry" : d === 1 ? "1 day" : d + " days");
+
+  function read() {
+    return {
+      type: document.querySelector('input[name="type"]:checked').value,
+      S: +$("S").value, K: +$("K").value, D: +$("D").value, V: +$("V").value, R: +$("R").value,
+    };
+  }
+
+  function refStrikes(p) {
+    // Reference contracts 10% in / at / 10% out of the money relative to today's stock price.
+    const itm = p.type === "call" ? p.S * 0.9 : p.S * 1.1, otm = p.type === "call" ? p.S * 1.1 : p.S * 0.9;
+    return [
+      { K: Math.round(itm), name: "ITM", dash: "", op: 0.55 },
+      { K: Math.round(p.S), name: "ATM", dash: "6 4", op: 0.55 },
+      { K: Math.round(otm), name: "OTM", dash: "1.5 3.5", op: 0.75 },
+    ];
+  }
+
+  function legend(el, items) {
+    el.innerHTML = items.map(([cls, txt]) => `<span><i class="${cls}"></i>${esc(txt)}</span>`).join("");
+  }
+
+  function render() {
+    const p = read();
+    document.body.classList.toggle("is-put", p.type === "put");
+    const cs = getComputedStyle(document.body);
+    const ACC = cs.getPropertyValue("--accent").trim() || "#1C5EA6";
+    const MUT = cs.getPropertyValue("--muted").trim() || "#5A6774";
+    const FG = cs.getPropertyValue("--fg").trim() || "#16202A";
+
+    $("S-o").textContent = money(p.S);
+    $("K-o").textContent = money(p.K, 0);
+    $("D-o").textContent = p.D + (p.D === 1 ? " day" : " days");
+    $("V-o").textContent = p.V + "%";
+    $("R-o").textContent = p.R.toFixed(2) + "%";
+    const itmBy = p.type === "call" ? p.S - p.K : p.K - p.S;
+    $("money").textContent = Math.abs(itmBy) < 0.005 ? "At the money" :
+      itmBy > 0 ? `In the money by ${money(itmBy)}` : `Out of the money by ${money(-itmBy)} (stock must ${p.type === "call" ? "rise" : "fall"} ${Math.abs(itmBy / p.S * 100).toFixed(1)}%)`;
+    $("contractLine").innerHTML = `XYZ ${p.K} <span class="side">${p.type === "call" ? "C" : "P"}</span> · ${p.D}d · IV ${p.V}%`;
+
+    const cur = bs(p.type, p.S, p.K, p.D, p.V, p.R);
+    const intr = intrinsic(p.type, p.S, p.K), ext = Math.max(cur.price - intr, 0);
+    $("price").textContent = money(cur.price);
+    $("perContract").textContent = `${money(cur.price * 100)} per contract (×100 shares)`;
+    const tot = intr + ext || 1;
+    $("bar-i").style.width = (intr / tot * 100) + "%";
+    $("bar-e").style.width = (ext / tot * 100) + "%";
+    $("lg-i").textContent = `Intrinsic ${money(intr)}`;
+    $("lg-e").textContent = `Time value ${money(ext)}`;
+
+    $("greeks").innerHTML = [
+      ["Δ Delta", cur.delta.toFixed(3), "per $1 stock move"],
+      ["Γ Gamma", cur.gamma.toFixed(4), "change in delta per $1"],
+      ["Θ Theta", signed(cur.theta, 3), "per calendar day"],
+      ["ν Vega", signed(cur.vega, 3), "per 1-pt rise in IV"],
+    ].map(([n, v, d]) => `<tr><td><span class="gname">${n}</span><br><span class="gdesc">${d}</span></td><td class="n">${v}</td></tr>`).join("");
+
+    const scen = [
+      ["Stock +5%", { S: p.S * 1.05 }],
+      ["Stock −5%", { S: p.S * 0.95 }],
+      ["1 week passes", { D: Math.max(p.D - 7, 0) }],
+      ["IV −10 pts (crush)", { V: Math.max(p.V - 10, 1) }],
+      ["IV +10 pts", { V: p.V + 10 }],
+      ["Stock +5%, IV −10", { S: p.S * 1.05, V: Math.max(p.V - 10, 1) }],
+    ];
+    $("whatif").innerHTML = scen.map(([name, ch]) => {
+      const q = { ...p, ...ch };
+      const np = bs(p.type, q.S, q.K, q.D, q.V, q.R).price, d = np - cur.price;
+      const rel = cur.price > 0.005 ? " " + pct(d / cur.price * 100) : "";
+      const cls = Math.abs(d) < 0.005 ? "" : d > 0 ? "pos" : "neg";
+      return `<tr><td>${name}</td><td class="n">${money(np)}</td><td class="n ${cls}">${signed(d)}${rel}</td></tr>`;
+    }).join("");
+
+    // ---- Fig 1: value vs stock price at several dates
+    const sLo = Math.max(1, Math.min(p.K, p.S) * 0.7), sHi = Math.max(p.K, p.S) * 1.3;
+    const xs = range(sLo, sHi, 160);
+    const dates = [];
+    dates.push(p.D);
+    if (p.D >= 6) dates.push(Math.round(p.D / 3));
+    if (p.D >= 1) dates.push(0);
+    const s1 = dates.map((d, i) => ({
+      points: xs.map(s => [s, bs(p.type, s, p.K, d, p.V, p.R).price]),
+      color: d === 0 ? FG : ACC, width: i === 0 ? 3 : d === 0 ? 1.5 : 1.75,
+      dash: d === 0 ? "1.5 3.5" : i === 0 ? "" : "6 4", opacity: i === 0 ? 1 : d === 0 ? 0.8 : 0.6,
+      label: dayLabel(d), labelOpacity: i === 0 ? 1 : 0.8,
+    }));
+    const y1max = Math.max(...s1.flatMap(s => s.points.map(q => q[1]))) * 1.05 || 1;
+    drawChart($("c1"), {
+      x0: sLo, x1: sHi, y0: 0, y1: y1max, series: s1,
+      vlines: [{ x: p.K, label: "strike" }],
+      markers: [{ x: p.S, y: cur.price, color: ACC }],
+      xFmt: v => "$" + v, yFmt: v => "$" + v, xLabel: "Stock price",
+    });
+    legend($("lg1"), [["acc", `Today (${dayLabel(p.D)} left)`], ...(dates.length > 2 ? [["acc dash faint", `${dayLabel(dates[1])} left`]] : []), ["dot", "At expiry (intrinsic)"]]);
+    {
+      const atK = bs(p.type, p.K, p.K, p.D, p.V, p.R).price;
+      $("t1").textContent = p.D === 0
+        ? "At expiration the option is worth exactly its intrinsic value."
+        : `Today, a stock sitting exactly at the $${p.K} strike would make this option worth ${money(atK)}, all of it time value.`;
+    }
+
+    // ---- Fig 2: value vs days remaining
+    const Dmax = Math.max(60, Math.ceil(Math.max(p.D, 30) * 1.4 / 10) * 10);
+    const ds = range(Dmax, 0, 180);
+    const refs = refStrikes(p);
+    const s2 = refs.map(r => ({
+      points: ds.map(d => [d, bs(p.type, p.S, r.K, d, p.V, p.R).price]),
+      color: MUT, dash: r.dash, opacity: r.op, label: `${r.name} ${r.K}`, labelOpacity: 0.9,
+    }));
+    s2.push({ points: ds.map(d => [d, bs(p.type, p.S, p.K, d, p.V, p.R).price]), color: ACC, width: 3, label: `Yours ${p.K}` });
+    const y2max = Math.max(...s2.flatMap(s => s.points.map(q => q[1]))) * 1.05 || 1;
+    drawChart($("c2"), {
+      x0: 0, x1: Dmax, reverseX: true, y0: 0, y1: y2max, series: s2,
+      markers: p.D <= Dmax ? [{ x: p.D, y: cur.price, color: ACC }] : [],
+      xFmt: v => v, yFmt: v => "$" + v, xLabel: "Days to expiration  →  expiry",
+    });
+    legend($("lg2"), [["acc", `Your ${p.type} (strike ${p.K})`], ["faint", "10% ITM"], ["dash faint", "ATM"], ["dot", "10% OTM"]]);
+    {
+      const wk = bs(p.type, p.S, p.K, Math.max(p.D - 7, 0), p.V, p.R).price;
+      const lastWk = bs(p.type, p.S, p.K, 7, p.V, p.R).price - intr;
+      $("t2").textContent = p.D === 0 ? "Expired: no time value left." :
+        `If the stock and IV don't move, the next 7 days cost you ${money(cur.price - wk)}. ` +
+        (p.D > 7 ? `The final 7 days would cost ${money(Math.max(lastWk, 0))}.` : "");
+    }
+
+    // ---- Fig 3: value vs IV
+    const vMax = Math.max(100, Math.ceil(p.V * 1.4 / 10) * 10);
+    const vs = range(1, vMax, 150);
+    const s3 = refs.map(r => ({
+      points: vs.map(v => [v, bs(p.type, p.S, r.K, p.D, v, p.R).price]),
+      color: MUT, dash: r.dash, opacity: r.op, label: `${r.name} ${r.K}`, labelOpacity: 0.9,
+    }));
+    s3.push({ points: vs.map(v => [v, bs(p.type, p.S, p.K, p.D, v, p.R).price]), color: ACC, width: 3, label: `Yours ${p.K}` });
+    const y3max = Math.max(...s3.flatMap(s => s.points.map(q => q[1]))) * 1.05 || 1;
+    drawChart($("c3"), {
+      x0: 0, x1: vMax, y0: 0, y1: y3max, series: s3,
+      markers: [{ x: p.V, y: cur.price, color: ACC }],
+      xFmt: v => v + "%", yFmt: v => "$" + v, xLabel: "Implied volatility",
+    });
+    legend($("lg3"), [["acc", `Your ${p.type} (strike ${p.K})`], ["faint", "10% ITM"], ["dash faint", "ATM"], ["dot", "10% OTM"]]);
+    $("t3").textContent = p.D === 0 ? "At expiration IV no longer matters." :
+      `Each 1-point change in IV moves this option about ${money(cur.vega, 3)}. A 10-point drop would take it from ${money(cur.price)} to ${money(bs(p.type, p.S, p.K, p.D, Math.max(p.V - 10, 1), p.R).price)}.`;
+
+    // ---- Fig 4: delta vs stock price
+    const dDates = [p.D];
+    if (p.D >= 6) dDates.push(Math.round(p.D / 3));
+    if (p.D >= 2) dDates.push(1);
+    const s4 = dDates.map((d, i) => ({
+      points: xs.map(s => [s, bs(p.type, s, p.K, d, p.V, p.R).delta]),
+      color: i === dDates.length - 1 && i > 0 ? FG : ACC, width: i === 0 ? 3 : 1.5,
+      dash: i === 0 ? "" : i === dDates.length - 1 ? "1.5 3.5" : "6 4", opacity: i === 0 ? 1 : 0.65,
+      label: dayLabel(d),
+    }));
+    const isCall = p.type === "call";
+    drawChart($("c4"), {
+      x0: sLo, x1: sHi, y0: isCall ? 0 : -1, y1: isCall ? 1 : 0, series: s4,
+      vlines: [{ x: p.K, label: "strike" }],
+      markers: [{ x: p.S, y: cur.delta, color: ACC }],
+      xFmt: v => "$" + v, yFmt: v => v.toFixed(2), xLabel: "Stock price",
+    });
+    legend($("lg4"), [["acc", `Today (${dayLabel(p.D)} left)`], ...(dDates.length > 2 ? [["acc dash faint", `${dayLabel(dDates[1])} left`]] : []), ...(dDates.length > 1 ? [["dot", "1 day left"]] : [])]);
+    // ---- Seller view (covered call for calls, cash-secured put for puts)
+    const collat = isCall ? p.S : p.K;
+    const annual = (prem, d) => (d > 0 ? prem / collat * 365 / d * 100 : 0);
+    const pITM = (() => {
+      const T = p.D / 365, v = p.V / 100, r = p.R / 100;
+      if (T <= 1e-9) return itmBy > 0 ? 1 : 0;
+      const d2 = (Math.log(p.S / p.K) + (r - v * v / 2) * T) / (v * Math.sqrt(T));
+      return isCall ? N(d2) : N(-d2);
+    })();
+    $("sellerTitle").textContent = isCall ? "Sell as a covered call" : "Sell as a cash-secured put";
+    $("seller").innerHTML = [
+      ["Premium collected", money(cur.price * 100)],
+      [isCall ? "Capital (100 shares)" : "Cash set aside", money(collat * 100, 0)],
+      ["Return if expires worthless", (cur.price / collat * 100).toFixed(2) + "%"],
+      ["Annualized", p.D > 0 ? annual(cur.price, p.D).toFixed(1) + "%" : "—"],
+      [isCall ? "Max gain if called away" : "Cost basis if assigned", isCall ? money((cur.price + p.K - p.S) * 100) : money(p.K - cur.price) + "/sh"],
+      ["Breakeven", money(isCall ? p.S - cur.price : p.K - cur.price)],
+      ["Chance of assignment*", (pITM * 100).toFixed(0) + "%"],
+    ].map(([a, b]) => `<tr><td>${a}</td><td class="n">${b}</td></tr>`).join("") +
+      `<tr><td colspan="2" style="font-size:0.72rem;color:var(--muted)">*Model odds of finishing in the money at expiry.</td></tr>`;
+
+    // ---- Fig 5: annualized yield vs DTE
+    const d5 = range(Dmax, 5, 170);
+    const s5 = refs.map(r => ({
+      points: d5.map(d => [d, annual(bs(p.type, p.S, r.K, d, p.V, p.R).price, d)]),
+      color: MUT, dash: r.dash, opacity: r.op, label: `${r.name} ${r.K}`, labelOpacity: 0.9,
+    }));
+    s5.push({ points: d5.map(d => [d, annual(bs(p.type, p.S, p.K, d, p.V, p.R).price, d)]), color: ACC, width: 3, label: `Yours ${p.K}` });
+    // ITM references carry intrinsic value, which isn't income; cap the axis on the OTM/ATM/yours curves.
+    const y5max = Math.max(5, ...s5.slice(1).flatMap(s => s.points.map(q => q[1]))) * 1.08;
+    drawChart($("c5"), {
+      x0: 0, x1: Dmax, reverseX: true, y0: 0, y1: y5max, series: s5,
+      markers: p.D >= 5 && p.D <= Dmax ? [{ x: p.D, y: annual(cur.price, p.D), color: ACC }] : [],
+      xFmt: v => v, yFmt: v => v + "%", xLabel: "Days to expiration when you sell",
+    });
+    $("h5").textContent = isCall ? "Covered call: annualized premium yield vs. days to expiration" : "Cash-secured put: annualized premium yield vs. days to expiration";
+    legend($("lg5"), [["acc", `Your strike ${p.K}`], ["faint", "10% ITM (includes intrinsic)"], ["dash faint", "ATM"], ["dot", "10% OTM"]]);
+    {
+      const y30 = annual(bs(p.type, p.S, p.K, 30, p.V, p.R).price, 30), y7 = annual(bs(p.type, p.S, p.K, 7, p.V, p.R).price, 7);
+      $("t5").textContent = `At this strike and IV: a 30-day contract annualizes to ${y30.toFixed(1)}%, a 7-day contract to ${y7.toFixed(1)}%.`;
+    }
+
+    // ---- Decision table by market view
+    const VIEW_ROWS = isCall ? [
+      ["Strongly bullish, could run a lot", "no", "It caps the move you're holding for."],
+      ["Mildly bullish", "yes", "With the strike above your price target."],
+      ["Flat or sideways", "yes", "This is where they work best."],
+      ["Mildly bearish", "yes", "With the strike at or below the current price, the larger premium adds some downside cushion."],
+      ["Strongly bearish", "no", "Sell the shares instead."],
+    ] : [
+      ["Strongly bullish, could run a lot", "no", "Your gain is capped at the premium. Buy the shares instead."],
+      ["Mildly bullish", "yes", "With the strike at or a little below the current price."],
+      ["Flat or sideways", "yes", "This is where they work best: the put most likely expires worthless and you keep the premium."],
+      ["Want to own it, but cheaper", "yes", "Set the strike at the price you'd pay. You're paid to wait, and if assigned your cost is strike − premium."],
+      ["Mildly bearish", "maybe", "Only with the strike well below the current price, at a level you'd be happy to own."],
+      ["Strongly bearish", "no", "Assignment hands you shares that keep falling. The premium is small next to that loss."],
+    ];
+    const VERDICT = { yes: "Yes", no: "No", maybe: "Maybe" };
+    $("vt-title").textContent = isCall
+      ? "Should you sell a covered call? Start with your view on the stock"
+      : "Should you sell a cash-secured put? Start with your view on the stock";
+    $("vt-col").textContent = isCall ? "Covered call?" : "Cash-secured put?";
+    $("vt-body").innerHTML = VIEW_ROWS.map(([view, v, why]) =>
+      `<tr><td>${view}</td><td><span class="verdict ${v}">${VERDICT[v]}</span> ${why}</td></tr>`).join("");
+
+    // ---- Playbook live lines
+    const lowIV = bs(p.type, p.S, p.K, p.D, Math.max(p.V * 0.7, 1), p.R).price;
+    $("pb-iv").textContent = p.D === 0 ? "" : `Your contract at ${p.V}% IV: ${money(cur.price * 100)}. Same contract at ${Math.round(p.V * 0.7)}% IV: ${money(lowIV * 100)}.`;
+    $("pb-strike").textContent = `Your strike: delta ${Math.abs(cur.delta).toFixed(2)}, model assignment odds ${(pITM * 100).toFixed(0)}%, ` +
+      (isCall ? `shares called away at ${money(p.K, 0)}.` : `effective purchase price ${money(p.K - cur.price)}.`);
+    {
+      // Days until the option decays to 50% / 25% of today's price, with stock and IV held fixed.
+      const reach = frac => { for (let d = p.D; d >= 0; d--) if (bs(p.type, p.S, p.K, d, p.V, p.R).price <= cur.price * frac) return p.D - d; return null; };
+      const h50 = reach(0.5), h75 = reach(0.25);
+      $("pb-close").textContent = p.D === 0 || cur.price < 0.01 ? "" :
+        h50 === null ? "This contract is deep enough in the money that it won't decay to 50% unless the stock moves your way."
+        : `If the stock and IV don't move, you'd capture 50% of this premium after ${h50} days` +
+          (h75 !== null ? ` and 75% after ${h75} days` : "") + ` (of ${p.D}).`;
+    }
+
+    // ---- Sell / don't-sell rules
+    const SELL = isCall ? [
+      "The stock just rallied sharply into resistance and call premiums jumped, for example after a squeeze or a crowded run-up.",
+      "Implied vol is high for that stock.",
+      "The strike is a real trim price, so being called away is a sale you wanted anyway.",
+      "It's an up day. The same strike pays more on green days.",
+      "You expect the stock to go flat, drift up a little, or drift down a little.",
+    ] : [
+      "The stock just dropped sharply and is starting to steady: a capitulation day, or a gap down on news that doesn't break the story. Fear pushes put prices up.",
+      "Implied vol is high for that stock: IV rank above about 50, and IV above the last 20 days of realized vol.",
+      "The strike is a real add price, a level where you'd place a limit order anyway, ideally at support.",
+      "It's a down day. The same strike pays more on red days.",
+      "The thesis is intact. The drop is about the market or positioning, not the company itself.",
+    ];
+    const DONT = isCall ? [
+      "You expect a big move up, or it's a core AI name you're holding for 2–3x. Don't punish winners.",
+      "The stock just dropped. Calls are cheap then, and you'd cap the rebound.",
+      "A catalyst that could re-rate it is coming. Buy back the call before earnings.",
+      "You're strongly bearish. Sell the shares instead.",
+    ] : [
+      "The stock is drifting lower slowly and implied vol is quiet. You're paid little to buy into a falling stock (APLD, Oct 2026).",
+      "The company has a problem of its own, such as financing stress or a broken thesis (CRWV, Oct 2026).",
+      "Implied vol is low and the stock is at highs. The pay is thin.",
+      "An event before expiry could break the thesis.",
+    ];
+    $("sw-title").textContent = isCall ? "Sell a covered call when" : "Sell a cash-secured put when";
+    $("sw-list").innerHTML = SELL.map(s => `<li>${esc(s)}</li>`).join("");
+    $("ds-list").innerHTML = DONT.map(s => `<li>${esc(s)}</li>`).join("");
+
+    $("t4").textContent = `Delta ${cur.delta.toFixed(2)}: if the stock rises $1, this ${p.type} ${cur.delta >= 0 ? "gains" : "loses"} about ${money(Math.abs(cur.delta))} per share (${money(Math.abs(cur.delta) * 100)} per contract).`;
+  }
+
+  let raf = 0;
+  const schedule = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(render); };
+  inputs.forEach(el => el.addEventListener("input", schedule));
+  document.querySelectorAll('input[name="type"]').forEach(el => el.addEventListener("change", schedule));
+  window.addEventListener("resize", schedule);
+  new MutationObserver(schedule).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", schedule); } catch (e) {}
+  render();
+})();
+</script>
+
+</body>
+</html>
