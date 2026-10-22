@@ -5,7 +5,7 @@ categories: [AI Coding, Agent Skill, Claude Code, Writing]
 excerpt: "interactive-review is an agent skill that turns a coding agent into an editor for a draft. You comment on the draft, the agent edits and answers, and the comments get resolved over several turns. It has a visual mode, where you review a rendered page in Lavish instead of reading comment markers in the markdown."
 ---
 
-TL;DR - `interactive-review` is an agent skill for editing a piece of writing with a coding agent over many short turns instead of one rewrite. In the default **bracket mode**, you leave `<comments>` in the markdown file and the agent replies in `<<double brackets>>` beside them. In **visual mode**, the agent renders the markdown to a reading page and opens it in Lavish [[1]], you highlight passages and comment on them in the browser, and the agent's explanations show up as margin notes while the markdown file stays clean. The skill lives in this blog's repository under [`skills/interactive-review`][skill], and installs with `npx skills add kfchou/kfchou.github.io --skill interactive-review`.
+TL;DR - Claude Code users have no good way to review and edit markdown interactively with an agent, so I built one. `interactive-review` is an agent skill that makes the agent your editor, working a draft with you over many short turns instead of one rewrite. You can trade comments inline in the markdown file, or switch to **visual mode**: read a rendered page in Lavish [[1]], highlight a passage, comment on it, and see the agent's explanations in the margin. Install it with `npx skills add kfchou/kfchou.github.io --skill interactive-review`.
 
 ## Table of Contents <!-- omit from toc -->
 
@@ -17,6 +17,8 @@ TL;DR - `interactive-review` is an agent skill for editing a piece of writing wi
 - [Limits](#limits)
 
 ## Why a protocol for editing
+
+I work with markdown files a lot. Agents write good code, but the markdown they write is unpleasant to review in raw form: I end up reading syntax instead of the piece a reader will see. I wanted two things together, a rendered view of the document that is pleasant to read, and an interactive editing session with the agent on that same document.
 
 Asking an agent to "improve this draft" gets you a rewrite. The rewrite is smoother and less mine: the specific claims get softened, the voice drifts toward the model's, and the paragraph I liked is gone with no record of why. Going back and forth in chat keeps the draft intact, but the comments live in the conversation and the edits live in the file, and the two drift apart. After a few rounds I can't tell which of my comments were acted on, which were argued with, and which were dropped.
 
@@ -54,18 +56,22 @@ The agent gets autonomy for local edits only. It changes a word or tightens a pa
 
 On a long draft, bracket mode's markers get in the way of reading. The file fills with comments, a table is hard to judge as raw pipe syntax, and I end up reviewing markdown source instead of the piece a reader will see.
 
+The idea comes from the Claude desktop app, where you can highlight part of a response, comment on it, and have those comments go into your next message. I wanted the same thing for Claude Code users, in something lightweight that runs locally beside a terminal session.
+
 Visual mode moves the conversation out of the file. The skill includes a small script, `scripts/render.sh`, which uses pandoc [[2]] to render the markdown to a reading page: a serif body, tables in a scrolling wrapper, and light and dark themes. The agent opens that page in Lavish [[1]], a local review surface for HTML pages in which you select text, comment on it, and send the comments back to the agent. The agent's notes are a JSON file of `{quote, note}` pairs; the page highlights each quoted passage and shows the note in the margin beside it.
 
-![A rendered draft in visual mode, with highlighted passages and the agent's notes in the right margin](/assets/2026-10-22-interactive-review/visual-mode.png)
+![Visual mode in Lavish: a comment being written on a highlighted list item, with the agent's notes in the margin and its last reply in the Conversation panel](/assets/2026-10-22-interactive-review/visual-mode.png)
 
 One turn in visual mode goes like this:
 
 1. The agent renders the page and opens it with `lavish-axi <page>`.
-2. It waits with `lavish-axi poll <page>`. I read the page, highlight passages, write comments, and send them.
+2. It waits with `lavish-axi poll <page>`. I read the page, comment on passages or edit the text directly, and send.
 3. The agent edits the markdown file, never the page, and rewrites the notes file to explain what it changed and what it wants from me.
 4. It re-renders and waits again with `lavish-axi poll <page> --agent-reply "<handoff>"`, which shows its short summary in Lavish.
 
 This repeats until I end the session from Lavish. The protocol is the same as bracket mode. My comments arrive as quoted selections instead of `<brackets>`, the agent's `<<replies>>` become margin notes, and a resolved thread drops its note. To answer a note, I highlight it and comment.
+
+I can also edit the text on the page. With Lavish's Annotate switch turned off, the paragraphs, headings, list items, and table cells become editable. When I click away from a block I changed, the page queues the change for the agent with the text before and after, and marks the block as edited until the next render. The agent applies the change to the markdown, keeping any bold, links, or code spans around the words I changed. It treats an edit as my decision rather than a suggestion, so it adds a note only when the edit conflicts with something else in the draft. Editing and commenting are separate modes because Lavish doesn't open a comment box for a selection inside editable text.
 
 Notes anchor by exact quote, so a note goes stale when the agent edits the passage it quotes. Stale notes are not dropped. The page lists them at the bottom under "Notes that no longer match the text", and the skill tells the agent to fix or delete them before handing back.
 
@@ -90,6 +96,8 @@ The `--skill` flag is needed because the repository has other skills that only m
 The page doesn't refresh while the agent edits the markdown; it changes only when the agent re-renders it at the end of a turn. There is also no view of what changed since my last review, so I rely on the agent's notes to say what moved.
 
 The quote anchoring is plain text matching. A quote that appears twice highlights its first occurrence, and a quote copied with markdown syntax in it (`**bold**`, link brackets) won't match the rendered text. The agent is told to quote the text as it reads, but that rule is enforced only by the instructions.
+
+Editing on the page changes words, not formatting. Making a phrase bold, adding a link, or splitting a paragraph still goes through a comment. Text I'm in the middle of typing is lost if the agent re-renders before I click away from the block; edits that are already queued survive the reload.
 
 [skill]: https://github.com/kfchou/kfchou.github.io/tree/master/skills/interactive-review
 [skillmd]: https://github.com/kfchou/kfchou.github.io/blob/master/skills/interactive-review/SKILL.md
