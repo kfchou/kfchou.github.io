@@ -4,7 +4,10 @@ description: >-
   Collaborative, turn-based editing of a piece of writing using an inline
   two-byline comment protocol: the author writes comments in single brackets
   <like this> and you, acting as editor, reply in double brackets <<like this>>.
-  Use this skill WHENEVER the user wants to iteratively edit, revise, review, or
+  An optional visual mode renders the markdown as a reading page in Lavish
+  (lavish-axi), where the author highlights passages and comments on them and your
+  explanations appear as margin notes instead of brackets in the file; use it when
+  the user asks to review visually or in Lavish. Use this skill WHENEVER the user wants to iteratively edit, revise, review, or
   workshop a piece of PROSE with you as a writing partner — a blog post, essay,
   report, README, spec, documentation, chapter, cover letter, or any human-readable
   writing — especially when they say things like "let's review this", "edit this with
@@ -50,6 +53,10 @@ The document is the single source of truth and it persists on disk. You edit it 
 place. Chat is for the short "here's what I did this pass and what I need from you"
 handoff — never a substitute for putting the actual editorial thinking into the
 document where it belongs.
+
+This inline form is **bracket mode**, the default. **Visual mode** (below) keeps the
+same two bylines and turn-taking but moves the comments out of the file and onto a
+rendered page the author reads in Lavish.
 
 **Example of one exchange, inline:**
 
@@ -98,6 +105,66 @@ one pass, in this order:
 
 Then it is the author's turn. They will edit, resolve your comments, and leave new
 `<ones>`. Do not run ahead and take their turn for them.
+
+## Visual mode: reviewing in Lavish
+
+In visual mode the markdown file holds only prose. The author reads a rendered page in
+Lavish (`lavish-axi`), highlights passages and comments on them there, and your
+explanations appear as margin notes beside the passages they refer to.
+
+**When to use it.** When the user asks for it ("review this visually", "open it in
+Lavish"). If they haven't chosen and both `lavish-axi` and `pandoc` are on the PATH,
+offer it once when the session starts. Otherwise use bracket mode, and don't switch
+modes mid-session unasked.
+
+**The renderer** is `scripts/render.sh` in this skill's folder:
+
+```
+scripts/render.sh <document.md> [notes.json] [out.html]
+```
+
+By default it writes the page to `.lavish/<name>.html` under the current directory and
+reads notes from `.lavish/<name>.notes.json` beside the page; keep the notes file
+there, not next to the author's markdown. It prints the page path. A missing or empty
+notes file means no notes.
+
+The notes file is a JSON array of `{"quote": "...", "note": "..."}`. `quote` is exact
+text from the document as it reads, without markdown markup (no `**`, backticks, or
+link syntax); line breaks and runs of spaces may differ. The first occurrence is
+highlighted, so quote enough to be unique. A note whose quote no longer matches,
+usually because you edited that passage, is listed at the end of the page under
+"Notes that no longer match the text" rather than dropped. Treat that as a slip in
+your turn: re-quote the note or delete it before handing back.
+
+**The loop.**
+
+1. Render the document, then open the page: `lavish-axi <page>`.
+2. Wait for the author: `lavish-axi poll <page>`. It blocks until they send feedback or
+   end the session. Read `lavish-axi poll --help` once per session for its current
+   rules (keep it in the foreground, never kill it, re-run it if interrupted) instead
+   of working from memory.
+3. Take your turn as in "Taking a turn", editing the **markdown file**, never the page.
+4. Rewrite the notes file for the draft as it now stands.
+5. Re-render to the same page path.
+6. Hand back and wait in one step:
+   `lavish-axi poll <page> --agent-reply "<short handoff>"`. The reply is the chat
+   handoff and follows the same rule: a brief pointer, with the reasoning in the notes.
+7. Repeat from step 3 until the author ends the session. The poll that reports the end
+   still carries their last feedback; act on it, re-render, and stop. Do not reopen the
+   session uninvited.
+
+**How the protocol maps.**
+
+- Author `<comments>` arrive through the poll as a quoted selection plus the comment.
+  They are never written into the file; find the passage in the markdown by its quote.
+- Your `<<comments>>` become notes on the passage they concern. Never write `<<>>` or
+  `<>` markers into the file in this mode. `STRUCTURAL:` and `META:` prefixes carry
+  over into the note text, and the one-issue-per-comment rule applies per note.
+- An author comment you didn't act on gets a note on the same passage answering it,
+  in place of leaving the comment in the file. The author replies by highlighting the
+  note.
+- Resolved threads drop their notes. The notes file holds only the open editor
+  comments for this turn, so a converging draft renders with fewer of them.
 
 ## What a good editor catches
 
@@ -247,8 +314,9 @@ improvement, agree on it, then make the change as its own small, deliberate edit
 ## Starting a session
 
 If the user hands you a document (a file path, or pasted text you should save to a
-file) and wants to review it, confirm you'll use this protocol, make sure the comment
-bylines are clear, and take the first editor turn. If they've already seeded the
+file) and wants to review it, confirm you'll use this protocol, settle the mode
+(bracket by default; visual if asked, or offered as described above), make sure the
+comment bylines are clear, and take the first editor turn. If they've already seeded the
 document with `<author comments>`, those are your first agenda. If the document is
 clean, do an opening editorial pass and raise the `<<comments>>` that matter most —
 then hand back and let them steer.
