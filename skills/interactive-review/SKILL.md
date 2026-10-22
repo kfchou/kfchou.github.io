@@ -6,8 +6,10 @@ description: >-
   <like this> and you, acting as editor, reply in double brackets <<like this>>.
   An optional visual mode renders the markdown as a reading page in Lavish
   (lavish-axi), where the author highlights passages and comments on them and your
-  explanations appear as margin notes instead of brackets in the file; use it when
-  the user asks to review visually or in Lavish. Use this skill WHENEVER the user wants to iteratively edit, revise, review, or
+  explanations appear as margin notes instead of brackets in the file. Bracket mode
+  is the default: when a session starts in it, tell the user in one line that visual
+  mode is available, and switch only when they ask ("review this visually", "open it
+  in Lavish"). Use this skill WHENEVER the user wants to iteratively edit, revise, review, or
   workshop a piece of PROSE with you as a writing partner — a blog post, essay,
   report, README, spec, documentation, chapter, cover letter, or any human-readable
   writing — especially when they say things like "let's review this", "edit this with
@@ -112,10 +114,13 @@ In visual mode the markdown file holds only prose. The author reads a rendered p
 Lavish (`lavish-axi`), highlights passages and comments on them there, and your
 explanations appear as margin notes beside the passages they refer to.
 
-**When to use it.** When the user asks for it ("review this visually", "open it in
-Lavish"). If they haven't chosen and both `lavish-axi` and `pandoc` are on the PATH,
-offer it once when the session starts. Otherwise use bracket mode, and don't switch
-modes mid-session unasked.
+**When to use it.** Only when the user asks for it ("review this visually", "open it
+in Lavish"), at the start or at any later turn. Bracket mode is the default, and a
+session that starts in it opens with one short line telling the user visual mode is
+available: they can review a rendered page in Lavish, highlighting passages and
+reading your notes in the margin, and they only need to ask. If `lavish-axi` or
+`pandoc` is missing, name it in the same line. Say this once per session, and never
+switch modes on your own.
 
 **The renderer** is `scripts/render.sh` in this skill's folder:
 
@@ -315,7 +320,8 @@ improvement, agree on it, then make the change as its own small, deliberate edit
 
 If the user hands you a document (a file path, or pasted text you should save to a
 file) and wants to review it, confirm you'll use this protocol, settle the mode
-(bracket by default; visual if asked, or offered as described above), make sure the
+(bracket by default, visual if asked; in bracket mode, add the one-line note that
+visual mode is available, as described above), make sure the
 comment bylines are clear, and take the first editor turn. If they've already seeded the
 document with `<author comments>`, those are your first agenda. If the document is
 clean, do an opening editorial pass and raise the `<<comments>>` that matter most —

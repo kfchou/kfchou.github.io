@@ -12,6 +12,8 @@ It has two modes:
   [Lavish](https://github.com/kunchenguid/lavish-axi). You highlight passages and
   comment on them in the browser; the agent edits the markdown and explains its
   changes as margin notes on the page. The markdown file stays free of markers.
+  When a session starts in bracket mode, the agent mentions in one line that visual
+  mode is available; ask for it ("review this visually") to switch.
 
 See [`SKILL.md`](SKILL.md) for the full protocol.
 

@@ -69,7 +69,7 @@ This repeats until I end the session from Lavish. The protocol is the same as br
 
 Notes anchor by exact quote, so a note goes stale when the agent edits the passage it quotes. Stale notes are not dropped. The page lists them at the bottom under "Notes that no longer match the text", and the skill tells the agent to fix or delete them before handing back.
 
-Bracket mode stays the default. The agent uses visual mode when asked ("review this visually", "open it in Lavish"), and offers it at the start of a session when `pandoc` and `lavish-axi` are both installed.
+Bracket mode stays the default. When a session starts in bracket mode, the agent says in one line that visual mode is available, and it switches only when I ask ("review this visually", "open it in Lavish").
 
 ## Installing it
 
