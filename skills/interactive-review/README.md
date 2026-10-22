@@ -10,8 +10,10 @@ It has two modes:
   `<single brackets>`, the agent's in `<<double brackets>>`.
 - **Visual mode.** The agent renders the markdown to a reading page and opens it in
   [Lavish](https://github.com/kunchenguid/lavish-axi). You highlight passages and
-  comment on them in the browser; the agent edits the markdown and explains its
-  changes as margin notes on the page. The markdown file stays free of markers.
+  comment on them in the browser, or turn Lavish's Annotate switch off and edit the
+  text on the page directly. The agent applies your edits and its own to the markdown
+  and explains its changes as margin notes on the page. The markdown file stays free
+  of markers.
   When a session starts in bracket mode, the agent mentions in one line that visual
   mode is available; ask for it ("review this visually") to switch.
 
@@ -51,4 +53,10 @@ lavish-axi .lavish/draft.html         # open it for review
 
 Notes are read from `.lavish/draft.notes.json`, a JSON array of
 `{"quote": "...", "note": "..."}`. A note whose quote no longer appears in the
-document is listed at the end of the page.
+document is listed at the end of the page. Local images (relative paths, or site-root
+paths such as `/assets/x.png` resolved against the git top-level) are copied into
+`.lavish/draft.assets/`.
+
+Editing on the page changes words, not formatting: bold, links, and new paragraphs
+still go through comments. Text you are still typing when the agent re-renders is
+lost; a block's edit is queued when you click away from it.

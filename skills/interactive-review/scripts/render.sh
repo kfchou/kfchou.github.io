@@ -12,6 +12,15 @@
 # quote and shows the note in the margin; a note whose quote no longer matches is
 # listed at the end of the page instead of being dropped.
 #
+# Local images are copied into <out without .html>.assets/ beside the page so
+# Lavish can serve them: relative paths resolve against the document's folder,
+# site-root paths (/assets/x.png) against the git top-level. Remote URLs are left
+# alone, and the source markdown is never modified.
+#
+# Inside Lavish, switching to explore mode (Ctrl/Cmd+I) makes paragraphs,
+# headings, list items, and table cells editable; each changed block is queued
+# for the agent as an "edit" prompt with the text before and after.
+#
 # Prints the path of the rendered page. Requires pandoc.
 set -euo pipefail
 
@@ -27,6 +36,9 @@ name=$(basename "$src"); name=${name%.*}
 out=${3:-.lavish/$name.html}
 notes=${2:-${out%.html}.notes.json}
 mkdir -p "$(dirname "$out")"
+assets=${out%.html}.assets
+rm -rf "$assets"
+mkdir -p "$assets"
 
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
@@ -41,8 +53,8 @@ cat > "$tmp/page.html" <<'TEMPLATE'
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>$if(title)$$pagetitle$$else$$review-name$$endif$</title>
 <style>
-:root{--bg:#fbfaf7;--fg:#1f2328;--muted:#656d76;--rule:#e4e0d8;--note:#fff6d6;--noteb:#e8c547;--mark:#fdeeb0;--warn:#b42318}
-@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e6e6e6;--muted:#9aa1a9;--rule:#2c3036;--note:#2b2717;--noteb:#a8892a;--mark:#4a3f12;--warn:#f97066}}
+:root{--edit:#e3f0fb;--editb:#a9cdee;--bg:#fbfaf7;--fg:#1f2328;--muted:#656d76;--rule:#e4e0d8;--note:#fff6d6;--noteb:#e8c547;--mark:#fdeeb0;--warn:#b42318}
+@media (prefers-color-scheme:dark){:root{--edit:#16293a;--editb:#2d5a82;--bg:#15171a;--fg:#e6e6e6;--muted:#9aa1a9;--rule:#2c3036;--note:#2b2717;--noteb:#a8892a;--mark:#4a3f12;--warn:#f97066}}
 body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.65 Charter,"Iowan Old Style",Georgia,serif}
 main{max-width:46rem;margin:0 auto;padding:3rem 1rem 6rem}
 .src{font:13px ui-monospace,monospace;color:var(--muted);overflow-wrap:anywhere}
@@ -61,19 +73,26 @@ mark.agent{background:var(--mark);color:inherit;border-radius:2px}
 aside.agent-note{font:14px/1.5 system-ui,sans-serif;background:var(--note);border-left:3px solid var(--noteb);padding:.6rem .8rem;margin:.6rem 0 1.2rem;border-radius:4px}
 .anno{position:relative}
 .warn{font:14px/1.5 system-ui,sans-serif;color:var(--warn)}
+.mode-hint{display:none;position:sticky;top:0;z-index:1;margin:-3rem -1rem 1.5rem;padding:.45rem 1rem;font:13px/1.4 system-ui,sans-serif;color:var(--muted);background:var(--bg);border-bottom:1px solid var(--rule)}
+.mode-hint.on{display:block}
+body.editing [contenteditable]{outline:1px dashed var(--rule);outline-offset:3px;border-radius:2px}
+body.editing [contenteditable]:hover,body.editing [contenteditable]:focus{outline:1px dashed var(--muted)}
+.edited{background:var(--edit);box-shadow:-6px 0 0 var(--edit),6px 0 0 var(--edit)}
+.edited::after{content:"edited, queued for the agent";margin-left:.5rem;padding:0 .35rem;font:11px/1.6 system-ui,sans-serif;color:var(--fg);background:var(--editb);border-radius:3px;white-space:nowrap}
 #unanchored blockquote{font-style:italic}
-@media (min-width:70rem){
-  main{margin-left:max(0px,calc((100% - 67rem)/2))}
-  .margin{position:absolute;top:0;left:calc(100% + 2rem);width:18rem}
+@media (min-width:66rem){
+  main{margin-left:max(0px,calc((100% - 66rem)/2))}
+  .margin{position:absolute;top:0;left:calc(100% + 1.5rem);width:16rem}
   .margin aside.agent-note{margin:0 0 .6rem}
 }
 </style>
 </head>
 <body>
 <main>
+<p class="mode-hint" data-lavish-ui></p>
 <div class="src">$review-source$</div>
 $if(title)$
-<h1>$title$</h1>
+<h1 class="doc-title">$title$</h1>
 $endif$
 $body$
 </main>
@@ -200,7 +219,7 @@ TEMPLATE
 
   // On wide screens each margin column starts level with its first highlight,
   // pushed down when it would overlap the column above it.
-  const wide = matchMedia('(min-width:70rem)');
+  const wide = matchMedia('(min-width:66rem)');
   function stack() {
     let bottom = -Infinity;
     for (const [m, mark] of anchors) {
@@ -215,17 +234,134 @@ TEMPLATE
   stack();
   addEventListener('resize', stack);
   document.fonts && document.fonts.ready.then(stack);
+
+  // Direct editing. Lavish ignores text selections inside contenteditable
+  // elements while annotating, so blocks are editable only in explore mode.
+  // Lavish reports its mode to the page with a "lavish:setAnnotationMode"
+  // message; outside Lavish no message arrives and the page stays read-only.
+  const norm = t => t.replace(/\s+/g, ' ').trim();
+  const skip = '.doc-title, .src, .warn, .mode-hint, .margin, #unanchored, pre';
+  const blocks = [...main.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, dt, dd, td, th')]
+    .filter(b => !b.closest(skip) && !b.querySelector('p, ul, ol, dl, pre, table, blockquote, div'));
+  const original = blocks.map(b => norm(b.textContent));
+  const sent = original.slice();
+  const hint = main.querySelector('.mode-hint');
+  const key = /Mac|iPhone|iPad/.test(navigator.platform) ? '\u2318I' : 'Ctrl+I';
+
+  // Where each block sits, recorded before any edits, so the agent can find
+  // it in the markdown.
+  const kinds = { P: 'paragraph', LI: 'list item', TD: 'table cell', TH: 'table cell', DT: 'term', DD: 'definition' };
+  const sections = [];
+  let heading = '';
+  for (const el of main.querySelectorAll('h1, h2, h3, h4, h5, h6, p, li, dt, dd, td, th')) {
+    const i = blocks.indexOf(el);
+    if (/^H\d$/.test(el.tagName)) { if (i >= 0) sections[i] = ''; heading = norm(el.textContent); }
+    else if (i >= 0) sections[i] = heading;
+  }
+  function locate(i) {
+    return {
+      block: kinds[blocks[i].tagName] || 'heading',
+      section: sections[i],
+      text_before: i > 0 ? original[i - 1].slice(-120) : '',
+      text_after: i + 1 < blocks.length ? original[i + 1].slice(0, 120) : '',
+    };
+  }
+
+  function setEditing(on) {
+    for (const b of blocks) {
+      if (on) b.setAttribute('contenteditable', 'plaintext-only');
+      else b.removeAttribute('contenteditable');
+    }
+    document.body.classList.toggle('editing', on);
+    hint.classList.add('on');
+    hint.textContent = on
+      ? 'Editing: click a paragraph, heading, list item, or table cell and type. Each change is queued for the agent when you click away. Turn Annotate back on (or ' + key + ') to comment.'
+      : 'Annotating: select text to comment on it. Turn Annotate off (top right, or ' + key + ') to edit the text directly.';
+  }
+
+  addEventListener('message', e => {
+    if (e.source !== parent || !e.data || e.data.type !== 'lavish:setAnnotationMode') return;
+    setEditing(!e.data.enabled);
+  });
+
+  main.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && blocks.includes(e.target)) { e.preventDefault(); e.target.blur(); }
+  });
+
+  main.addEventListener('focusout', e => {
+    const i = blocks.indexOf(e.target);
+    if (i < 0) return;
+    const after = norm(e.target.textContent);
+    if (after === sent[i]) return;
+    sent[i] = after;
+    const before = original[i];
+    e.target.classList.toggle('edited', after !== before);
+    if (!window.lavish || typeof window.lavish.queuePrompt !== 'function') return;
+    const where = locate(i);
+    const prompt = after === before
+      ? 'Edit withdrawn: the ' + where.block + ' is back to its original text. No change needed.'
+      : 'Author edited a ' + where.block + (where.section ? ' under "' + where.section + '"' : '') + '.\nBefore: ' + before + '\nAfter: ' + after;
+    window.lavish.queuePrompt(prompt, {
+      tag: 'edit',
+      queueKey: 'edit:' + i,
+      element: e.target,
+      text: after.slice(0, 240),
+      data: { before, after, ...where },
+    });
+  });
 })();
 </script>
 SCRIPT
 } > "$tmp/after.html"
 
+# Copy local images beside the page and point the page at the copies.
+cat > "$tmp/images.lua" <<'LUA'
+local doc_dir = os.getenv('REVIEW_DOC_DIR')
+local site_root = os.getenv('REVIEW_SITE_ROOT') or ''
+local asset_dir = os.getenv('REVIEW_ASSET_DIR')
+local asset_rel = os.getenv('REVIEW_ASSET_REL')
+local count = 0
+
+local function slurp(path)
+  local f = io.open(path, 'rb')
+  if not f then return nil end
+  local data = f:read('*a')
+  f:close()
+  return data
+end
+
+function Image(img)
+  local src = img.src
+  if src:match('^%a[%w+.-]*:') or src:match('^//') then return nil end
+  local path = src:gsub('[?#].*$', ''):gsub('%%(%x%x)', function(h) return string.char(tonumber(h, 16)) end)
+  local data
+  if path:sub(1, 1) == '/' then
+    data = (site_root ~= '' and slurp(site_root .. path)) or slurp(path)
+  else
+    data = slurp(doc_dir .. '/' .. path)
+  end
+  if not data then return nil end
+  count = count + 1
+  local dest = count .. '-' .. path:match('([^/]*)$'):gsub('[^%w._-]', '_')
+  local out = io.open(asset_dir .. '/' .. dest, 'wb')
+  if not out then return nil end
+  out:write(data)
+  out:close()
+  img.src = asset_rel .. '/' .. dest
+  return img
+end
+LUA
+
 # -smart keeps straight quotes and dashes, so the rendered text matches the
 # markdown source and notes can quote either one.
 # --quiet drops pandoc's "nonempty <title>" warning; the template supplies one.
+REVIEW_DOC_DIR=$(cd "$(dirname "$src")" && pwd) \
+REVIEW_SITE_ROOT=$(git -C "$(dirname "$src")" rev-parse --show-toplevel 2>/dev/null || true) \
+REVIEW_ASSET_DIR=$assets REVIEW_ASSET_REL=$(basename "$assets") \
 pandoc --quiet -f markdown-smart -t html5 --standalone --template "$tmp/page.html" \
-  --include-after-body "$tmp/after.html" \
+  --include-after-body "$tmp/after.html" --lua-filter "$tmp/images.lua" \
   -M "review-source=$src" -M "review-name=$name" \
   -o "$out" "$src"
 
+rmdir "$assets" 2>/dev/null || true
 echo "$out"

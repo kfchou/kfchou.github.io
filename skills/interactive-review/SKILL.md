@@ -5,8 +5,9 @@ description: >-
   two-byline comment protocol: the author writes comments in single brackets
   <like this> and you, acting as editor, reply in double brackets <<like this>>.
   An optional visual mode renders the markdown as a reading page in Lavish
-  (lavish-axi), where the author highlights passages and comments on them and your
-  explanations appear as margin notes instead of brackets in the file. Bracket mode
+  (lavish-axi), where the author highlights passages and comments on them or edits
+  the text directly, and your explanations appear as margin notes instead of
+  brackets in the file. Bracket mode
   is the default: when a session starts in it, tell the user in one line that visual
   mode is available, and switch only when they ask ("review this visually", "open it
   in Lavish"). Use this skill WHENEVER the user wants to iteratively edit, revise, review, or
@@ -111,8 +112,9 @@ Then it is the author's turn. They will edit, resolve your comments, and leave n
 ## Visual mode: reviewing in Lavish
 
 In visual mode the markdown file holds only prose. The author reads a rendered page in
-Lavish (`lavish-axi`), highlights passages and comments on them there, and your
-explanations appear as margin notes beside the passages they refer to.
+Lavish (`lavish-axi`), highlights passages and comments on them there, and can also
+edit the text on the page directly. Your explanations appear as margin notes beside
+the passages they refer to.
 
 **When to use it.** Only when the user asks for it ("review this visually", "open it
 in Lavish"), at the start or at any later turn. Bracket mode is the default, and a
@@ -131,7 +133,8 @@ scripts/render.sh <document.md> [notes.json] [out.html]
 By default it writes the page to `.lavish/<name>.html` under the current directory and
 reads notes from `.lavish/<name>.notes.json` beside the page; keep the notes file
 there, not next to the author's markdown. It prints the page path. A missing or empty
-notes file means no notes.
+notes file means no notes. Local images are copied into `.lavish/<name>.assets/` so
+the page can show them; the markdown is never touched.
 
 The notes file is a JSON array of `{"quote": "...", "note": "..."}`. `quote` is exact
 text from the document as it reads, without markdown markup (no `**`, backticks, or
@@ -144,7 +147,8 @@ your turn: re-quote the note or delete it before handing back.
 **The loop.**
 
 1. Render the document, then open the page: `lavish-axi <page>`.
-2. Wait for the author: `lavish-axi poll <page>`. It blocks until they send feedback or
+2. Wait for the author: `lavish-axi poll <page>`. It blocks until they send comments and
+   edits, or
    end the session. Read `lavish-axi poll --help` once per session for its current
    rules (keep it in the foreground, never kill it, re-run it if interrupted) instead
    of working from memory.
@@ -170,6 +174,19 @@ your turn: re-quote the note or delete it before handing back.
   note.
 - Resolved threads drop their notes. The notes file holds only the open editor
   comments for this turn, so a converging draft renders with fewer of them.
+
+**Direct edits.** With Lavish's Annotate switch off (or Ctrl/Cmd+I), the author can
+click a paragraph, heading, list item, or table cell on the page and type. Each changed
+block arrives through the poll as a prompt tagged `edit`, with the block's text before
+and after, its section heading, and the text of the blocks around it.
+
+- Apply the same change to the markdown, keeping the markup the rendered text hides
+  (bold, links, code spans) intact around the changed words.
+- An edit is the author's decision, not a request. Make it without comment; add a note
+  only if it conflicts with something else in the draft.
+- An edit prompt that says the block is back to its original text needs no change.
+- The page edits rendered text, so it changes words, not formatting. Bold, links, new
+  paragraphs, and other structure still come through comments.
 
 ## What a good editor catches
 
