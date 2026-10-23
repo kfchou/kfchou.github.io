@@ -26,7 +26,8 @@
 // uses that to let the reviewer edit a block's markdown on the page and save it
 // straight to the file; a page rendered by this script alone is read-only.
 //
-// Prints the path of the rendered page. Requires Node 18+; markdown-it is vendored.
+// Prints the path of the rendered page. Requires Node 18+ (Lavish itself needs 22+);
+// markdown-it is vendored.
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';

@@ -120,12 +120,28 @@ the passages they refer to.
 in Lavish"), at the start or at any later turn. Bracket mode is the default, and a
 session that starts in it opens with one short line telling the user visual mode is
 available: they can review a rendered page in Lavish, highlighting passages and
-reading your notes in the margin, and they only need to ask. If `lavish-axi` is
-missing, name it in the same line. Say this once per session, and never
-switch modes on your own.
+reading your notes in the margin, and they only need to ask. If a prerequisite
+(below) is missing, name it in the same line and offer to install it. Say this once
+per session, and never switch modes on your own.
 
-**The scripts** live in this skill's `scripts/` folder and need only Node 18 or later,
-which Lavish already requires:
+**Prerequisites.** Visual mode needs Node.js 22 or later (lavish-axi requires it;
+the skill's own scripts run on 18+) and `lavish-axi`. Check with `node --version` and
+`lavish-axi --version` when visual mode is requested, and before the one-line mention
+names a missing tool.
+
+- If one is missing or too old, tell the user which, and offer to install it. Install
+  only after they say yes, never silently, and re-run both checks afterward.
+- lavish-axi: `npm install -g lavish-axi`. This skill needs no further setup;
+  `lavish-axi setup hooks` is optional and unrelated.
+- Node: install it yourself only through a version manager that is already there
+  (nvm, fnm, or volta, e.g. `nvm install 22`). Otherwise give the user the command for
+  their platform, such as `brew install node` on macOS or
+  `winget install OpenJS.NodeJS.LTS` on Windows, and wait. Don't use sudo or change
+  system packages unless they have said you may. The same applies to
+  `npm install -g` when the global npm folder needs sudo.
+- If they decline, stay in bracket mode.
+
+**The scripts** live in this skill's `scripts/` folder:
 
 - `serve.mjs <document.md>` is the save helper. It renders the page, saves edits the
   author makes on the page straight to the markdown file, and re-renders whenever the

@@ -22,8 +22,11 @@ See [`SKILL.md`](SKILL.md) for the full protocol.
 ## Requirements
 
 - Bracket mode: nothing beyond an agent that loads skills.
-- Visual mode: [Node.js](https://nodejs.org/) 18 or later and `lavish-axi`
-  (`npm install -g lavish-axi`). The scripts use only Node's standard library plus a
+- Visual mode: [Node.js](https://nodejs.org/) 22 or later (lavish-axi requires it;
+  the scripts alone run on 18+) and `lavish-axi` (`npm install -g lavish-axi`). When
+  you ask for visual mode, the agent checks for both and offers to install what is
+  missing. It installs only after you agree, and it hands you the command for Node
+  when installing it would need sudo or a system package manager. The scripts use only Node's standard library plus a
   vendored copy of [markdown-it](https://github.com/markdown-it/markdown-it) 14.1.0
   (MIT; licenses in `scripts/vendor/LICENSES.txt`), so there is no install step.
 
