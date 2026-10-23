@@ -13,6 +13,7 @@ TL;DR - Claude Code users have no good way to review and edit markdown interacti
 - [Bracket mode](#bracket-mode)
 - [What the agent does as editor](#what-the-agent-does-as-editor)
 - [Visual mode](#visual-mode)
+- [How it compares to other tools](#how-it-compares-to-other-tools)
 - [Installing it](#installing-it)
 - [Limits](#limits)
 
@@ -77,9 +78,29 @@ Notes anchor by exact quote, so a note goes stale when the agent edits the passa
 
 Bracket mode stays the default. When a session starts in bracket mode, the agent says in one line that visual mode is available, and it switches only when I ask ("review this visually", "open it in Lavish").
 
+## How it compares to other tools
+
+Other tools cover parts of this, and some are further along. Plannotator [[3]] is the closest. It is a local, browser-based review surface for Claude Code and several other agents, and its `/plannotator-annotate` command opens any markdown file. There you comment on exact text, mark passages for deletion, or edit the markdown, and Plannotator sends all of it back to the agent as structured feedback, with your edits as a diff.
+
+Nimbalyst [[4]] is a desktop workspace that runs Claude Code and Codex. You step through the agent's proposed edits in a rendered WYSIWYG document and accept or reject each one. any-markdown [[5]], a VS Code extension, and VMark [[6]], a desktop editor, give you a WYSIWYG markdown editor that stays in step while an agent edits the same file. markupmarkdown [[7]] is a web app with threaded margin comments, where agents join through an MCP server, leave their own threads, and propose edits for you to accept. On a team, a pull request with Claude Code GitHub Actions [[8]] gives line-anchored comments that Claude answers with commits.
+
+| Tool | Where you review | Agent's explanations anchored in the document | You edit the markdown file directly | Needs |
+|------|------------------|-----------------------------------------------|-----------------------------------------------|-------|
+| interactive-review | Rendered page in Lavish | Yes, margin notes | Yes, one block's source at a time | Node, lavish-axi |
+| Plannotator | Browser review page | Not documented | No; edits go to the agent as a diff | Plannotator install |
+| Nimbalyst | Desktop app, WYSIWYG | Not documented | Yes, and you accept or reject the agent's edits | Desktop app |
+| any-markdown | VS Code, WYSIWYG | Not documented | Yes | VS Code or a compatible editor |
+| VMark | Desktop app, WYSIWYG | Not documented | Yes | Desktop app |
+| markupmarkdown | Web app | Yes, threads via MCP | Through its editor and a GitHub round-trip | Hosted app, or self-hosting with MongoDB |
+| PR + GitHub Actions | GitHub diff | Yes, review comments | Through commits | GitHub, Actions, API key or subscription |
+
+Most of what this skill adds is in how the agent edits. In the other tools the agent receives your comments or proposes edits for you to accept, and how it behaves as an editor is up to the agent. The skill gives it a protocol: read every open comment before changing anything, raise one issue per comment, make small edits without asking, and ask before restructuring. It also has the agent explain each change in a margin note beside the passage, which the same protocol does with `<<brackets>>` when no tooling is available. The visual mode is small: two Node scripts and Lavish in the browser, with no app, editor extension, account, or database, and the markdown file stays the only copy of the document.
+
+The alternatives are better in several places. Plannotator is far more mature and has dedicated integrations for many agents. Nimbalyst and the WYSIWYG editors let you edit the rendered text itself, while this skill opens one block's markdown source at a time. markupmarkdown and pull requests handle more than one reviewer.
+
 ## Installing it
 
-With the `skills` CLI [[3]]:
+With the `skills` CLI [[9]]:
 
 ```sh
 # for the current project
@@ -106,8 +127,20 @@ Editing works on whole blocks of markdown source, so a list or a table opens as 
 
 [1]: https://github.com/kunchenguid/lavish-axi "Lavish (lavish-axi)"
 [2]: https://github.com/markdown-it/markdown-it "markdown-it"
-[3]: https://www.npmjs.com/package/skills "skills CLI"
+[3]: https://github.com/backnotprop/plannotator "Plannotator"
+[4]: https://github.com/nimbalyst/nimbalyst "Nimbalyst"
+[5]: https://github.com/raggbal/any-markdown "any-markdown"
+[6]: https://github.com/xiaolai/vmark "VMark"
+[7]: https://www.metavert.io/markupmarkdown "markupmarkdown"
+[8]: https://code.claude.com/docs/en/github-actions "Claude Code GitHub Actions"
+[9]: https://www.npmjs.com/package/skills "skills CLI"
 
 1. [Lavish (lavish-axi)](https://github.com/kunchenguid/lavish-axi)
 2. [markdown-it](https://github.com/markdown-it/markdown-it)
-3. [skills CLI](https://www.npmjs.com/package/skills)
+3. [Plannotator](https://github.com/backnotprop/plannotator)
+4. [Nimbalyst](https://github.com/nimbalyst/nimbalyst)
+5. [any-markdown](https://github.com/raggbal/any-markdown)
+6. [VMark](https://github.com/xiaolai/vmark)
+7. [markupmarkdown](https://www.metavert.io/markupmarkdown)
+8. [Claude Code GitHub Actions](https://code.claude.com/docs/en/github-actions)
+9. [skills CLI](https://www.npmjs.com/package/skills)
