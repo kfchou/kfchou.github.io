@@ -1,4 +1,4 @@
-# interactive-review
+# interactive-markdown-review
 
 An agent skill for editing prose with a coding agent over many small passes. You
 leave comments on a draft, the agent answers as an editor, and the two of you work
@@ -33,17 +33,17 @@ With the [`skills`](https://www.npmjs.com/package/skills) CLI:
 
 ```sh
 # into the current project
-npx skills add kfchou/kfchou.github.io --skill interactive-review
+npx skills add kfchou/kfchou.github.io --skill interactive-markdown-review
 
 # or for your user, across projects
-npx skills add kfchou/kfchou.github.io --skill interactive-review -g
+npx skills add kfchou/kfchou.github.io --skill interactive-markdown-review -g
 ```
 
 The `--skill` flag matters: this repository holds other skills under
 `.claude/skills/` that are specific to this blog.
 
 To install by hand, copy this folder into your agent's skills directory, for example
-`~/.claude/skills/interactive-review/` for Claude Code.
+`~/.claude/skills/interactive-markdown-review/` for Claude Code.
 
 ## Running visual mode yourself
 

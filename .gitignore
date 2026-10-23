@@ -11,6 +11,7 @@ package.json
 *.gemspec
 .jekyll-cache
 vendor
+!skills/*/scripts/vendor
 .env
 *.pyc
 

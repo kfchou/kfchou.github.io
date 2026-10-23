@@ -1,5 +1,5 @@
 ---
-name: interactive-review
+name: interactive-markdown-review
 description: >-
   Collaborative, turn-based editing of a piece of writing using an inline
   two-byline comment protocol: the author writes comments in single brackets
@@ -14,8 +14,8 @@ description: >-
   workshop a piece of PROSE with you as a writing partner — a blog post, essay,
   report, README, spec, documentation, chapter, cover letter, or any human-readable
   writing — especially when they say things like "let's review this", "edit this with
-  me", "interactive review", "let's workshop this draft", "go through this section by
-  section", or when they leave <bracketed comments> in a document for you to respond
+  me", "interactive review", "interactive markdown review", "let's workshop this draft",
+  "go through this section by section", or when they leave <bracketed comments> in a document for you to respond
   to. Trigger it even if they don't name the skill: the tell is a written document
   plus a desire to improve it together over multiple passes rather than a one-shot
   rewrite. This skill is about HOW you collaborate on writing — the byline protocol,
@@ -27,7 +27,7 @@ description: >-
   the code is not.)
 ---
 
-# Interactive Review
+# Interactive Markdown Review
 
 A protocol for editing a document *with* someone across many small passes, the way
 a good writer and a good editor work a draft between them. You are the editor. The
@@ -326,7 +326,7 @@ something the skill already covers, or a gap it doesn't — **raise it.** A ligh
 a `<<META: ...>>` comment or a line in the chat handoff: "we've hit this same
 assumed-knowledge problem three sections running; worth naming it as its own check in
 the skill?" Then, with the author's agreement, **update
-`~/.claude/skills/interactive-review/SKILL.md`** to fold the lesson in.
+`~/.claude/skills/interactive-markdown-review/SKILL.md`** to fold the lesson in.
 
 Two cautions so it improves rather than bloats:
 
