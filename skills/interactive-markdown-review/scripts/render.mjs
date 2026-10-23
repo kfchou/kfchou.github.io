@@ -394,11 +394,13 @@ const CLIENT = String.raw`
   }
 
   // On wide screens each margin column starts level with its first highlight,
-  // pushed down when it would overlap the column above it.
+  // pushed down when it would overlap the column above it. Columns are laid out
+  // in document order, whatever order the notes file lists them in.
   const wide = matchMedia('(min-width:66rem)');
   function stack() {
     let bottom = -Infinity;
-    for (const [m, mark] of anchors) {
+    const columns = [...anchors].sort(([a], [b]) => a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1);
+    for (const [m, mark] of columns) {
       m.style.top = '';
       if (!wide.matches) continue;
       const base = m.parentElement.getBoundingClientRect().top;
