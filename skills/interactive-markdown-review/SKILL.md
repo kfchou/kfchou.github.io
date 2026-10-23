@@ -129,7 +129,7 @@ which Lavish already requires:
 
 - `serve.mjs <document.md>` is the save helper. It renders the page, saves edits the
   author makes on the page straight to the markdown file, and re-renders whenever the
-  markdown or the notes file changes. It prints the page path and runs until stopped.
+  markdown, the notes file, or the baseline changes. It prints the page path and runs until stopped.
 - `render.mjs <document.md>` renders once, read-only. Use it only if the helper can't run.
 
 Both write the page to `.lavish/<name>.html` under the current directory and read notes
@@ -158,6 +158,14 @@ your turn: re-quote the note or delete it before handing back.
 4. Take your turn as in "Taking a turn":
    - Start with `diff -u .lavish/<name>.snapshot.md <document.md>`. Every difference is
      a direct edit the author saved from the page (see below).
+   - Before your first edit, write the baseline:
+     `cp <document.md> .lavish/<name>.baseline.md`. The page compares the file with it
+     and puts a change bar beside every block your turn modifies or adds, plus a
+     marker where you delete one, so the author can see what this turn touched.
+     The snapshot and the baseline differ in one way. The snapshot is the file as
+     *you* left it, used to find the author's edits. The baseline is the file as
+     *the author* left it, used for the bars. The helper folds the author's own
+     page saves into the baseline, so those never get bars.
    - Edit the **markdown file**, never the page. Re-read it immediately before each
      write, because the author can save at any moment; make targeted edits rather than
      rewriting the file from an older read.

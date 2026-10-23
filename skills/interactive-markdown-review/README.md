@@ -59,7 +59,9 @@ Notes are read from `.lavish/draft.notes.json`, a JSON array of
 `{"quote": "...", "note": "..."}`. A note whose quote no longer appears in the
 document is listed at the end of the page. Local images (relative paths, or site-root
 paths such as `/assets/x.png` resolved against the git top-level) are copied into
-`.lavish/draft.assets/`.
+`.lavish/draft.assets/`. If `.lavish/draft.baseline.md` exists (the agent writes it at
+the start of each turn), blocks that differ from it get a change bar at the left edge:
+blue for modified, green for added, and a red marker where a block was deleted.
 
 ### How saving works
 

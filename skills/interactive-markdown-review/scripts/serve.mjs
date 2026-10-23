@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Save helper for visual mode: renders the review page, lets the page save edits
-// to ONE markdown file, and re-renders whenever the markdown or notes file
-// changes on disk. Runs until stopped; on exit the page is re-rendered read-only.
+// to ONE markdown file, and re-renders whenever the markdown, notes, or baseline
+// file changes on disk. Runs until stopped; on exit the page is re-rendered
+// read-only.
 //
 // Usage: node serve.mjs <document.md> [notes.json] [out.html] [--port N]
 //
@@ -41,14 +42,11 @@ let save = null;
 let rendered = '';
 let heldUntil = 0; // while the reviewer has a block open, file changes wait
 
+const readOr = (file, fallback) => { try { return fs.readFileSync(file, 'utf8'); } catch { return fallback; } };
+
 function rerender(force) {
   if (!force && Date.now() < heldUntil) return;
-  let state;
-  try {
-    state = sha256(fs.readFileSync(target, 'utf8')) + sha256(fs.readFileSync(paths.notes, 'utf8'));
-  } catch {
-    state = sha256(fs.readFileSync(target, 'utf8'));
-  }
+  const state = [target, paths.notes, paths.baseline].map(f => sha256(readOr(f, ''))).join('');
   if (!force && state === rendered) return;
   rendered = state;
   render(paths, save);
@@ -61,6 +59,21 @@ function replaceLines(text, start, end, replacement) {
   const add = replacement.replace(/\r\n/g, '\n').replace(/\n+$/, '');
   lines.splice(start, end - start, ...(add ? add.split('\n') : []));
   return lines.join('\n').replace(/\n/g, eol);
+}
+
+// The reviewer's own saves are not changes to flag, so apply each one to the
+// baseline too: replace the block's old text there, when it appears exactly once.
+// A block the agent changed this turn isn't in the baseline and keeps its bar.
+function foldIntoBaseline(oldText, newText) {
+  const base = readOr(paths.baseline, null);
+  if (base === null) return;
+  const padded = `\n${base.replace(/\r\n/g, '\n')}\n`;
+  const needle = `\n${oldText}\n`;
+  const at = padded.indexOf(needle);
+  if (at < 0 || padded.indexOf(needle, at + 1) >= 0) return;
+  const add = newText.replace(/\r\n/g, '\n').replace(/\n+$/, '');
+  const updated = padded.slice(0, at) + `\n${add}\n` + padded.slice(at + needle.length);
+  fs.writeFileSync(paths.baseline, updated.slice(1, -1));
 }
 
 function writeAtomically(file, text) {
@@ -86,6 +99,7 @@ function handle(req, body) {
   const updated = replaceLines(current, start, end, text);
   if (updated === null) return [400, { error: 'line range is outside the file' }];
   writeAtomically(target, updated);
+  foldIntoBaseline(current.replace(/\r\n/g, '\n').split('\n').slice(start, end).join('\n'), text);
   heldUntil = 0;
   rerender(true);
   console.log(`saved lines ${start + 1}-${end} of ${paths.src}`);
@@ -144,10 +158,11 @@ server.listen(port, '127.0.0.1', () => {
   watchFor(target);
   fs.mkdirSync(path.dirname(path.resolve(paths.notes)), { recursive: true });
   watchFor(paths.notes);
+  watchFor(paths.baseline);
 
   console.log(`page: ${paths.out}`);
   console.log(`save helper: ${save.url} (pid ${process.pid}; the token is embedded in the page)`);
-  console.log(`watching: ${paths.src} and ${paths.notes}`);
+  console.log(`watching: ${paths.src}, ${paths.notes} and ${paths.baseline}`);
   console.log('stop with Ctrl+C or kill; the page then turns read-only.');
 });
 

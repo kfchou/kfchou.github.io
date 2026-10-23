@@ -17,6 +17,11 @@
 // site-root paths (/assets/x.png) against the git top-level. Remote URLs are left
 // alone, and the source markdown is never modified.
 //
+// If <out without .html>.baseline.md exists, blocks that differ from it get a
+// change bar at the left edge: one color for modified blocks, another for added
+// ones, and a small marker where blocks were deleted. The agent writes the
+// baseline at the start of its turn, so the bars show what that turn changed.
+//
 // Every top-level block carries the source line range it came from. serve.mjs
 // uses that to let the reviewer edit a block's markdown on the page and save it
 // straight to the file; a page rendered by this script alone is read-only.
@@ -62,7 +67,7 @@ export function resolvePaths(src, notes, out) {
   const name = path.basename(src).replace(/\.[^.]*$/, '');
   out = out || path.join('.lavish', `${name}.html`);
   const stem = out.replace(/\.html$/, '');
-  return { src, name, out, notes: notes || `${stem}.notes.json`, assets: `${stem}.assets` };
+  return { src, name, out, notes: notes || `${stem}.notes.json`, assets: `${stem}.assets`, baseline: `${stem}.baseline.md` };
 }
 
 export const sha256 = text => crypto.createHash('sha256').update(text).digest('hex');
@@ -103,14 +108,14 @@ function imageCopier(src, assets) {
   };
 }
 
-// Render top-level blocks one at a time, each wrapped with its source line range
-// (0-based, end exclusive, counted in the whole file). Ranges stop before trailing
-// blank lines, which markdown-it counts into lists, so the blank line that
-// separates a block from the next one is never part of an edit.
-function renderBlocks(body, offset, env) {
+// Split markdown into top-level blocks, each with its tokens and source line range
+// (0-based, end exclusive, relative to the body). Ranges stop before trailing blank
+// lines, which markdown-it counts into lists, so the blank line that separates a
+// block from the next one is never part of an edit.
+function splitBlocks(body, env) {
   const tokens = md.parse(body, env);
   const lines = body.split('\n');
-  let html = '';
+  const blocks = [];
   for (let i = 0; i < tokens.length; i++) {
     let j = i;
     if (tokens[i].nesting === 1) {
@@ -119,17 +124,70 @@ function renderBlocks(body, offset, env) {
         if (depth === 0) break;
       }
     }
-    const inner = md.renderer.render(tokens.slice(i, j + 1), md.options, env);
     const map = tokens[i].map;
-    if (map) {
-      let end = map[1];
-      while (end > map[0] + 1 && !lines[end - 1].trim()) end--;
-      html += `<div class="blk" data-start="${map[0] + offset}" data-end="${end + offset}">${inner}</div>\n`;
-    } else {
-      html += inner;
-    }
+    let end = map ? map[1] : 0;
+    if (map) while (end > map[0] + 1 && !lines[end - 1].trim()) end--;
+    blocks.push({
+      tokens: tokens.slice(i, j + 1),
+      start: map ? map[0] : -1,
+      end,
+      text: map ? lines.slice(map[0], end).map(l => l.trimEnd()).join('\n') : null,
+    });
     i = j;
   }
+  return blocks;
+}
+
+// Change bars: compare this render's blocks with the baseline (the document as
+// the reviewer left it at the start of the agent's turn). Blocks are matched by
+// source text with a longest-common-subsequence pass, so an insertion doesn't mark
+// everything after it. Within each unmatched stretch, blocks pair up as modified;
+// extra current blocks are added and extra baseline blocks become a deletion
+// marker before the next current block.
+function changeMarks(current, baseline) {
+  const a = baseline.map(b => b.text), b = current.map(c => c.text);
+  const n = a.length, m = b.length;
+  const lcs = Array.from({ length: n + 1 }, () => new Uint32Array(m + 1));
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = m - 1; j >= 0; j--) {
+      lcs[i][j] = a[i] === b[j] ? lcs[i + 1][j + 1] + 1 : Math.max(lcs[i + 1][j], lcs[i][j + 1]);
+    }
+  }
+  const marks = new Array(m).fill(null);
+  const deletedBefore = new Array(m + 1).fill(false);
+  let i = 0, j = 0, gapA = 0, gapB = [];
+  const flush = () => {
+    gapB.forEach((k, x) => { marks[k] = x < gapA ? 'mod' : 'add'; });
+    if (gapA > gapB.length) deletedBefore[j] = true;
+    gapA = 0;
+    gapB = [];
+  };
+  while (i < n || j < m) {
+    if (i < n && j < m && a[i] === b[j]) { flush(); i++; j++; }
+    else if (j < m && (i >= n || lcs[i][j + 1] >= lcs[i + 1][j])) gapB.push(j++);
+    else { gapA++; i++; }
+  }
+  flush();
+  return { marks, deletedBefore };
+}
+
+function renderBlocks(body, offset, env, baselineBody) {
+  const blocks = splitBlocks(body, env);
+  const mapped = blocks.filter(b => b.start >= 0);
+  const changes = baselineBody === null ? null
+    : changeMarks(mapped, splitBlocks(baselineBody, {}).filter(b => b.start >= 0));
+  let html = '';
+  let k = 0;
+  for (const blk of blocks) {
+    const inner = md.renderer.render(blk.tokens, md.options, env);
+    if (blk.start < 0) { html += inner; continue; }
+    if (changes?.deletedBefore[k]) html += '<div class="chg-del" data-lavish-ui aria-hidden="true"></div>\n';
+    const mark = changes?.marks[k];
+    const cls = mark ? ` chg-${mark}` : '';
+    html += `<div class="blk${cls}" data-start="${blk.start + offset}" data-end="${blk.end + offset}">${inner}</div>\n`;
+    k++;
+  }
+  if (changes?.deletedBefore[k]) html += '<div class="chg-del" data-lavish-ui aria-hidden="true"></div>\n';
   return html;
 }
 
@@ -147,11 +205,13 @@ function readNotes(file) {
 }
 
 // save: null for a read-only page, or { url, token } from serve.mjs.
-export function render({ src, notes, out, name, assets }, save = null) {
+export function render({ src, notes, out, name, assets, baseline }, save = null) {
   const text = fs.readFileSync(src, 'utf8');
   const fm = frontMatter(text);
+  let base = null;
+  try { base = frontMatter(fs.readFileSync(baseline, 'utf8').replace(/\r\n/g, '\n')).body; } catch {}
   fs.rmSync(assets, { recursive: true, force: true });
-  const body = renderBlocks(fm.body, fm.offset, { copyImage: imageCopier(src, assets) });
+  const body = renderBlocks(fm.body.replace(/\r\n/g, '\n'), fm.offset, { copyImage: imageCopier(src, assets) }, base);
   const titleHtml = fm.title ? mdTitle.renderInline(fm.title) : '';
   const pageTitle = titleHtml ? titleHtml.replace(/<[^>]*>/g, '') : escapeHtml(name);
   const { notes: noteList, error } = readNotes(notes);
@@ -188,8 +248,8 @@ ${titleHtml ? `<h1 class="doc-title">${titleHtml}</h1>\n` : ''}${body}</main>
 }
 
 const CSS = `
-:root{--bg:#fbfaf7;--fg:#1f2328;--muted:#656d76;--rule:#e4e0d8;--note:#fff6d6;--noteb:#e8c547;--mark:#fdeeb0;--warn:#b42318;--edit:#a9cdee}
-@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e6e6e6;--muted:#9aa1a9;--rule:#2c3036;--note:#2b2717;--noteb:#a8892a;--mark:#4a3f12;--warn:#f97066;--edit:#2d5a82}}
+:root{--bg:#fbfaf7;--fg:#1f2328;--muted:#656d76;--rule:#e4e0d8;--note:#fff6d6;--noteb:#e8c547;--mark:#fdeeb0;--warn:#b42318;--edit:#a9cdee;--chg-mod:#1a85c4;--chg-add:#3f8f2c;--chg-del:#c42b1c}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e6e6e6;--muted:#9aa1a9;--rule:#2c3036;--note:#2b2717;--noteb:#a8892a;--mark:#4a3f12;--warn:#f97066;--edit:#2d5a82;--chg-mod:#3b9fd8;--chg-add:#5fae47;--chg-del:#e5534b}}
 body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.65 Charter,"Iowan Old Style",Georgia,serif}
 main{max-width:46rem;margin:0 auto;padding:3rem 1rem 6rem}
 .src{font:13px ui-monospace,monospace;color:var(--muted);overflow-wrap:anywhere}
@@ -217,6 +277,12 @@ body.editing .blk:hover{outline:1px dashed var(--muted);outline-offset:4px}
 textarea.src-edit{display:block;box-sizing:border-box;width:100%;margin:1rem 0;padding:.6rem .7rem;font:14px/1.55 ui-monospace,monospace;color:var(--fg);background:var(--bg);border:1px solid var(--edit);border-radius:4px;outline:2px solid var(--edit);resize:vertical;overflow:hidden}
 .edit-error{font:14px/1.5 system-ui,sans-serif;color:var(--warn);margin:-.5rem 0 1rem}
 .edit-error button{margin-left:.5rem;font:inherit}
+.blk{position:relative}
+.chg-mod::before,.chg-add::before{content:"";position:absolute;left:-.8rem;top:.15rem;bottom:.15rem;width:3px;border-radius:2px;pointer-events:none}
+.chg-mod::before{background:var(--chg-mod)}
+.chg-add::before{background:var(--chg-add)}
+.chg-del{position:relative;height:0}
+.chg-del::before{content:"";position:absolute;left:-.8rem;top:-5px;border:5px solid transparent;border-left:6px solid var(--chg-del);pointer-events:none}
 @media (min-width:66rem){
   main{margin-left:max(0px,calc((100% - 66rem)/2))}
   .margin{position:absolute;top:0;left:calc(100% + 1.5rem);width:16rem}
