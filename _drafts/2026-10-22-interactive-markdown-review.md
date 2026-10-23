@@ -1,35 +1,38 @@
 ---
 layout: post
-title: "interactive-markdown-review: reviewing markdown with an agent in Lavish"
+title: "interactive-markdown-review: an extension for the Lavish interactive editor"
 categories: [AI Coding, Agent Skill, Claude Code, Writing]
 excerpt: "Lavish lets you review an agent's HTML pages by highlighting and commenting on them. interactive-markdown-review is a small agent skill that brings that to markdown: it renders your draft in Lavish, has the agent explain each edit in the margin, and saves your direct edits back to the .md file. Without Lavish, it works as inline bracket comments in the file."
 ---
 
-TL;DR - Lavish [[1]] lets you review an agent's HTML pages by highlighting and commenting on them. `interactive-markdown-review` brings that to markdown: a small agent skill that renders your draft in Lavish, has the agent explain each edit in the margin, and saves your direct edits back to the `.md` file. Without Lavish, it works as inline bracket comments in the file. Install it with `npx skills add kfchou/kfchou.github.io --skill interactive-markdown-review`.
+TL;DR - Lavish [[1]] turns agent-generated HTML outputs into interactive, browser-based review surfaces. `interactive-markdown-review` brings that to markdown: a small agent skill that renders markdown files in Lavish, enabling human-in-the-loop agentic reviews and direct text edits. Without Lavish, it enables interactive reviews inline, using bracket comments. Install it with `npx skills add kfchou/kfchou.github.io --skill interactive-markdown-review`.
+
+![Visual mode in Lavish: a comment being written on a highlighted list item, with the agent's notes in the margin and its last reply in the Conversation panel](/assets/2026-10-22-interactive-markdown-review/visual-mode.png)
+
 
 ## Table of Contents <!-- omit from toc -->
 
-- [Why a protocol for editing](#why-a-protocol-for-editing)
-- [Bracket mode](#bracket-mode)
-- [What the agent does as editor](#what-the-agent-does-as-editor)
+- [Why is this useful?](#why-is-this-useful)
+- [Editing in Raw Files: Bracket mode](#editing-in-raw-files-bracket-mode)
 - [Visual mode](#visual-mode)
+- [What the agent does as editor](#what-the-agent-does-as-editor)
 - [How it compares to other tools](#how-it-compares-to-other-tools)
 - [Installing it](#installing-it)
 - [Limits](#limits)
 
-## Why a protocol for editing
+## Why is this useful?
 
-I work with markdown files a lot. Agents write good code, but the markdown they write is unpleasant to review in raw form: I end up reading syntax instead of the piece a reader will see. I wanted two things together, a rendered view of the document that is pleasant to read, and an interactive editing session with the agent on that same document.
+If you've ever used an LLM to generate a spec, an ADR, or some other form of documentation or writing, you would understand how unpleasant it is to iterate on it with your agent.
 
-Asking an agent to "improve this draft" gets you a rewrite. The rewrite is smoother and less mine: the specific claims get softened, the voice drifts toward the model's, and the paragraph I liked is gone with no record of why. Going back and forth in chat keeps the draft intact, but the comments live in the conversation and the edits live in the file, and the two drift apart. After a few rounds I can't tell which of my comments were acted on, which were argued with, and which were dropped.
+For CLI users, the default experience is to edit the raw text, then interact with your LLM in a separate CLI. You would reference the text by either copy/pasting or selecting specific lines, but that is cumbersome over a large document.
 
-What I wanted was the way a writer works with a human editor: both people mark up one copy of the draft, each pass resolves some comments and raises a few sharper ones, and the draft converges because the comments run out. The skill writes that down as a protocol the agent follows.
+A better UX is an interactive one. For example, when you highlight a conversation text in the Claude Desktop App, a textbox pops up, in which you can chat about the selected text. Kun Chen brought this idea to iterating on web UI design via the Lavish Editor [[1]], the "editor for your HTML artifacts". In Lavish, clicking on html elements pops up a chatbox for you to chat about the selected object.
 
-The skill is for prose: posts, essays, READMEs, specs. It is not a code reviewer. It will edit a README or an error message as writing, but it doesn't judge the code around it.
+The `interactive-markdown-review` skill brings this interactive editing experience to markdown files. In Bracked Mode, the interaction takes place inline within the markdown files themselves. In the Visual Mode, the interaction takes place inside the Lavish editor. In either case, you and your agent mark up elements on the same copy of the draft without needing to switch back and forth between the CLI and your markdown file.
 
-## Bracket mode
+## Editing in Raw Files: Bracket mode
 
-All comments live in the document, and the number of brackets says who wrote them. Mine use single brackets; the agent's use double brackets. Here is one exchange from a draft about a research wiki whose analyses list their sources in a `sources:` field:
+Let's start with the raw markdown file. You can enter an interactive session by adding your comments using `<single brackets>`, and the agent will respond or ask new questions in `<<double brackets>>`. All comments live in the document, so you don't need to switch between your editor and the CLI:
 
 ```markdown
 Here's a lucky property of a research wiki: it grades itself. <expand — why lucky?>
@@ -39,56 +42,59 @@ only works if your wiki cites in a structured field. Want that as a caveat line 
 folded in?>>
 ```
 
-On its turn the agent reads every open comment before changing anything, because comments interact: a `<cut this>` in one paragraph can make another concern moot. For each of my comments it either makes the edit and deletes the comment, or leaves the comment in place with a `<<reply>>` when it disagrees or needs a decision. It then adds its own `<<comments>>`, deletes the ones I've answered, and hands back with a short chat message saying what changed and what it needs from me. The reasoning stays in the file, so I can open it cold and see where every thread stands. A finished draft has no comments left.
-
-## What the agent does as editor
-
-Carrying out my comments is the minimum. `SKILL.md` also gives the agent a checklist of problems to raise that I didn't ask about. The ones I rely on most:
-
-- **Assumed reader knowledge**: a term or system I live inside and forget the reader doesn't.
-- **Buried lead**: the best idea sitting in a subordinate clause three paragraphs in.
-- **Restatement**: a paragraph whose later sentences repeat the first in different words.
-- **Social-media cadence**: hook-and-reveal beats and punchy fragments in prose meant to be read straight through.
-- **Unsupported claims**: a number or a causal claim with nothing behind it.
-
-The agent gets autonomy for local edits only. It changes a word or tightens a paragraph without asking, but a section reframe, a move, or a cut is raised as a `<<STRUCTURAL: ...>>` comment and waits for my answer. The full list and rules are in [`SKILL.md`][skillmd].
+On its turn, the agent reads every open comment before changing anything. Comments can interact: a `<cut this>` in one paragraph can make another concern moot. For each of my comments, the agent either makes the edit and deletes the comment, or leaves the comment in place with a `<<reply>>` when it disagrees or needs a decision. It then adds its own `<<comments>>`, deletes the ones I've answered, and hands back with a short chat message saying what changed and what it needs from me. The comment chain stays in the file, so I can neglect the draft for a few days and still see where every thread stands.
 
 ## Visual mode
 
-On a long draft, bracket mode's markers get in the way of reading. The file fills with comments, a table is hard to judge as raw pipe syntax, and I end up reviewing markdown source instead of the piece a reader will see.
+Long comment chains become visually cluttered and cumbersome to parse. The visual mode renders markdown in your default browser to make the review process visually pleasing.
 
-The idea comes from the Claude desktop app, where you can highlight part of a response, comment on it, and have those comments go into your next message. I wanted the same thing for Claude Code users, in something lightweight that runs locally beside a terminal session.
+Bracket mode remains the default because it requires no additional tools. When a session starts in bracket mode, the agent informs the user in one line that visual mode is available, and it switches only when the user asks ("review this visually", "open it in Lavish").
 
-Lavish already does most of that. It is a local review surface for HTML pages that agents write: you select text or an element, comment on it, and the comments reach the agent the next time it polls. It works on HTML, though, and my drafts are markdown. Visual mode is the markdown layer on top of Lavish, and it adds three things:
 
-- **Rendering.** A small Node script in the skill, `scripts/serve.mjs`, renders the markdown with markdown-it [[2]] to a reading page with a serif body, tables in a scrolling wrapper, and light and dark themes. It keeps running beside the session and re-renders whenever the markdown or the agent's notes change.
-- **Margin notes.** The agent keeps its notes in a JSON file of `{quote, note}` pairs. The page highlights each quoted passage and shows the note in the margin beside it.
-- **Saving edits.** The same script saves edits I make on the page back to the file.
+I built visual mode as a markdown layer on top of Lavish. It adds three things:
 
-Lavish provides everything else: the review window, highlighting and commenting, the conversation panel, and the poll that hands my comments to the agent.
+- **A readable page.** Your markdown opens as a clean, rendered page, with formatted tables and light and dark themes. It refreshes on its own whenever you or the agent change the file.
+- **Notes in the margin.** The agent explains each change in a note beside the passage it touched, so the reasoning sits where it applies.
+- **Direct edits.** Click a paragraph and edit it; the change is saved straight to the markdown file.
 
-![Visual mode in Lavish: a comment being written on a highlighted list item, with the agent's notes in the margin and its last reply in the Conversation panel](/assets/2026-10-22-interactive-markdown-review/visual-mode.png)
+Switch between annotation mode and edit mode with the "Annotate" toggle (or Ctrl/Cmd+I). In annotation mode, you highlight text and comment on it. In edit mode, you click a paragraph and edit its markdown directly. The agent picks up your edits on its next turn and treats them as your decisions.
 
-One turn in visual mode goes like this:
+![Visual mode in Lavish with a longer conversation: several rounds of comments and agent replies in the Conversation panel beside the rendered draft](/assets/2026-10-22-interactive-markdown-review/visual-mode-conversation.png)
 
-1. The agent starts `serve.mjs` in the background and opens the page with `lavish-axi <page>`.
-2. It waits with `lavish-axi poll <page>`. I read the page, edit text directly or comment on passages, and send my comments.
-3. The agent checks the file for edits I saved from the page, edits the markdown file itself, and rewrites the notes file to explain what it changed and what it wants from me. The page re-renders as the files change.
-4. It waits again with `lavish-axi poll <page> --agent-reply "<handoff>"`, which shows its short summary in Lavish.
+A session goes like this:
 
-This repeats until I end the session from Lavish. The protocol is the same as bracket mode. My comments arrive as quoted selections instead of `<brackets>`, the agent's `<<replies>>` become margin notes, and a resolved thread drops its note. To answer a note, I highlight it and comment.
+1. You ask the agent to review a draft visually, and the page opens in Lavish.
+2. You read it, highlight passages and comment on them, or edit text directly, then send your comments.
+3. The agent revises the draft and explains its changes in margin notes, and the page refreshes.
+4. You read the new version and carry on until you end the session.
 
-I can also edit the document on the page. With Lavish's Annotate switch turned off, clicking a paragraph, heading, list, or table swaps it for its markdown source. Enter adds a line and a blank line starts a new paragraph. When I click away, `serve.mjs` writes those lines into the file and the page re-renders, so typing `_unusual_` shows up in italics a moment later. The agent doesn't need to apply anything. At the start of its next turn it diffs the file against the version it last left and treats what changed as my decisions, adding a note only when an edit conflicts with something else in the draft. Editing and commenting are separate modes because Lavish doesn't open a comment box for a selection inside editable text.
+After each of its turns, the agent's changes are marked the way VS Code marks changed lines in the gutter:
 
-Notes anchor by exact quote, so a note goes stale when the agent edits the passage it quotes. Stale notes are not dropped. The page lists them at the bottom under "Notes that no longer match the text", and the skill tells the agent to fix or delete them before handing back.
+- a **blue bar** beside a block it modified,
+- a **green bar** beside a block it added,
+- a small **red marker** where it deleted one.
 
-Bracket mode stays the default. When a session starts in bracket mode, the agent says in one line that visual mode is available, and it switches only when I ask ("review this visually", "open it in Lavish").
+Unchanged blocks have no mark. The bars compare the draft with the version I left when the agent's turn began, so my own edits never get bars, and they reset at the start of the next turn. A block is a whole paragraph, heading, list, table, or code block, so changing one word marks the whole block.
+
+## What the agent does as editor
+
+Beyond carrying out your comments, the skill also ships with reviewing guidance. The reviewer flags problems you didn't ask about, such as undefined jargons, a buried lead, a paragraph that repeats itself, or an unsubstantiated claim.
+
+The agent is allowed to change a word or tighten a paragraph without asking, but a section reframe, a paragraph re-location, or a cut is raised as a structural comment and waits for your answer.
 
 ## How it compares to other tools
 
-This skill builds on Lavish rather than competing with dedicated review apps, and several of those apps are further along. Plannotator [[3]] is the closest. It is a local, browser-based review surface for Claude Code and several other agents, and its `/plannotator-annotate` command opens any markdown file. There you comment on exact text, mark passages for deletion, or edit the markdown, and Plannotator sends all of it back to the agent as structured feedback, with your edits as a diff.
+Lavish is part of Kun Chen's open-source agent tooling, which together has about 36,000 GitHub stars across 47 projects (as of October 2026), and this skill builds on that ecosystem.
 
-Nimbalyst [[4]] is a desktop workspace that runs Claude Code and Codex. You step through the agent's proposed edits in a rendered WYSIWYG document and accept or reject each one. any-markdown [[5]], a VS Code extension, and VMark [[6]], a desktop editor, give you a WYSIWYG markdown editor that stays in step while an agent edits the same file. markupmarkdown [[7]] is a web app with threaded margin comments, where agents join through an MCP server, leave their own threads, and propose edits for you to accept. On a team, a pull request with Claude Code GitHub Actions [[8]] gives line-anchored comments that Claude answers with commits.
+
+This skill builds on Lavish and has minimial installation requirements, making it one of the most light-weight solutions available on the web. It is ideal for anyone working purely from a coding CLI like Claude Code.
+
+If you prefer a full desktop app or work inside VS Code, these alternative tools are worth considering:
+
+- **Plannotator** [[3]]: Direct competitor to the Lavish Editor. It is a mature, local, browser-based review page for LLM agents. It works with both HTML and markdown documents. Like Lavish, you comment on exact text, mark passages for deletion, or edit the markdown, and it sends everything back to the agent as structured feedback.
+- **Nimbalyst** [[4]]: Competitor to Notion - a rich desktop app that runs Claude Code and Codex. Goes way beyond html and markdown editing to include kanban boards and csv rendering, extensions and a marketplace.
+- **any-markdown** [[5]] and **VMark** [[6]]: WYSIWYG markdown editors, a VS Code extension and a desktop app, that stay in step while an agent edits the same file.
+- **markupmarkdown** [[7]]: a web app with threaded margin comments, where agents join through an MCP server and propose edits for you to accept.
 
 | Tool | Where you review | Agent's explanations anchored in the document | You edit the markdown file directly | Needs |
 |------|------------------|-----------------------------------------------|-----------------------------------------------|-------|
@@ -98,15 +104,10 @@ Nimbalyst [[4]] is a desktop workspace that runs Claude Code and Codex. You step
 | any-markdown | VS Code, WYSIWYG | Not documented | Yes | VS Code or a compatible editor |
 | VMark | Desktop app, WYSIWYG | Not documented | Yes | Desktop app |
 | markupmarkdown | Web app | Yes, threads via MCP | Through its editor and a GitHub round-trip | Hosted app, or self-hosting with MongoDB |
-| PR + GitHub Actions | GitHub diff | Yes, review comments | Through commits | GitHub, Actions, API key or subscription |
-
-If you already use Lavish to review an agent's HTML pages, this skill adds markdown to it with two Node scripts: no separate app, editor extension, account, or database, and the markdown file stays the only copy of the document. Beyond the interface, most of what the skill adds is in how the agent edits. In the other tools the agent receives your comments or proposes edits for you to accept, and how it behaves as an editor is up to the agent. The skill gives it a protocol: read every open comment before changing anything, raise one issue per comment, make small edits without asking, and ask before restructuring. It also has the agent explain each change in a margin note beside the passage, which the same protocol does with `<<brackets>>` when no tooling is available.
-
-The alternatives are better in several places. Plannotator is far more mature and has dedicated integrations for many agents. Nimbalyst and the WYSIWYG editors let you edit the rendered text itself, while this skill opens one block's markdown source at a time. markupmarkdown and pull requests handle more than one reviewer.
 
 ## Installing it
 
-With the `skills` CLI [[9]]:
+With the `skills` CLI [[8]]:
 
 ```sh
 # for the current project
@@ -116,18 +117,22 @@ npx skills add kfchou/kfchou.github.io --skill interactive-markdown-review
 npx skills add kfchou/kfchou.github.io --skill interactive-markdown-review -g
 ```
 
-The `--skill` flag is needed because the repository has other skills that only make sense for this blog. You can also copy the [`skills/interactive-markdown-review`][skill] folder into your agent's skills directory by hand (for Claude Code, `~/.claude/skills/interactive-markdown-review/`). Bracket mode has no other requirements. Visual mode needs Node.js 18 or later and `lavish-axi` (`npm install -g lavish-axi`). The scripts use only Node's standard library and a vendored copy of markdown-it, so there is nothing else to install.
+The `--skill` flag is needed because the repository has other skills that only make sense for this blog. You can also copy the [`skills/interactive-markdown-review`][skill] folder into your agent's skills directory by hand (for Claude Code, `~/.claude/skills/interactive-markdown-review/`).
 
-## Limits
+No prerequisites are required for Bracket mode. Visual mode has two prerequisites:
 
-There is no view of what changed since my last review, so I rely on the agent's notes to say what moved.
+- **Node.js 22 or later**
+- **Lavish**, installed with `npm install -g lavish-axi`
 
-The quote anchoring is plain text matching. A quote that appears twice highlights its first occurrence, and a quote copied with markdown syntax in it (`**bold**`, link brackets) won't match the rendered text. The agent is told to quote the text as it reads, but that rule is enforced only by the instructions.
+If either is missing when you ask for visual mode, the agent will offer to install it for you.
 
-Editing works on whole blocks of markdown source, so a list or a table opens as a whole. If the agent changes the file while I have a block open, my save is refused and the page asks me to reload rather than overwrite the agent's edit; I copy my text and redo it. The renderer is CommonMark with GitHub-style tables, so footnotes and other pandoc extensions show as plain text.
+## Limitations
+
+Visual mode is not a true WYSIWYG editor. You edit a block's markdown source rather than the rendered text, and the page re-renders after each save and each agent turn, so changes appear after a refresh instead of instantly. I may update this tool to feel more seamless in the future.
+
+At the moment, I don't plan to make this tool to work across multiple documents (like an Obsidian vault or a markdown wiki). But if there is interest in such a tool, do let me know.
 
 [skill]: https://github.com/kfchou/kfchou.github.io/tree/master/skills/interactive-markdown-review
-[skillmd]: https://github.com/kfchou/kfchou.github.io/blob/master/skills/interactive-markdown-review/SKILL.md
 
 ## References
 
@@ -138,8 +143,7 @@ Editing works on whole blocks of markdown source, so a list or a table opens as 
 [5]: https://github.com/raggbal/any-markdown "any-markdown"
 [6]: https://github.com/xiaolai/vmark "VMark"
 [7]: https://www.metavert.io/markupmarkdown "markupmarkdown"
-[8]: https://code.claude.com/docs/en/github-actions "Claude Code GitHub Actions"
-[9]: https://www.npmjs.com/package/skills "skills CLI"
+[8]: https://www.npmjs.com/package/skills "skills CLI"
 
 1. [Lavish (lavish-axi)](https://github.com/kunchenguid/lavish-axi)
 2. [markdown-it](https://github.com/markdown-it/markdown-it)
@@ -148,5 +152,4 @@ Editing works on whole blocks of markdown source, so a list or a table opens as 
 5. [any-markdown](https://github.com/raggbal/any-markdown)
 6. [VMark](https://github.com/xiaolai/vmark)
 7. [markupmarkdown](https://www.metavert.io/markupmarkdown)
-8. [Claude Code GitHub Actions](https://code.claude.com/docs/en/github-actions)
-9. [skills CLI](https://www.npmjs.com/package/skills)
+8. [skills CLI](https://www.npmjs.com/package/skills)
