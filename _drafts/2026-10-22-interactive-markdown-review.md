@@ -5,7 +5,7 @@ categories: [AI Coding, Agent Skill, Claude Code, Writing]
 excerpt: "Lavish lets you review an agent's HTML pages by highlighting and commenting on them. interactive-markdown-review is a small agent skill that brings that to markdown: it renders your draft in Lavish, has the agent explain each edit in the margin, and saves your direct edits back to the .md file. Without Lavish, it works as inline bracket comments in the file."
 ---
 
-TL;DR - Lavish [[1]] turns agent-generated HTML outputs into interactive, browser-based review surfaces. `interactive-markdown-review` brings that to markdown: a small agent skill that renders markdown files in Lavish, enabling human-in-the-loop agentic reviews and direct text edits. Without Lavish, it enables interactive reviews inline, using bracket comments. Install it with `npx skills add kfchou/kfchou.github.io --skill interactive-markdown-review`.
+TL;DR - Lavish [[1]] turns agent-generated HTML outputs into interactive, browser-based review surfaces. `interactive-markdown-review` brings that to markdown: a small agent skill that renders markdown files in Lavish, enabling human-in-the-loop agentic reviews and direct text edits. Without Lavish, it enables interactive reviews inline, using bracket comments. Install it with `npx skills add kfchou/skills --skill interactive-markdown-review`.
 
 ![Visual mode in Lavish: a comment being written on a highlighted list item, with the agent's notes in the margin and its last reply in the Conversation panel](/assets/2026-10-22-interactive-markdown-review/visual-mode.png)
 
@@ -115,13 +115,13 @@ With the `skills` CLI [[7]]:
 
 ```sh
 # for the current project
-npx skills add kfchou/kfchou.github.io --skill interactive-markdown-review
+npx skills add kfchou/skills --skill interactive-markdown-review
 
 # for your user, across projects
-npx skills add kfchou/kfchou.github.io --skill interactive-markdown-review -g
+npx skills add kfchou/skills --skill interactive-markdown-review -g
 ```
 
-The `--skill` flag is needed because the repository has other skills that only make sense for this blog. You can also copy the [`skills/interactive-markdown-review`][skill] folder into your agent's skills directory by hand (for Claude Code, `~/.claude/skills/interactive-markdown-review/`).
+The `--skill` flag picks this skill out of the collection. You can also copy the [`skills/interactive-markdown-review`][skill] folder into your agent's skills directory by hand (for Claude Code, `~/.claude/skills/interactive-markdown-review/`).
 
 No prerequisites are required for Bracket mode. Visual mode has two prerequisites:
 
@@ -138,7 +138,7 @@ Each round of feedback from Lavish also carries a snapshot of the whole page's s
 
 At the moment, I don't plan to make this tool work across multiple documents (like an Obsidian vault or a markdown wiki). But if there is interest in such a tool, do let me know.
 
-[skill]: https://github.com/kfchou/kfchou.github.io/tree/master/skills/interactive-markdown-review
+[skill]: https://github.com/kfchou/skills/tree/main/skills/interactive-markdown-review
 
 ## References
 

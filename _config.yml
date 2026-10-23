@@ -99,7 +99,6 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
-  - skills # agent skills published from this repo, not site pages
 
 assets:
   sources:
