@@ -18,7 +18,7 @@ TL;DR - Lavish [[1]] turns agent-generated HTML outputs into interactive, browse
 - [What the agent does as editor](#what-the-agent-does-as-editor)
 - [How it compares to other tools](#how-it-compares-to-other-tools)
 - [Installing it](#installing-it)
-- [Limits](#limits)
+- [Limitations](#limitations)
 
 ## Why is this useful?
 
@@ -26,9 +26,9 @@ If you've ever used an LLM to generate a spec, an ADR, or some other form of doc
 
 For CLI users, the default experience is to edit the raw text, then interact with your LLM in a separate CLI. You would reference the text by either copy/pasting or selecting specific lines, but that is cumbersome over a large document.
 
-A better UX is an interactive one. For example, when you highlight a conversation text in the Claude Desktop App, a textbox pops up, in which you can chat about the selected text. Kun Chen brought this idea to iterating on web UI design via the Lavish Editor [[1]], the "editor for your HTML artifacts". In Lavish, clicking on html elements pops up a chatbox for you to chat about the selected object.
+A better UX is an interactive one. For example, when you highlight text in a Claude Desktop App conversation, a textbox pops up, in which you can chat about the selected text. Kun Chen brought this idea to iterating on web UI design via the Lavish Editor [[1]], the "editor for your HTML artifacts". In Lavish, clicking on HTML elements pops up a chatbox for you to chat about the selected object.
 
-The `interactive-markdown-review` skill brings this interactive editing experience to markdown files. In Bracked Mode, the interaction takes place inline within the markdown files themselves. In the Visual Mode, the interaction takes place inside the Lavish editor. In either case, you and your agent mark up elements on the same copy of the draft without needing to switch back and forth between the CLI and your markdown file.
+The `interactive-markdown-review` skill brings this interactive editing experience to markdown files. In bracket mode, the interaction takes place inline within the markdown files themselves. In visual mode, the interaction takes place inside the Lavish editor. In either case, you and your agent mark up elements on the same copy of the draft without needing to switch back and forth between the CLI and your markdown file.
 
 ## Editing in Raw Files: Bracket mode
 
@@ -74,11 +74,11 @@ After each of its turns, the agent's changes are marked the way VS Code marks ch
 - a **green bar** beside a block it added,
 - a small **red marker** where it deleted one.
 
-Unchanged blocks have no mark. The bars compare the draft with the version I left when the agent's turn began, so my own edits never get bars, and they reset at the start of the next turn. A block is a whole paragraph, heading, list, table, or code block, so changing one word marks the whole block.
+Unchanged blocks have no mark. The bars compare the draft with the version you left when the agent's turn began, so your own edits never get bars, and they reset at the start of the next turn. A block is a whole paragraph, heading, list, table, or code block, so changing one word marks the whole block.
 
 ## What the agent does as editor
 
-Beyond carrying out your comments, the skill also ships with reviewing guidance. The reviewer flags problems you didn't ask about, such as undefined jargons, a buried lead, a paragraph that repeats itself, or an unsubstantiated claim.
+Beyond carrying out your comments, the skill also ships with reviewing guidance. The reviewer flags problems you didn't ask about, such as undefined jargon, a buried lead, a paragraph that repeats itself, or an unsubstantiated claim.
 
 The agent is allowed to change a word or tighten a paragraph without asking, but a section reframe, a paragraph re-location, or a cut is raised as a structural comment and waits for your answer.
 
@@ -87,27 +87,31 @@ The agent is allowed to change a word or tighten a paragraph without asking, but
 Lavish is part of Kun Chen's open-source agent tooling, which together has about 36,000 GitHub stars across 47 projects (as of October 2026), and this skill builds on that ecosystem.
 
 
-This skill builds on Lavish and has minimial installation requirements, making it one of the most light-weight solutions available on the web. It is ideal for anyone working purely from a coding CLI like Claude Code.
+This skill has minimal installation requirements, making it one of the most lightweight solutions available on the web. It is ideal for anyone working purely from a coding CLI like Claude Code.
 
 If you prefer a full desktop app or work inside VS Code, these alternative tools are worth considering:
 
-- **Plannotator** [[3]]: Direct competitor to the Lavish Editor. It is a mature, local, browser-based review page for LLM agents. It works with both HTML and markdown documents. Like Lavish, you comment on exact text, mark passages for deletion, or edit the markdown, and it sends everything back to the agent as structured feedback.
-- **Nimbalyst** [[4]]: Competitor to Notion - a rich desktop app that runs Claude Code and Codex. Goes way beyond html and markdown editing to include kanban boards and csv rendering, extensions and a marketplace.
-- **any-markdown** [[5]] and **VMark** [[6]]: WYSIWYG markdown editors, a VS Code extension and a desktop app, that stay in step while an agent edits the same file.
-- **markupmarkdown** [[7]]: a web app with threaded margin comments, where agents join through an MCP server and propose edits for you to accept.
+- **Plannotator** [[2]]: Direct competitor to the Lavish Editor. It is a mature, local, browser-based review page for LLM agents. It works with both HTML and markdown documents. Like Lavish, you comment on exact text and mark passages for deletion, and it sends everything back to the agent as structured feedback. You can also edit the markdown and save it straight to the file. One difference in day-to-day use: a Plannotator session ends after one round of feedback, so the agent starts a new one for every round. This skill keeps a single session open across turns, so the page stays where you left it and the change bars carry from one turn to the next, which IMO is a slightly better experience.
+- **Nimbalyst** [[3]]: Competitor to Notion - a rich desktop app that runs Claude Code and Codex. Goes way beyond HTML and markdown editing to include kanban boards and csv rendering, extensions and a marketplace.
+- **any-markdown** [[4]] and **VMark** [[5]]: WYSIWYG markdown editors, a VS Code extension and a desktop app, that stay in step while an agent edits the same file.
+- **markupmarkdown** [[6]]: a web app with threaded margin comments, where agents join through an MCP server and propose edits for you to accept.
 
 | Tool | Where you review | Agent's explanations anchored in the document | You edit the markdown file directly | Needs |
 |------|------------------|-----------------------------------------------|-----------------------------------------------|-------|
 | interactive-markdown-review | Rendered page in Lavish | Yes, margin notes | Yes, one block's source at a time | Node, lavish-axi |
-| Plannotator | Browser review page | Not documented | No; edits go to the agent as a diff | Plannotator install |
-| Nimbalyst | Desktop app, WYSIWYG | Not documented | Yes, and you accept or reject the agent's edits | Desktop app |
-| any-markdown | VS Code, WYSIWYG | Not documented | Yes | VS Code or a compatible editor |
-| VMark | Desktop app, WYSIWYG | Not documented | Yes | Desktop app |
+| Plannotator | Browser review page | Possible through its external-annotations API, not in the default flow | Yes, in Edit Mode, saved to the file with a conflict check | Plannotator install |
+| Nimbalyst | Desktop app, WYSIWYG | — | Yes, and you accept or reject the agent's edits | Desktop app |
+| any-markdown | VS Code, WYSIWYG | — | Yes | VS Code or a compatible editor |
+| VMark | Desktop app, WYSIWYG | — | Yes | Desktop app |
 | markupmarkdown | Web app | Yes, threads via MCP | Through its editor and a GitHub round-trip | Hosted app, or self-hosting with MongoDB |
+
+A dash means the project's own documentation doesn't mention it.
+
+In short: if you already live in a coding CLI and want to review markdown without opening another app, use this skill. If you want a full workspace or app around your agent, one of the tools above may serve you better.
 
 ## Installing it
 
-With the `skills` CLI [[8]]:
+With the `skills` CLI [[7]]:
 
 ```sh
 # for the current project
@@ -130,26 +134,26 @@ If either is missing when you ask for visual mode, the agent will offer to insta
 
 Visual mode is not a true WYSIWYG editor. You edit a block's markdown source rather than the rendered text, and the page re-renders after each save and each agent turn, so changes appear after a refresh instead of instantly. I may update this tool to feel more seamless in the future.
 
-At the moment, I don't plan to make this tool to work across multiple documents (like an Obsidian vault or a markdown wiki). But if there is interest in such a tool, do let me know.
+Each round of feedback from Lavish also carries a snapshot of the whole page's structure, which the agent doesn't need when it is working from the markdown file. On this post that came to roughly 4,000 tokens of wasted context per round, most of what each round sent. This will be addressed soon.
+
+At the moment, I don't plan to make this tool work across multiple documents (like an Obsidian vault or a markdown wiki). But if there is interest in such a tool, do let me know.
 
 [skill]: https://github.com/kfchou/kfchou.github.io/tree/master/skills/interactive-markdown-review
 
 ## References
 
 [1]: https://github.com/kunchenguid/lavish-axi "Lavish (lavish-axi)"
-[2]: https://github.com/markdown-it/markdown-it "markdown-it"
-[3]: https://github.com/backnotprop/plannotator "Plannotator"
-[4]: https://github.com/nimbalyst/nimbalyst "Nimbalyst"
-[5]: https://github.com/raggbal/any-markdown "any-markdown"
-[6]: https://github.com/xiaolai/vmark "VMark"
-[7]: https://www.metavert.io/markupmarkdown "markupmarkdown"
-[8]: https://www.npmjs.com/package/skills "skills CLI"
+[2]: https://github.com/backnotprop/plannotator "Plannotator"
+[3]: https://github.com/nimbalyst/nimbalyst "Nimbalyst"
+[4]: https://github.com/raggbal/any-markdown "any-markdown"
+[5]: https://github.com/xiaolai/vmark "VMark"
+[6]: https://www.metavert.io/markupmarkdown "markupmarkdown"
+[7]: https://www.npmjs.com/package/skills "skills CLI"
 
 1. [Lavish (lavish-axi)](https://github.com/kunchenguid/lavish-axi)
-2. [markdown-it](https://github.com/markdown-it/markdown-it)
-3. [Plannotator](https://github.com/backnotprop/plannotator)
-4. [Nimbalyst](https://github.com/nimbalyst/nimbalyst)
-5. [any-markdown](https://github.com/raggbal/any-markdown)
-6. [VMark](https://github.com/xiaolai/vmark)
-7. [markupmarkdown](https://www.metavert.io/markupmarkdown)
-8. [skills CLI](https://www.npmjs.com/package/skills)
+2. [Plannotator](https://github.com/backnotprop/plannotator)
+3. [Nimbalyst](https://github.com/nimbalyst/nimbalyst)
+4. [any-markdown](https://github.com/raggbal/any-markdown)
+5. [VMark](https://github.com/xiaolai/vmark)
+6. [markupmarkdown](https://www.metavert.io/markupmarkdown)
+7. [skills CLI](https://www.npmjs.com/package/skills)
