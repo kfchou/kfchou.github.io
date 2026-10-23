@@ -6,8 +6,8 @@ description: >-
   <like this> and you, acting as editor, reply in double brackets <<like this>>.
   An optional visual mode renders the markdown as a reading page in Lavish
   (lavish-axi), where the author highlights passages and comments on them or edits
-  the text directly, and your explanations appear as margin notes instead of
-  brackets in the file. Bracket mode
+  a block's markdown in place and saves it to the file, and your explanations
+  appear as margin notes instead of brackets in the file. Bracket mode
   is the default: when a session starts in it, tell the user in one line that visual
   mode is available, and switch only when they ask ("review this visually", "open it
   in Lavish"). Use this skill WHENEVER the user wants to iteratively edit, revise, review, or
@@ -113,28 +113,29 @@ Then it is the author's turn. They will edit, resolve your comments, and leave n
 
 In visual mode the markdown file holds only prose. The author reads a rendered page in
 Lavish (`lavish-axi`), highlights passages and comments on them there, and can also
-edit the text on the page directly. Your explanations appear as margin notes beside
+edit the markdown on the page and save it straight to the file. Your explanations appear as margin notes beside
 the passages they refer to.
 
 **When to use it.** Only when the user asks for it ("review this visually", "open it
 in Lavish"), at the start or at any later turn. Bracket mode is the default, and a
 session that starts in it opens with one short line telling the user visual mode is
 available: they can review a rendered page in Lavish, highlighting passages and
-reading your notes in the margin, and they only need to ask. If `lavish-axi` or
-`pandoc` is missing, name it in the same line. Say this once per session, and never
+reading your notes in the margin, and they only need to ask. If `lavish-axi` is
+missing, name it in the same line. Say this once per session, and never
 switch modes on your own.
 
-**The renderer** is `scripts/render.sh` in this skill's folder:
+**The scripts** live in this skill's `scripts/` folder and need only Node 18 or later,
+which Lavish already requires:
 
-```
-scripts/render.sh <document.md> [notes.json] [out.html]
-```
+- `serve.mjs <document.md>` is the save helper. It renders the page, saves edits the
+  author makes on the page straight to the markdown file, and re-renders whenever the
+  markdown or the notes file changes. It prints the page path and runs until stopped.
+- `render.mjs <document.md>` renders once, read-only. Use it only if the helper can't run.
 
-By default it writes the page to `.lavish/<name>.html` under the current directory and
-reads notes from `.lavish/<name>.notes.json` beside the page; keep the notes file
-there, not next to the author's markdown. It prints the page path. A missing or empty
-notes file means no notes. Local images are copied into `.lavish/<name>.assets/` so
-the page can show them; the markdown is never touched.
+Both write the page to `.lavish/<name>.html` under the current directory and read notes
+from `.lavish/<name>.notes.json` beside it; keep the notes file there, not next to the
+author's markdown. Local images are copied into `.lavish/<name>.assets/`. Neither
+script touches the markdown except to apply an author's save.
 
 The notes file is a JSON array of `{"quote": "...", "note": "..."}`. `quote` is exact
 text from the document as it reads, without markdown markup (no `**`, backticks, or
@@ -146,21 +147,28 @@ your turn: re-quote the note or delete it before handing back.
 
 **The loop.**
 
-1. Render the document, then open the page: `lavish-axi <page>`.
-2. Wait for the author: `lavish-axi poll <page>`. It blocks until they send comments and
-   edits, or
+1. Start the helper as a background job your harness tracks (in Claude Code, a Bash
+   call with `run_in_background`): `node <skill-dir>/scripts/serve.mjs <document.md>`.
+   When it prints the page path, open the page: `lavish-axi <page>`.
+2. Snapshot the document as you leave it: `cp <document.md> .lavish/<name>.snapshot.md`.
+3. Wait for the author: `lavish-axi poll <page>`. It blocks until they send comments or
    end the session. Read `lavish-axi poll --help` once per session for its current
    rules (keep it in the foreground, never kill it, re-run it if interrupted) instead
    of working from memory.
-3. Take your turn as in "Taking a turn", editing the **markdown file**, never the page.
-4. Rewrite the notes file for the draft as it now stands.
-5. Re-render to the same page path.
-6. Hand back and wait in one step:
+4. Take your turn as in "Taking a turn":
+   - Start with `diff -u .lavish/<name>.snapshot.md <document.md>`. Every difference is
+     a direct edit the author saved from the page (see below).
+   - Edit the **markdown file**, never the page. Re-read it immediately before each
+     write, because the author can save at any moment; make targeted edits rather than
+     rewriting the file from an older read.
+   - Rewrite the notes file for the draft as it now stands.
+   The helper re-renders on its own and Lavish reloads the page.
+5. Refresh the snapshot, then hand back and wait in one step:
    `lavish-axi poll <page> --agent-reply "<short handoff>"`. The reply is the chat
    handoff and follows the same rule: a brief pointer, with the reasoning in the notes.
-7. Repeat from step 3 until the author ends the session. The poll that reports the end
-   still carries their last feedback; act on it, re-render, and stop. Do not reopen the
-   session uninvited.
+6. Repeat from step 4 until the author ends the session. The poll that reports the end
+   still carries their last feedback; act on it, then stop the helper. Never leave it
+   running after the session, and do not reopen the session uninvited.
 
 **How the protocol maps.**
 
@@ -175,18 +183,18 @@ your turn: re-quote the note or delete it before handing back.
 - Resolved threads drop their notes. The notes file holds only the open editor
   comments for this turn, so a converging draft renders with fewer of them.
 
-**Direct edits.** With Lavish's Annotate switch off (or Ctrl/Cmd+I), the author can
-click a paragraph, heading, list item, or table cell on the page and type. Each changed
-block arrives through the poll as a prompt tagged `edit`, with the block's text before
-and after, its section heading, and the text of the blocks around it.
+**Direct edits.** With Lavish's Annotate switch off (or Ctrl/Cmd+I), the author clicks
+a block on the page and edits its markdown source in place. Clicking away (or
+Ctrl/Cmd+Enter) saves it to the file and the page re-renders; Escape cancels. These
+saves don't come through the poll, which is why each turn starts with the snapshot diff.
 
-- Apply the same change to the markdown, keeping the markup the rendered text hides
-  (bold, links, code spans) intact around the changed words.
-- An edit is the author's decision, not a request. Make it without comment; add a note
-  only if it conflicts with something else in the draft.
-- An edit prompt that says the block is back to its original text needs no change.
-- The page edits rendered text, so it changes words, not formatting. Bold, links, new
-  paragraphs, and other structure still come through comments.
+- A direct edit is the author's decision. Keep it and build on it; add a note only if
+  it conflicts with something else in the draft.
+- Never revert or overwrite an author edit. If it breaks a note's quote, re-quote the
+  note.
+- The helper refuses a save when the file changed after the page was rendered, so an
+  author save can't silently undo yours; the page tells the author to reload instead.
+- If the helper isn't running, the page is read-only and says so. Comments still work.
 
 ## What a good editor catches
 
