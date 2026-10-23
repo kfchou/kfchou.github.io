@@ -123,6 +123,16 @@ npx skills add kfchou/skills --skill interactive-markdown-review -g
 
 The `--skill` flag picks this skill out of the collection. You can also copy the [`skills/interactive-markdown-review`][skill] folder into your agent's skills directory by hand (for Claude Code, `~/.claude/skills/interactive-markdown-review/`).
 
+To pull in later versions of the skill:
+
+```sh
+# for the current project
+npx skills update interactive-markdown-review
+
+# for your user, across projects
+npx skills update interactive-markdown-review -g
+```
+
 No prerequisites are required for Bracket mode. Visual mode has two prerequisites:
 
 - **Node.js 22 or later**
