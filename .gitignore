@@ -17,3 +17,4 @@ vendor
 mini_projects/boston_map/*/*.png
 mini_projects/boston_map/*/*.jpg
 *.Identifier
+.gstack/

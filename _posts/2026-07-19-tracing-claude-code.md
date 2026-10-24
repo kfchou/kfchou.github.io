@@ -116,17 +116,32 @@ The families aren't mutually exclusive. Practically, a team may run an intercept
 
 ## References
 
-- [[1]] delexw, *claude-code-trace* - [github.com/delexw/claude-code-trace](https://github.com/delexw/claude-code-trace)
-- [[2]] vexorkai, *claude-trace* (token-usage CLI) - [github.com/vexorkai/claude-trace](https://github.com/vexorkai/claude-trace)
-- [[3]] mariozechner, *claude-trace* - [npmjs.com/package/@mariozechner/claude-trace](https://www.npmjs.com/package/@mariozechner/claude-trace)
-- [[4]] Simon Willison, "claude-trace" - [simonwillison.net/2025/Jun/2/claude-trace/](https://simonwillison.net/2025/Jun/2/claude-trace/)
-- [[5]] liaohch3, *claude-tap* - [github.com/liaohch3/claude-tap](https://github.com/liaohch3/claude-tap)
-- [[6]] SigNoz, "Claude Code Monitoring with OpenTelemetry" - [signoz.io/docs/claude-code-monitoring/](https://signoz.io/docs/claude-code-monitoring/)
-- [[7]] ColeMurray, *claude-code-otel* - [github.com/ColeMurray/claude-code-otel](https://github.com/ColeMurray/claude-code-otel)
-- [[8]] General Analysis, "Claude Code Control and Observability with OpenTelemetry" - [generalanalysis.com/guides/claude-code-control-observability-opentelemetry](https://generalanalysis.com/guides/claude-code-control-observability-opentelemetry)
-- [[9]] Elastic Security Labs, "Claude Code/Cowork monitoring at scale with Otel & Elastic" - [elastic.co/security-labs/claude-code-cowork-monitoring-otel-elastic](https://www.elastic.co/security-labs/claude-code-cowork-monitoring-otel-elastic)
-- [[10]] Langfuse, "Claude Code Tracing with Langfuse" - [langfuse.com/integrations/developer-tools/claude-code](https://langfuse.com/integrations/developer-tools/claude-code)
-- [[11]] Braintrust, "Claude Code meets Braintrust" - [braintrust.dev/blog/claude-code-braintrust-integration](https://www.braintrust.dev/blog/claude-code-braintrust-integration)
-- [[12]] braintrustdata, *braintrust-claude-plugin* - [github.com/braintrustdata/braintrust-claude-plugin](https://github.com/braintrustdata/braintrust-claude-plugin)
-- [[13]] Helicone - [github.com/Helicone/helicone](https://github.com/Helicone/helicone)
-- [[14]] Traceloop, *OpenLLMetry* - [github.com/traceloop/openllmetry](https://github.com/traceloop/openllmetry)
+[1]: https://github.com/delexw/claude-code-trace "delexw: claude-code-trace"
+[2]: https://github.com/vexorkai/claude-trace "vexorkai: claude-trace (token-usage CLI)"
+[3]: https://www.npmjs.com/package/@mariozechner/claude-trace "mariozechner: claude-trace"
+[4]: https://simonwillison.net/2025/Jun/2/claude-trace/ "Simon Willison: claude-trace"
+[5]: https://github.com/liaohch3/claude-tap "liaohch3: claude-tap"
+[6]: https://signoz.io/docs/claude-code-monitoring/ "SigNoz: Claude Code Monitoring with OpenTelemetry"
+[7]: https://github.com/ColeMurray/claude-code-otel "ColeMurray: claude-code-otel"
+[8]: https://generalanalysis.com/guides/claude-code-control-observability-opentelemetry "General Analysis: Claude Code Control and Observability with OpenTelemetry"
+[9]: https://www.elastic.co/security-labs/claude-code-cowork-monitoring-otel-elastic "Elastic Security Labs: Claude Code/Cowork monitoring at scale with Otel & Elastic"
+[10]: https://langfuse.com/integrations/developer-tools/claude-code "Langfuse: Claude Code Tracing with Langfuse"
+[11]: https://www.braintrust.dev/blog/claude-code-braintrust-integration "Braintrust: Claude Code meets Braintrust"
+[12]: https://github.com/braintrustdata/braintrust-claude-plugin "braintrustdata: braintrust-claude-plugin"
+[13]: https://github.com/Helicone/helicone "Helicone"
+[14]: https://github.com/traceloop/openllmetry "Traceloop: OpenLLMetry"
+
+1. [delexw, *claude-code-trace*](https://github.com/delexw/claude-code-trace)
+2. [vexorkai, *claude-trace* (token-usage CLI)](https://github.com/vexorkai/claude-trace)
+3. [mariozechner, *claude-trace*](https://www.npmjs.com/package/@mariozechner/claude-trace)
+4. [Simon Willison, "claude-trace"](https://simonwillison.net/2025/Jun/2/claude-trace/)
+5. [liaohch3, *claude-tap*](https://github.com/liaohch3/claude-tap)
+6. [SigNoz, "Claude Code Monitoring with OpenTelemetry"](https://signoz.io/docs/claude-code-monitoring/)
+7. [ColeMurray, *claude-code-otel*](https://github.com/ColeMurray/claude-code-otel)
+8. [General Analysis, "Claude Code Control and Observability with OpenTelemetry"](https://generalanalysis.com/guides/claude-code-control-observability-opentelemetry)
+9. [Elastic Security Labs, "Claude Code/Cowork monitoring at scale with Otel & Elastic"](https://www.elastic.co/security-labs/claude-code-cowork-monitoring-otel-elastic)
+10. [Langfuse, "Claude Code Tracing with Langfuse"](https://langfuse.com/integrations/developer-tools/claude-code)
+11. [Braintrust, "Claude Code meets Braintrust"](https://www.braintrust.dev/blog/claude-code-braintrust-integration)
+12. [braintrustdata, *braintrust-claude-plugin*](https://github.com/braintrustdata/braintrust-claude-plugin)
+13. [Helicone](https://github.com/Helicone/helicone)
+14. [Traceloop, *OpenLLMetry*](https://github.com/traceloop/openllmetry)
